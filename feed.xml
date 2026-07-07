@@ -1,748 +1,96 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://alshedivat.github.io/al-folio/feed.xml" rel="self" type="application/atom+xml"/><link href="https://alshedivat.github.io/al-folio/" rel="alternate" type="text/html" hreflang="en"/><updated>2026-07-06T09:50:25+00:00</updated><id>https://alshedivat.github.io/al-folio/feed.xml</id><title type="html">blank</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">a post with plotly.js</title><link href="https://alshedivat.github.io/al-folio/blog/2025/plotly/" rel="alternate" type="text/html" title="a post with plotly.js"/><published>2025-03-26T14:24:00+00:00</published><updated>2025-03-26T14:24:00+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2025/plotly</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2025/plotly/"><![CDATA[<p>This is an example post with some <a href="https://plotly.com/javascript/">plotly</a> code.</p> <div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">```</span><span class="nl">plotly
-</span><span class="sb">{
-  "data": [
-    {
-      "x": [1, 2, 3, 4],
-      "y": [10, 15, 13, 17],
-      "type": "scatter"
-    },
-    {
-      "x": [1, 2, 3, 4],
-      "y": [16, 5, 11, 9],
-      "type": "scatter"
-    }
-  ]
-}</span>
-<span class="p">```</span>
-</code></pre></div></div> <p>Which generates:</p> <pre><code class="language-plotly">{
-  "data": [
-    {
-      "x": [1, 2, 3, 4],
-      "y": [10, 15, 13, 17],
-      "type": "scatter"
-    },
-    {
-      "x": [1, 2, 3, 4],
-      "y": [16, 5, 11, 9],
-      "type": "scatter"
-    }
-  ]
-}
-</code></pre> <p>Also another example chart.</p> <div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">```</span><span class="nl">plotly
-</span><span class="sb">{
-  "data": [
-    {
-      "x": [1, 2, 3, 4],
-      "y": [10, 15, 13, 17],
-      "mode": "markers"
-    },
-    {
-      "x": [2, 3, 4, 5],
-      "y": [16, 5, 11, 9],
-      "mode": "lines"
-    },
-    {
-      "x": [1, 2, 3, 4],
-      "y": [12, 9, 15, 12],
-      "mode": "lines+markers"
-    }
-  ],
-  "layout": {
-    "title": {
-      "text": "Line and Scatter Plot"
-    }
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://samwongapple.github.io/feed.xml" rel="self" type="application/atom+xml"/><link href="https://samwongapple.github.io/" rel="alternate" type="text/html" hreflang="en"/><updated>2026-07-07T02:49:04+00:00</updated><id>https://samwongapple.github.io/feed.xml</id><title type="html">Sam Wong</title><subtitle>PhD student in Physics at UBC — spin qubit theory, quantum computing &amp; condensed matter physics. </subtitle><entry><title type="html">Spin Qubits from the Ground Up</title><link href="https://samwongapple.github.io/blog/2026/spin-qubits-from-the-ground-up/" rel="alternate" type="text/html" title="Spin Qubits from the Ground Up"/><published>2026-07-06T10:00:00+00:00</published><updated>2026-07-06T10:00:00+00:00</updated><id>https://samwongapple.github.io/blog/2026/spin-qubits-from-the-ground-up</id><content type="html" xml:base="https://samwongapple.github.io/blog/2026/spin-qubits-from-the-ground-up/"><![CDATA[<style>
+  .sec-divider {
+    text-align: center;
+    color: var(--global-theme-color);
+    opacity: 0.6;
+    letter-spacing: 0.6em;
+    margin: 2.75rem 0 2rem;
+    user-select: none;
   }
-}</span>
-<span class="p">```</span>
-</code></pre></div></div> <p>This is how it looks like:</p> <pre><code class="language-plotly">{
-  "data": [
-    {
-      "x": [1, 2, 3, 4],
-      "y": [10, 15, 13, 17],
-      "mode": "markers"
-    },
-    {
-      "x": [2, 3, 4, 5],
-      "y": [16, 5, 11, 9],
-      "mode": "lines"
-    },
-    {
-      "x": [1, 2, 3, 4],
-      "y": [12, 9, 15, 12],
-      "mode": "lines+markers"
-    }
-  ],
-  "layout": {
-    "title": {
-      "text": "Line and Scatter Plot"
-    }
+  .thread-note {
+    --thread-color: #b3760a; /* amber — a distinct 'narrative thread' colour, not the teal accent */
+    border-left: 4px solid var(--thread-color);
+    background: color-mix(in srgb, var(--thread-color) 8%, transparent);
+    border-radius: 0 6px 6px 0;
+    padding: 0.6rem 0.9rem;
+    margin: 1.4rem 0;
+    font-size: 0.95rem;
   }
-}
-</code></pre>]]></content><author><name></name></author><category term="sample-posts"/><category term="formatting"/><category term="charts"/><summary type="html"><![CDATA[this is what included plotly.js code could look like]]></summary></entry><entry><title type="html">a post with image galleries</title><link href="https://alshedivat.github.io/al-folio/blog/2024/photo-gallery/" rel="alternate" type="text/html" title="a post with image galleries"/><published>2024-12-04T01:59:00+00:00</published><updated>2024-12-04T01:59:00+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2024/photo-gallery</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2024/photo-gallery/"><![CDATA[<p>The images in this post are all zoomable, arranged into different mini-galleries using different libraries.</p> <h2 id="lightbox2">Lightbox2</h2> <p><a href="https://cdn.photoswipe.com/photoswipe-demo-images/photos/1/img-2500.jpg" data-lightbox="roadtrip"><img src="https://cdn.photoswipe.com/photoswipe-demo-images/photos/1/img-200.jpg"/></a> <a href="https://cdn.photoswipe.com/photoswipe-demo-images/photos/2/img-2500.jpg" data-lightbox="roadtrip"><img src="https://cdn.photoswipe.com/photoswipe-demo-images/photos/2/img-200.jpg"/></a> <a href="https://cdn.photoswipe.com/photoswipe-demo-images/photos/3/img-2500.jpg" data-lightbox="roadtrip"><img src="https://cdn.photoswipe.com/photoswipe-demo-images/photos/3/img-200.jpg"/></a></p> <hr/> <h2 id="photoswipe"><a href="https://photoswipe.com/">PhotoSwipe</a></h2> <div class="pswp-gallery pswp-gallery--single-column" id="gallery--getting-started"> <a href="https://cdn.photoswipe.com/photoswipe-demo-images/photos/2/img-2500.jpg" data-pswp-width="1669" data-pswp-height="2500" target="_blank"> <img src="https://cdn.photoswipe.com/photoswipe-demo-images/photos/2/img-200.jpg" alt=""/> </a> <a href="https://cdn.photoswipe.com/photoswipe-demo-images/photos/7/img-2500.jpg" data-pswp-width="1875" data-pswp-height="2500" data-cropped="true" target="_blank"> <img src="https://cdn.photoswipe.com/photoswipe-demo-images/photos/7/img-200.jpg" alt=""/> </a> <a href="https://unsplash.com" data-pswp-src="https://cdn.photoswipe.com/photoswipe-demo-images/photos/3/img-2500.jpg" data-pswp-width="2500" data-pswp-height="1666" target="_blank"> <img src="https://cdn.photoswipe.com/photoswipe-demo-images/photos/3/img-200.jpg" alt=""/> </a> <div> <a href="https://cdn.photoswipe.com/photoswipe-demo-images/photos/6/img-2500.jpg" data-pswp-width="2500" data-pswp-height="1667" target="_blank"> <img src="https://cdn.photoswipe.com/photoswipe-demo-images/photos/6/img-200.jpg" alt=""/> </a> </div> </div> <hr/> <h2 id="spotlight-js"><a href="https://nextapps-de.github.io/spotlight/">Spotlight JS</a></h2> <div class="spotlight-group"> <a class="spotlight" href="https://cdn.photoswipe.com/photoswipe-demo-images/photos/1/img-2500.jpg"> <img src="https://cdn.photoswipe.com/photoswipe-demo-images/photos/1/img-200.jpg"/> </a> <a class="spotlight" href="https://cdn.photoswipe.com/photoswipe-demo-images/photos/2/img-2500.jpg"> <img src="https://cdn.photoswipe.com/photoswipe-demo-images/photos/2/img-200.jpg"/> </a> <a class="spotlight" href="https://cdn.photoswipe.com/photoswipe-demo-images/photos/3/img-2500.jpg"> <img src="https://cdn.photoswipe.com/photoswipe-demo-images/photos/3/img-200.jpg"/> </a> </div> <div class="spotlight-group"> <a class="spotlight" href="https://cdn.photoswipe.com/photoswipe-demo-images/photos/4/img-2500.jpg"> <img src="https://cdn.photoswipe.com/photoswipe-demo-images/photos/4/img-200.jpg"/> </a> <a class="spotlight" href="https://cdn.photoswipe.com/photoswipe-demo-images/photos/5/img-2500.jpg"> <img src="https://cdn.photoswipe.com/photoswipe-demo-images/photos/5/img-200.jpg"/> </a> <a class="spotlight" href="https://cdn.photoswipe.com/photoswipe-demo-images/photos/6/img-2500.jpg"> <img src="https://cdn.photoswipe.com/photoswipe-demo-images/photos/6/img-200.jpg"/> </a> </div> <hr/> <h2 id="venobox"><a href="https://veno.es/venobox/">Venobox</a></h2> <p><a class="venobox" data-gall="myGallery" href="https://cdn.photoswipe.com/photoswipe-demo-images/photos/1/img-2500.jpg"><img src="https://cdn.photoswipe.com/photoswipe-demo-images/photos/1/img-200.jpg"/></a> <a class="venobox" data-gall="myGallery" href="https://cdn.photoswipe.com/photoswipe-demo-images/photos/2/img-2500.jpg"><img src="https://cdn.photoswipe.com/photoswipe-demo-images/photos/2/img-200.jpg"/></a> <a class="venobox" data-gall="myGallery" href="https://cdn.photoswipe.com/photoswipe-demo-images/photos/3/img-2500.jpg"><img src="https://cdn.photoswipe.com/photoswipe-demo-images/photos/3/img-200.jpg"/></a></p>]]></content><author><name></name></author><category term="sample-posts"/><category term="formatting"/><category term="images"/><summary type="html"><![CDATA[this is what included image galleries could look like]]></summary></entry><entry><title type="html">Google Gemini updates: Flash 1.5, Gemma 2 and Project Astra</title><link href="https://alshedivat.github.io/al-folio/blog/2024/google-gemini-updates-flash-15-gemma-2-and-project-astra/" rel="alternate" type="text/html" title="Google Gemini updates: Flash 1.5, Gemma 2 and Project Astra"/><published>2024-05-14T00:00:00+00:00</published><updated>2024-05-14T00:00:00+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2024/google-gemini-updates-flash-15-gemma-2-and-project-astra</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2024/google-gemini-updates-flash-15-gemma-2-and-project-astra/"><![CDATA[<p>Learn more:Learn more:Learn more:Learn more:Learn more:Learn more:Learn more:Learn more:Learn more:May 14, 2024 We’re introducing a series of updates across the Gemini family of models, including the new 1.5 Flash, our lightweight model for speed and efficiency, and Project Astra, our vision for the future of AI assistants. In December, we launched our first natively multimodal model Gemini 1.0 in three sizes: Ultra, Pro and Nano. Just a few months later we released 1.5 Pro, with enhanced performance and a breakthrough long context window of 1 million tokens.Developers and enterprise customers have been putting 1.5 Pro to use in incredible ways and finding its long context window, multimodal reasoning capabilities and impressive overall performance incredibly useful.We know from user feedback that some applications need lower latency and a lower cost to serve. This inspired us to keep innovating, so today, we’re introducing Gemini 1.5 Flash: a model that’s lighter-weight than 1.5 Pro, and designed to be fast and efficient to serve at scale.Both 1.5 Pro and 1.5 Flash are available in public preview with a 1 million token context window in Google AI Studio and Vertex AI. And now, 1.5 Pro is also available with a 2 million token context window via waitlist to developers using the API and to Google Cloud customers.We’re also introducing updates across the Gemini family of models, announcing our next generation of open models, Gemma 2, and sharing progress on the future of AI assistants, with Project Astra.Context lengths of leading foundation models compared with Gemini 1.5’s 2 million token capability1.5 Flash is the newest addition to the Gemini model family and the fastest Gemini model served in the API. It’s optimized for high-volume, high-frequency tasks at scale, is more cost-efficient to serve and features our breakthrough long context window.While it’s a lighter weight model than 1.5 Pro, it’s highly capable of multimodal reasoning across vast amounts of information and delivers impressive quality for its size.The new Gemini 1.5 Flash model is optimized for speed and efficiency, is highly capable of multimodal reasoning and features our breakthrough long context window.1.5 Flash excels at summarization, chat applications, image and video captioning, data extraction from long documents and tables, and more. This is because it’s been trained by 1.5 Pro through a process called “distillation,” where the most essential knowledge and skills from a larger model are transferred to a smaller, more efficient model.Read more about 1.5 Flash in our updated Gemini 1.5 technical report, on the Gemini technology page, and learn about 1.5 Flash’s availability and pricing.Over the last few months, we’ve significantly improved 1.5 Pro, our best model for general performance across a wide range of tasks.Beyond extending its context window to 2 million tokens, we’ve enhanced its code generation, logical reasoning and planning, multi-turn conversation, and audio and image understanding through data and algorithmic advances. We see strong improvements on public and internal benchmarks for each of these tasks.1.5 Pro can now follow increasingly complex and nuanced instructions, including ones that specify product-level behavior involving role, format and style. We’ve improved control over the model’s responses for specific use cases, like crafting the persona and response style of a chat agent or automating workflows through multiple function calls. And we’ve enabled users to steer model behavior by setting system instructions.We added audio understanding in the Gemini API and Google AI Studio, so 1.5 Pro can now reason across image and audio for videos uploaded in Google AI Studio. And we’re now integrating 1.5 Pro into Google products, including Gemini Advanced and in Workspace apps.Read more about 1.5 Pro in our updated Gemini 1.5 technical report and on the Gemini technology page.Gemini Nano is expanding beyond text-only inputs to include images as well. Starting with Pixel, applications using Gemini Nano with Multimodality will be able to understand the world the way people do — not just through text, but also through sight, sound and spoken language.Read more about Gemini 1.0 Nano on Android.Today, we’re also sharing a series of updates to Gemma, our family of open models built from the same research and technology used to create the Gemini models.We’re announcing Gemma 2, our next generation of open models for responsible AI innovation. Gemma 2 has a new architecture designed for breakthrough performance and efficiency, and will be available in new sizes.The Gemma family is also expanding with PaliGemma, our first vision-language model inspired by PaLI-3. And we’ve upgraded our Responsible Generative AI Toolkit with LLM Comparator for evaluating the quality of model responses.Read more on the Developer blog.As part of Google DeepMind’s mission to build AI responsibly to benefit humanity, we’ve always wanted to develop universal AI agents that can be helpful in everyday life. That’s why today, we’re sharing our progress in building the future of AI assistants with Project Astra (advanced seeing and talking responsive agent).To be truly useful, an agent needs to understand and respond to the complex and dynamic world just like people do — and take in and remember what it sees and hears to understand context and take action. It also needs to be proactive, teachable and personal, so users can talk to it naturally and without lag or delay.While we’ve made incredible progress developing AI systems that can understand multimodal information, getting response time down to something conversational is a difficult engineering challenge. Over the past few years, we’ve been working to improve how our models perceive, reason and converse to make the pace and quality of interaction feel more natural.Building on Gemini, we’ve developed prototype agents that can process information faster by continuously encoding video frames, combining the video and speech input into a timeline of events, and caching this information for efficient recall.By leveraging our leading speech models, we also enhanced how they sound, giving the agents a wider range of intonations. These agents can better understand the context they’re being used in, and respond quickly, in conversation.With technology like this, it’s easy to envision a future where people could have an expert AI assistant by their side, through a phone or glasses. And some of these capabilities are coming to Google products, like the Gemini app and web experience, later this year.We’ve made incredible progress so far with our family of Gemini models, and we’re always striving to advance the state-of-the-art even further. By investing in a relentless production line of innovation, we’re able to explore new ideas at the frontier, while also unlocking the possibility of new and exciting Gemini use cases.Learn more about Gemini and its capabilities. Your information will be used in accordance with Google’s privacy policy.</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      Done. Just one step more.
-    
-      Check your inbox to confirm your subscription.
-    You are already subscribed to our newsletter.
-    You can also subscribe with a
-    different email address
-    
-    .
-    
-  Let’s stay in touch. Get the latest news from Google in your inbox.
-          Follow Us
-</code></pre></div></div>]]></content><author><name></name></author><category term="external-posts"/><category term="google"/><summary type="html"><![CDATA[We’re sharing updates across our Gemini family of models and a glimpse of Project Astra, our vision for the future of AI assistants.]]></summary></entry><entry><title type="html">a post with tabs</title><link href="https://alshedivat.github.io/al-folio/blog/2024/tabs/" rel="alternate" type="text/html" title="a post with tabs"/><published>2024-05-01T00:32:13+00:00</published><updated>2024-05-01T00:32:13+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2024/tabs</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2024/tabs/"><![CDATA[<p>This is how a post with <a href="https://github.com/Ovski4/jekyll-tabs">tabs</a> looks like. Note that the tabs could be used for different purposes, not only for code.</p> <h2 id="first-tabs">First tabs</h2> <p>To add tabs, use the following syntax:</p> <div class="language-liquid highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">{%</span><span class="w"> </span><span class="nt">tabs</span><span class="w"> </span><span class="nv">group-name</span><span class="w"> </span><span class="cp">%}</span>
-
-<span class="cp">{%</span><span class="w"> </span><span class="nt">tab</span><span class="w"> </span><span class="nv">group-name</span><span class="w"> </span><span class="nv">tab-name-1</span><span class="w"> </span><span class="cp">%}</span>
-
-Content 1
-
-<span class="cp">{%</span><span class="w"> </span><span class="nt">endtab</span><span class="w"> </span><span class="cp">%}</span>
-
-<span class="cp">{%</span><span class="w"> </span><span class="nt">tab</span><span class="w"> </span><span class="nv">group-name</span><span class="w"> </span><span class="nv">tab-name-2</span><span class="w"> </span><span class="cp">%}</span>
-
-Content 2
-
-<span class="cp">{%</span><span class="w"> </span><span class="nt">endtab</span><span class="w"> </span><span class="cp">%}</span>
-
-<span class="cp">{%</span><span class="w"> </span><span class="nt">endtabs</span><span class="w"> </span><span class="cp">%}</span>
-</code></pre></div></div> <p>With this you can generate visualizations like:</p> <ul id="log" class="tab" data-tab="19fb46b4-2769-47f6-b166-dbdebce7a09e" data-name="log"> <li class="active" id="log-php"> <a href="#">php </a> </li> <li id="log-js"> <a href="#">js </a> </li> <li id="log-ruby"> <a href="#">ruby </a> </li> </ul> <ul class="tab-content" id="19fb46b4-2769-47f6-b166-dbdebce7a09e" data-name="log"> <li class="active"> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">var_dump</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">);</span>
-</code></pre></div></div> </li> <li> <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">hello</span><span class="dl">"</span><span class="p">);</span>
-</code></pre></div></div> </li> <li> <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">pputs</span> <span class="dl">'</span><span class="s1">hello</span><span class="dl">'</span>
-</code></pre></div></div> </li> </ul> <h2 id="another-example">Another example</h2> <ul id="data-struct" class="tab" data-tab="8e706d8f-fa05-4c31-847c-888afee7d678" data-name="data-struct"> <li class="active" id="data-struct-yaml"> <a href="#">yaml </a> </li> <li id="data-struct-json"> <a href="#">json </a> </li> </ul> <ul class="tab-content" id="8e706d8f-fa05-4c31-847c-888afee7d678" data-name="data-struct"> <li class="active"> <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">hello</span><span class="pi">:</span>
-  <span class="pi">-</span> <span class="s2">"</span><span class="s">whatsup"</span>
-  <span class="pi">-</span> <span class="s2">"</span><span class="s">hi"</span>
-</code></pre></div></div> </li> <li> <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"hello"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"whatsup"</span><span class="p">,</span><span class="w"> </span><span class="s2">"hi"</span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div></div> </li> </ul> <h2 id="tabs-for-something-else">Tabs for something else</h2> <ul id="something-else" class="tab" data-tab="d230bdd4-f651-42b5-a03e-a026e92e89c9" data-name="something-else"> <li class="active" id="something-else-text"> <a href="#">text </a> </li> <li id="something-else-quote"> <a href="#">quote </a> </li> <li id="something-else-list"> <a href="#">list </a> </li> </ul> <ul class="tab-content" id="d230bdd4-f651-42b5-a03e-a026e92e89c9" data-name="something-else"> <li class="active"> <p>Regular text</p> </li> <li> <blockquote> <p>A quote</p> </blockquote> </li> <li> <p>Hipster list</p> <ul> <li>brunch</li> <li>fixie</li> <li>raybans</li> <li>messenger bag</li> </ul> </li> </ul>]]></content><author><name></name></author><category term="sample-posts"/><category term="formatting"/><category term="code"/><summary type="html"><![CDATA[this is what included tabs in a post could look like]]></summary></entry><entry><title type="html">a post with typograms</title><link href="https://alshedivat.github.io/al-folio/blog/2024/typograms/" rel="alternate" type="text/html" title="a post with typograms"/><published>2024-04-29T23:36:10+00:00</published><updated>2024-04-29T23:36:10+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2024/typograms</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2024/typograms/"><![CDATA[<p>This is an example post with some <a href="https://github.com/google/typograms/">typograms</a> code.</p> <div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">```</span><span class="nl">typograms
-</span><span class="sb">+----+
-|    |---&gt; My first diagram!
-+----+</span>
-<span class="p">```</span>
-</code></pre></div></div> <p>Which generates:</p> <pre><code class="language-typograms">+----+
-|    |---&gt; My first diagram!
-+----+
-</code></pre> <p>Another example:</p> <div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">```</span><span class="nl">typograms
-</span><span class="sb">.------------------------.
-|.----------------------.|
-||"https://example.com" ||
-|'----------------------'|
-| ______________________ |
-||                      ||
-||   Welcome!           ||
-||                      ||
-||                      ||
-||  .----------------.  ||
-||  | username       |  ||
-||  '----------------'  ||
-||  .----------------.  ||
-||  |"*******"       |  ||
-||  '----------------'  ||
-||                      ||
-||  .----------------.  ||
-||  |   "Sign-up"    |  ||
-||  '----------------'  ||
-||                      ||
-|+----------------------+|
-.------------------------.</span>
-<span class="p">```</span>
-</code></pre></div></div> <p>which generates:</p> <pre><code class="language-typograms">.------------------------.
-|.----------------------.|
-||"https://example.com" ||
-|'----------------------'|
-| ______________________ |
-||                      ||
-||   Welcome!           ||
-||                      ||
-||                      ||
-||  .----------------.  ||
-||  | username       |  ||
-||  '----------------'  ||
-||  .----------------.  ||
-||  |"*******"       |  ||
-||  '----------------'  ||
-||                      ||
-||  .----------------.  ||
-||  |   "Sign-up"    |  ||
-||  '----------------'  ||
-||                      ||
-|+----------------------+|
-.------------------------.
-</code></pre> <p>For more examples, check out the <a href="https://google.github.io/typograms/#examples">typograms documentation</a>.</p>]]></content><author><name></name></author><category term="sample-posts"/><category term="formatting"/><category term="diagrams"/><summary type="html"><![CDATA[this is what included typograms code could look like]]></summary></entry><entry><title type="html">a post that can be cited</title><link href="https://alshedivat.github.io/al-folio/blog/2024/post-citation/" rel="alternate" type="text/html" title="a post that can be cited"/><published>2024-04-28T15:06:00+00:00</published><updated>2024-04-28T15:06:00+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2024/post-citation</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2024/post-citation/"><![CDATA[<p>This is an example post that can be cited. The content of the post ends here, while the citation information is automatically provided below. The only thing needed is for you to set the <code class="language-plaintext highlighter-rouge">citation</code> key in the front matter to <code class="language-plaintext highlighter-rouge">true</code>.</p>]]></content><author><name></name></author><category term="sample-posts"/><category term="formatting"/><category term="citation"/><summary type="html"><![CDATA[this is what a post that can be cited looks like]]></summary></entry><entry><title type="html">a post with pseudo code</title><link href="https://alshedivat.github.io/al-folio/blog/2024/pseudocode/" rel="alternate" type="text/html" title="a post with pseudo code"/><published>2024-04-15T00:01:00+00:00</published><updated>2024-04-15T00:01:00+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2024/pseudocode</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2024/pseudocode/"><![CDATA[<p>This is an example post with some pseudo code rendered by <a href="https://github.com/SaswatPadhi/pseudocode.js">pseudocode</a>. The example presented here is the same as the one in the <a href="https://saswat.padhi.me/pseudocode.js/">pseudocode.js</a> documentation, with only one simple but important change: everytime you would use <code class="language-plaintext highlighter-rouge">$</code>, you should use <code class="language-plaintext highlighter-rouge">$$</code> instead. Also, note that the <code class="language-plaintext highlighter-rouge">pseudocode</code> key in the front matter is set to <code class="language-plaintext highlighter-rouge">true</code> to enable the rendering of pseudo code. As an example, using this code:</p> <div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">```</span><span class="nl">pseudocode
-</span><span class="sb">% This quicksort algorithm is extracted from Chapter 7, Introduction to Algorithms (3rd edition)
-\begin{algorithm}
-\caption{Quicksort}
-\begin{algorithmic}
-\PROCEDURE{Quicksort}{$$A, p, r$$}
-    \IF{$$p &lt; r$$}
-        \STATE $$q = $$ \CALL{Partition}{$$A, p, r$$}
-        \STATE \CALL{Quicksort}{$$A, p, q - 1$$}
-        \STATE \CALL{Quicksort}{$$A, q + 1, r$$}
-    \ENDIF
-\ENDPROCEDURE
-\PROCEDURE{Partition}{$$A, p, r$$}
-    \STATE $$x = A[r]$$
-    \STATE $$i = p - 1$$
-    \FOR{$$j = p$$ \TO $$r - 1$$}
-        \IF{$$A[j] &lt; x$$}
-            \STATE $$i = i + 1$$
-            \STATE exchange
-            $$A[i]$$ with $$A[j]$$
-        \ENDIF
-        \STATE exchange $$A[i]$$ with $$A[r]$$
-    \ENDFOR
-\ENDPROCEDURE
-\end{algorithmic}
-\end{algorithm}</span>
-<span class="p">```</span>
-</code></pre></div></div> <p>Generates:</p> <pre><code class="language-pseudocode">% This quicksort algorithm is extracted from Chapter 7, Introduction to Algorithms (3rd edition)
-\begin{algorithm}
-\caption{Quicksort}
-\begin{algorithmic}
-\PROCEDURE{Quicksort}{$$A, p, r$$}
-    \IF{$$p &lt; r$$}
-        \STATE $$q = $$ \CALL{Partition}{$$A, p, r$$}
-        \STATE \CALL{Quicksort}{$$A, p, q - 1$$}
-        \STATE \CALL{Quicksort}{$$A, q + 1, r$$}
-    \ENDIF
-\ENDPROCEDURE
-\PROCEDURE{Partition}{$$A, p, r$$}
-    \STATE $$x = A[r]$$
-    \STATE $$i = p - 1$$
-    \FOR{$$j = p$$ \TO $$r - 1$$}
-        \IF{$$A[j] &lt; x$$}
-            \STATE $$i = i + 1$$
-            \STATE exchange
-            $$A[i]$$ with $$A[j]$$
-        \ENDIF
-        \STATE exchange $$A[i]$$ with $$A[r]$$
-    \ENDFOR
-\ENDPROCEDURE
-\end{algorithmic}
-\end{algorithm}
-</code></pre>]]></content><author><name></name></author><category term="sample-posts"/><category term="formatting"/><category term="code"/><summary type="html"><![CDATA[this is what included pseudo code could look like]]></summary></entry><entry><title type="html">a post with code diff</title><link href="https://alshedivat.github.io/al-folio/blog/2024/code-diff/" rel="alternate" type="text/html" title="a post with code diff"/><published>2024-01-27T19:22:00+00:00</published><updated>2024-01-27T19:22:00+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2024/code-diff</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2024/code-diff/"><![CDATA[<p>You can display diff code by using the regular markdown syntax:</p> <div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">```</span><span class="nl">diff
-</span><span class="gh">diff --git a/sample.js b/sample.js
-index 0000001..0ddf2ba
-</span><span class="gd">--- a/sample.js
-</span><span class="gi">+++ b/sample.js
-</span><span class="p">@@ -1 +1 @@</span>
-<span class="gd">-console.log("Hello World!")
-</span><span class="gi">+console.log("Hello from Diff2Html!")</span>
-<span class="p">```</span>
-</code></pre></div></div> <p>Which generates:</p> <div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh">diff --git a/sample.js b/sample.js
-index 0000001..0ddf2ba
-</span><span class="gd">--- a/sample.js
-</span><span class="gi">+++ b/sample.js
-</span><span class="p">@@ -1 +1 @@</span>
-<span class="gd">-console.log("Hello World!")
-</span><span class="gi">+console.log("Hello from Diff2Html!")
-</span></code></pre></div></div> <p>But this is difficult to read, specially if you have a large diff. You can use <a href="https://diff2html.xyz/">diff2html</a> to display a more readable version of the diff. For this, just use <code class="language-plaintext highlighter-rouge">diff2html</code> instead of <code class="language-plaintext highlighter-rouge">diff</code> for the code block language:</p> <div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">```</span><span class="nl">diff2html
-</span><span class="sb">diff --git a/sample.js b/sample.js
-index 0000001..0ddf2ba
---- a/sample.js
-+++ b/sample.js
-@@ -1 +1 @@
--console.log("Hello World!")
-+console.log("Hello from Diff2Html!")</span>
-<span class="p">```</span>
-</code></pre></div></div> <p>If we use a longer example, for example <a href="https://github.com/rtfpessoa/diff2html/commit/c2c253d3e3f8b8b267f551e659f72b44ca2ac927">this commit from diff2html</a>, it will generate the following output:</p> <pre><code class="language-diff2html">From 2aaae31cc2a37bfff83430c2c914b140bee59b6a Mon Sep 17 00:00:00 2001
-From: Rodrigo Fernandes &lt;rtfrodrigo@gmail.com&gt;
-Date: Sun, 9 Oct 2016 16:41:54 +0100
-Subject: [PATCH 1/2] Initial template override support
-
----
- scripts/hulk.js                    |  4 ++--
- src/diff2html.js                   |  3 +--
- src/file-list-printer.js           | 11 ++++++++---
- src/hoganjs-utils.js               | 29 +++++++++++++++++------------
- src/html-printer.js                |  6 ++++++
- src/line-by-line-printer.js        |  6 +++++-
- src/side-by-side-printer.js        |  6 +++++-
- test/file-list-printer-tests.js    |  2 +-
- test/hogan-cache-tests.js          | 18 +++++++++++++++---
- test/line-by-line-tests.js         |  3 +--
- test/side-by-side-printer-tests.js |  3 +--
- 11 files changed, 62 insertions(+), 29 deletions(-)
-
-diff --git a/scripts/hulk.js b/scripts/hulk.js
-index 5a793c18..a4b1a4d5 100755
---- a/scripts/hulk.js
-+++ b/scripts/hulk.js
-@@ -173,11 +173,11 @@ function namespace(name) {
- // write a template foreach file that matches template extension
- templates = extractFiles(options.argv.remain)
-   .map(function(file) {
--    var openedFile = fs.readFileSync(file, 'utf-8');
-+    var openedFile = fs.readFileSync(file, 'utf-8').trim();
-     var name;
-     if (!openedFile) return;
-     name = namespace(path.basename(file).replace(/\..*$/, ''));
--    openedFile = removeByteOrderMark(openedFile.trim());
-+    openedFile = removeByteOrderMark(openedFile);
-     openedFile = wrap(file, name, openedFile);
-     if (!options.outputdir) return openedFile;
-     fs.writeFileSync(path.join(options.outputdir, name + '.js')
-diff --git a/src/diff2html.js b/src/diff2html.js
-index 21b0119e..64e138f5 100644
---- a/src/diff2html.js
-+++ b/src/diff2html.js
-@@ -7,7 +7,6 @@
-
- (function() {
-   var diffParser = require('./diff-parser.js').DiffParser;
--  var fileLister = require('./file-list-printer.js').FileListPrinter;
-   var htmlPrinter = require('./html-printer.js').HtmlPrinter;
-
-   function Diff2Html() {
-@@ -43,7 +42,7 @@
-
-     var fileList = '';
-     if (configOrEmpty.showFiles === true) {
--      fileList = fileLister.generateFileList(diffJson, configOrEmpty);
-+      fileList = htmlPrinter.generateFileListSummary(diffJson, configOrEmpty);
-     }
-
-     var diffOutput = '';
-diff --git a/src/file-list-printer.js b/src/file-list-printer.js
-index e408d9b2..1e0a2c61 100644
---- a/src/file-list-printer.js
-+++ b/src/file-list-printer.js
-@@ -8,11 +8,16 @@
- (function() {
-   var printerUtils = require('./printer-utils.js').PrinterUtils;
-
--  var hoganUtils = require('./hoganjs-utils.js').HoganJsUtils;
-+  var hoganUtils;
-+
-   var baseTemplatesPath = 'file-summary';
-   var iconsBaseTemplatesPath = 'icon';
-
--  function FileListPrinter() {
-+  function FileListPrinter(config) {
-+    this.config = config;
-+
-+    var HoganJsUtils = require('./hoganjs-utils.js').HoganJsUtils;
-+    hoganUtils = new HoganJsUtils(config);
-   }
-
-   FileListPrinter.prototype.generateFileList = function(diffFiles) {
-@@ -38,5 +43,5 @@
-     });
-   };
-
--  module.exports.FileListPrinter = new FileListPrinter();
-+  module.exports.FileListPrinter = FileListPrinter;
- })();
-diff --git a/src/hoganjs-utils.js b/src/hoganjs-utils.js
-index 9949e5fa..0dda08d7 100644
---- a/src/hoganjs-utils.js
-+++ b/src/hoganjs-utils.js
-@@ -8,18 +8,19 @@
- (function() {
-   var fs = require('fs');
-   var path = require('path');
--
-   var hogan = require('hogan.js');
-
-   var hoganTemplates = require('./templates/diff2html-templates.js');
-
--  var templatesPath = path.resolve(__dirname, 'templates');
-+  var extraTemplates;
-
--  function HoganJsUtils() {
-+  function HoganJsUtils(configuration) {
-+    this.config = configuration || {};
-+    extraTemplates = this.config.templates || {};
-   }
-
--  HoganJsUtils.prototype.render = function(namespace, view, params, configuration) {
--    var template = this.template(namespace, view, configuration);
-+  HoganJsUtils.prototype.render = function(namespace, view, params) {
-+    var template = this.template(namespace, view);
-     if (template) {
-       return template.render(params);
-     }
-@@ -27,17 +28,16 @@
-     return null;
-   };
-
--  HoganJsUtils.prototype.template = function(namespace, view, configuration) {
--    var config = configuration || {};
-+  HoganJsUtils.prototype.template = function(namespace, view) {
-     var templateKey = this._templateKey(namespace, view);
-
--    return this._getTemplate(templateKey, config);
-+    return this._getTemplate(templateKey);
-   };
-
--  HoganJsUtils.prototype._getTemplate = function(templateKey, config) {
-+  HoganJsUtils.prototype._getTemplate = function(templateKey) {
-     var template;
-
--    if (!config.noCache) {
-+    if (!this.config.noCache) {
-       template = this._readFromCache(templateKey);
-     }
-
-@@ -53,6 +53,7 @@
-
-     try {
-       if (fs.readFileSync) {
-+        var templatesPath = path.resolve(__dirname, 'templates');
-         var templatePath = path.join(templatesPath, templateKey);
-         var templateContent = fs.readFileSync(templatePath + '.mustache', 'utf8');
-         template = hogan.compile(templateContent);
-@@ -66,12 +67,16 @@
-   };
-
-   HoganJsUtils.prototype._readFromCache = function(templateKey) {
--    return hoganTemplates[templateKey];
-+    return extraTemplates[templateKey] || hoganTemplates[templateKey];
-   };
-
-   HoganJsUtils.prototype._templateKey = function(namespace, view) {
-     return namespace + '-' + view;
-   };
-
--  module.exports.HoganJsUtils = new HoganJsUtils();
-+  HoganJsUtils.prototype.compile = function(templateStr) {
-+    return hogan.compile(templateStr);
-+  };
-+
-+  module.exports.HoganJsUtils = HoganJsUtils;
- })();
-diff --git a/src/html-printer.js b/src/html-printer.js
-index 585d5b66..13f83047 100644
---- a/src/html-printer.js
-+++ b/src/html-printer.js
-@@ -8,6 +8,7 @@
- (function() {
-   var LineByLinePrinter = require('./line-by-line-printer.js').LineByLinePrinter;
-   var SideBySidePrinter = require('./side-by-side-printer.js').SideBySidePrinter;
-+  var FileListPrinter = require('./file-list-printer.js').FileListPrinter;
-
-   function HtmlPrinter() {
-   }
-@@ -22,5 +23,10 @@
-     return sideBySidePrinter.generateSideBySideJsonHtml(diffFiles);
-   };
-
-+  HtmlPrinter.prototype.generateFileListSummary = function(diffJson, config) {
-+    var fileListPrinter = new FileListPrinter(config);
-+    return fileListPrinter.generateFileList(diffJson);
-+  };
-+
-   module.exports.HtmlPrinter = new HtmlPrinter();
- })();
-diff --git a/src/line-by-line-printer.js b/src/line-by-line-printer.js
-index b07eb53c..d230bedd 100644
---- a/src/line-by-line-printer.js
-+++ b/src/line-by-line-printer.js
-@@ -11,7 +11,8 @@
-   var utils = require('./utils.js').Utils;
-   var Rematch = require('./rematch.js').Rematch;
-
--  var hoganUtils = require('./hoganjs-utils.js').HoganJsUtils;
-+  var hoganUtils;
-+
-   var genericTemplatesPath = 'generic';
-   var baseTemplatesPath = 'line-by-line';
-   var iconsBaseTemplatesPath = 'icon';
-@@ -19,6 +20,9 @@
-
-   function LineByLinePrinter(config) {
-     this.config = config;
-+
-+    var HoganJsUtils = require('./hoganjs-utils.js').HoganJsUtils;
-+    hoganUtils = new HoganJsUtils(config);
-   }
-
-   LineByLinePrinter.prototype.makeFileDiffHtml = function(file, diffs) {
-diff --git a/src/side-by-side-printer.js b/src/side-by-side-printer.js
-index bbf1dc8d..5e3033b3 100644
---- a/src/side-by-side-printer.js
-+++ b/src/side-by-side-printer.js
-@@ -11,7 +11,8 @@
-   var utils = require('./utils.js').Utils;
-   var Rematch = require('./rematch.js').Rematch;
-
--  var hoganUtils = require('./hoganjs-utils.js').HoganJsUtils;
-+  var hoganUtils;
-+
-   var genericTemplatesPath = 'generic';
-   var baseTemplatesPath = 'side-by-side';
-   var iconsBaseTemplatesPath = 'icon';
-@@ -26,6 +27,9 @@
-
-   function SideBySidePrinter(config) {
-     this.config = config;
-+
-+    var HoganJsUtils = require('./hoganjs-utils.js').HoganJsUtils;
-+    hoganUtils = new HoganJsUtils(config);
-   }
-
-   SideBySidePrinter.prototype.makeDiffHtml = function(file, diffs) {
-diff --git a/test/file-list-printer-tests.js b/test/file-list-printer-tests.js
-index a502a46f..60ea3208 100644
---- a/test/file-list-printer-tests.js
-+++ b/test/file-list-printer-tests.js
-@@ -1,6 +1,6 @@
- var assert = require('assert');
-
--var fileListPrinter = require('../src/file-list-printer.js').FileListPrinter;
-+var fileListPrinter = new (require('../src/file-list-printer.js').FileListPrinter)();
-
- describe('FileListPrinter', function() {
-   describe('generateFileList', function() {
-diff --git a/test/hogan-cache-tests.js b/test/hogan-cache-tests.js
-index 190bf6f8..3bb754ac 100644
---- a/test/hogan-cache-tests.js
-+++ b/test/hogan-cache-tests.js
-@@ -1,6 +1,6 @@
- var assert = require('assert');
-
--var HoganJsUtils = require('../src/hoganjs-utils.js').HoganJsUtils;
-+var HoganJsUtils = new (require('../src/hoganjs-utils.js').HoganJsUtils)();
- var diffParser = require('../src/diff-parser.js').DiffParser;
-
- describe('HoganJsUtils', function() {
-@@ -21,16 +21,28 @@ describe('HoganJsUtils', function() {
-       });
-       assert.equal(emptyDiffHtml, result);
-     });
-+
-     it('should render view without cache', function() {
-       var result = HoganJsUtils.render('generic', 'empty-diff', {
-         contentClass: 'd2h-code-line',
-         diffParser: diffParser
-       }, {noCache: true});
--      assert.equal(emptyDiffHtml + '\n', result);
-+      assert.equal(emptyDiffHtml, result);
-     });
-+
-     it('should return null if template is missing', function() {
--      var result = HoganJsUtils.render('generic', 'missing-template', {}, {noCache: true});
-+      var hoganUtils = new (require('../src/hoganjs-utils.js').HoganJsUtils)({noCache: true});
-+      var result = hoganUtils.render('generic', 'missing-template', {});
-       assert.equal(null, result);
-     });
-+
-+    it('should allow templates to be overridden', function() {
-+      var emptyDiffTemplate = HoganJsUtils.compile('&lt;p&gt;&lt;/p&gt;');
-+
-+      var config = {templates: {'generic-empty-diff': emptyDiffTemplate}};
-+      var hoganUtils = new (require('../src/hoganjs-utils.js').HoganJsUtils)(config);
-+      var result = hoganUtils.render('generic', 'empty-diff', {myName: 'Rodrigo Fernandes'});
-+      assert.equal('&lt;p&gt;Rodrigo Fernandes&lt;/p&gt;', result);
-+    });
-   });
- });
-diff --git a/test/line-by-line-tests.js b/test/line-by-line-tests.js
-index 1cd92073..8869b3df 100644
---- a/test/line-by-line-tests.js
-+++ b/test/line-by-line-tests.js
-@@ -14,7 +14,7 @@ describe('LineByLinePrinter', function() {
-         '            File without changes\n' +
-         '        &lt;/div&gt;\n' +
-         '    &lt;/td&gt;\n' +
--        '&lt;/tr&gt;\n';
-+        '&lt;/tr&gt;';
-
-       assert.equal(expected, fileHtml);
-     });
-@@ -422,7 +422,6 @@ describe('LineByLinePrinter', function() {
-         '        &lt;/div&gt;\n' +
-         '    &lt;/td&gt;\n' +
-         '&lt;/tr&gt;\n' +
--        '\n' +
-         '                &lt;/tbody&gt;\n' +
-         '            &lt;/table&gt;\n' +
-         '        &lt;/div&gt;\n' +
-diff --git a/test/side-by-side-printer-tests.js b/test/side-by-side-printer-tests.js
-index 76625f8e..771daaa5 100644
---- a/test/side-by-side-printer-tests.js
-+++ b/test/side-by-side-printer-tests.js
-@@ -14,7 +14,7 @@ describe('SideBySidePrinter', function() {
-         '            File without changes\n' +
-         '        &lt;/div&gt;\n' +
-         '    &lt;/td&gt;\n' +
--        '&lt;/tr&gt;\n';
-+        '&lt;/tr&gt;';
-
-       assert.equal(expectedRight, fileHtml.right);
-       assert.equal(expectedLeft, fileHtml.left);
-@@ -324,7 +324,6 @@ describe('SideBySidePrinter', function() {
-         '        &lt;/div&gt;\n' +
-         '    &lt;/td&gt;\n' +
-         '&lt;/tr&gt;\n' +
--        '\n' +
-         '                    &lt;/tbody&gt;\n' +
-         '                &lt;/table&gt;\n' +
-         '            &lt;/div&gt;\n' +
-
-From f3cadb96677d0eb82fc2752dc3ffbf35ca9b5bdb Mon Sep 17 00:00:00 2001
-From: Rodrigo Fernandes &lt;rtfrodrigo@gmail.com&gt;
-Date: Sat, 15 Oct 2016 13:21:22 +0100
-Subject: [PATCH 2/2] Allow uncompiled templates
-
----
- README.md                 |  3 +++
- src/hoganjs-utils.js      |  7 +++++++
- test/hogan-cache-tests.js | 24 +++++++++++++++++++++++-
- 3 files changed, 33 insertions(+), 1 deletion(-)
-
-diff --git a/README.md b/README.md
-index 132c8a28..46909f25 100644
---- a/README.md
-+++ b/README.md
-@@ -98,6 +98,9 @@ The HTML output accepts a Javascript object with configuration. Possible options
-   - `synchronisedScroll`: scroll both panes in side-by-side mode: `true` or `false`, default is `false`
-   - `matchWordsThreshold`: similarity threshold for word matching, default is 0.25
-   - `matchingMaxComparisons`: perform at most this much comparisons for line matching a block of changes, default is `2500`
-+  - `templates`: object with previously compiled templates to replace parts of the html
-+  - `rawTemplates`: object with raw not compiled templates to replace parts of the html
-+  &gt; For more information regarding the possible templates look into [src/templates](https://github.com/rtfpessoa/diff2html/tree/master/src/templates)
-
- ## Diff2HtmlUI Helper
-
-diff --git a/src/hoganjs-utils.js b/src/hoganjs-utils.js
-index 0dda08d7..b2e9c275 100644
---- a/src/hoganjs-utils.js
-+++ b/src/hoganjs-utils.js
-@@ -17,6 +17,13 @@
-   function HoganJsUtils(configuration) {
-     this.config = configuration || {};
-     extraTemplates = this.config.templates || {};
-+
-+    var rawTemplates = this.config.rawTemplates || {};
-+    for (var templateName in rawTemplates) {
-+      if (rawTemplates.hasOwnProperty(templateName)) {
-+        if (!extraTemplates[templateName]) extraTemplates[templateName] = this.compile(rawTemplates[templateName]);
-+      }
-+    }
-   }
-
-   HoganJsUtils.prototype.render = function(namespace, view, params) {
-diff --git a/test/hogan-cache-tests.js b/test/hogan-cache-tests.js
-index 3bb754ac..a34839c0 100644
---- a/test/hogan-cache-tests.js
-+++ b/test/hogan-cache-tests.js
-@@ -36,7 +36,7 @@ describe('HoganJsUtils', function() {
-       assert.equal(null, result);
-     });
-
--    it('should allow templates to be overridden', function() {
-+    it('should allow templates to be overridden with compiled templates', function() {
-       var emptyDiffTemplate = HoganJsUtils.compile('&lt;p&gt;&lt;/p&gt;');
-
-       var config = {templates: {'generic-empty-diff': emptyDiffTemplate}};
-@@ -44,5 +44,27 @@ describe('HoganJsUtils', function() {
-       var result = hoganUtils.render('generic', 'empty-diff', {myName: 'Rodrigo Fernandes'});
-       assert.equal('&lt;p&gt;Rodrigo Fernandes&lt;/p&gt;', result);
-     });
-+
-+    it('should allow templates to be overridden with uncompiled templates', function() {
-+      var emptyDiffTemplate = '&lt;p&gt;&lt;/p&gt;';
-+
-+      var config = {rawTemplates: {'generic-empty-diff': emptyDiffTemplate}};
-+      var hoganUtils = new (require('../src/hoganjs-utils.js').HoganJsUtils)(config);
-+      var result = hoganUtils.render('generic', 'empty-diff', {myName: 'Rodrigo Fernandes'});
-+      assert.equal('&lt;p&gt;Rodrigo Fernandes&lt;/p&gt;', result);
-+    });
-+
-+    it('should allow templates to be overridden giving priority to compiled templates', function() {
-+      var emptyDiffTemplate = HoganJsUtils.compile('&lt;p&gt;&lt;/p&gt;');
-+      var emptyDiffTemplateUncompiled = '&lt;p&gt;Not used!&lt;/p&gt;';
-+
-+      var config = {
-+        templates: {'generic-empty-diff': emptyDiffTemplate},
-+        rawTemplates: {'generic-empty-diff': emptyDiffTemplateUncompiled}
-+      };
-+      var hoganUtils = new (require('../src/hoganjs-utils.js').HoganJsUtils)(config);
-+      var result = hoganUtils.render('generic', 'empty-diff', {myName: 'Rodrigo Fernandes'});
-+      assert.equal('&lt;p&gt;Rodrigo Fernandes&lt;/p&gt;', result);
-+    });
-   });
- });
-</code></pre>]]></content><author><name></name></author><category term="sample-posts"/><category term="formatting"/><category term="code"/><summary type="html"><![CDATA[this is how you can display code diffs]]></summary></entry><entry><title type="html">a post with advanced image components</title><link href="https://alshedivat.github.io/al-folio/blog/2024/advanced-images/" rel="alternate" type="text/html" title="a post with advanced image components"/><published>2024-01-27T11:46:00+00:00</published><updated>2024-01-27T11:46:00+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2024/advanced-images</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2024/advanced-images/"><![CDATA[<p>This is an example post with advanced image components.</p> <h2 id="image-slider">Image Slider</h2> <p>This is a simple image slider. It uses the <a href="https://swiperjs.com/">Swiper</a> library. Check the <a href="https://swiperjs.com/demos">examples page</a> for more information of what you can achieve with it.</p> <swiper-container keyboard="true" navigation="true" pagination="true" pagination-clickable="true" pagination-dynamic-bullets="true" rewind="true"> <swiper-slide> <figure> <picture> <source class="responsive-img-srcset" srcset="/al-folio/assets/img/9-480.webp 480w,/al-folio/assets/img/9-800.webp 800w,/al-folio/assets/img/9-1400.webp 1400w," type="image/webp" sizes="95vw"/> <img src="/al-folio/assets/img/9.jpg" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="eager" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"/> </picture> </figure> </swiper-slide> <swiper-slide> <figure> <picture> <source class="responsive-img-srcset" srcset="/al-folio/assets/img/7-480.webp 480w,/al-folio/assets/img/7-800.webp 800w,/al-folio/assets/img/7-1400.webp 1400w," type="image/webp" sizes="95vw"/> <img src="/al-folio/assets/img/7.jpg" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="eager" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"/> </picture> </figure> </swiper-slide> <swiper-slide> <figure> <picture> <source class="responsive-img-srcset" srcset="/al-folio/assets/img/8-480.webp 480w,/al-folio/assets/img/8-800.webp 800w,/al-folio/assets/img/8-1400.webp 1400w," type="image/webp" sizes="95vw"/> <img src="/al-folio/assets/img/8.jpg" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="eager" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"/> </picture> </figure> </swiper-slide> <swiper-slide> <figure> <picture> <source class="responsive-img-srcset" srcset="/al-folio/assets/img/10-480.webp 480w,/al-folio/assets/img/10-800.webp 800w,/al-folio/assets/img/10-1400.webp 1400w," type="image/webp" sizes="95vw"/> <img src="/al-folio/assets/img/10.jpg" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="eager" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"/> </picture> </figure> </swiper-slide> <swiper-slide> <figure> <picture> <source class="responsive-img-srcset" srcset="/al-folio/assets/img/12-480.webp 480w,/al-folio/assets/img/12-800.webp 800w,/al-folio/assets/img/12-1400.webp 1400w," type="image/webp" sizes="95vw"/> <img src="/al-folio/assets/img/12.jpg" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="eager" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"/> </picture> </figure> </swiper-slide> </swiper-container> <h2 id="image-comparison-slider">Image Comparison Slider</h2> <p>This is a simple image comparison slider. It uses the <a href="https://img-comparison-slider.sneas.io/">img-comparison-slider</a> library. Check the <a href="https://img-comparison-slider.sneas.io/examples.html">examples page</a> for more information of what you can achieve with it.</p> <img-comparison-slider> <figure slot="first"> <picture> <source class="responsive-img-srcset" srcset="/al-folio/assets/img/prof_pic-480.webp 480w,/al-folio/assets/img/prof_pic-800.webp 800w,/al-folio/assets/img/prof_pic-1400.webp 1400w," type="image/webp" sizes="95vw"/> <img src="/al-folio/assets/img/prof_pic.jpg" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="lazy" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"/> </picture> </figure> <figure slot="second"> <picture> <source class="responsive-img-srcset" srcset="/al-folio/assets/img/prof_pic_color-480.webp 480w,/al-folio/assets/img/prof_pic_color-800.webp 800w,/al-folio/assets/img/prof_pic_color-1400.webp 1400w," type="image/webp" sizes="95vw"/> <img src="/al-folio/assets/img/prof_pic_color.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="lazy" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"/> </picture> </figure> </img-comparison-slider>]]></content><author><name></name></author><category term="sample-posts"/><category term="formatting"/><category term="images"/><summary type="html"><![CDATA[this is what advanced image components could look like]]></summary></entry><entry><title type="html">a post with vega lite</title><link href="https://alshedivat.github.io/al-folio/blog/2024/vega-lite/" rel="alternate" type="text/html" title="a post with vega lite"/><published>2024-01-27T00:20:00+00:00</published><updated>2024-04-14T04:30:00+00:00</updated><id>https://alshedivat.github.io/al-folio/blog/2024/vega-lite</id><content type="html" xml:base="https://alshedivat.github.io/al-folio/blog/2024/vega-lite/"><![CDATA[<p>This is an example post with some <a href="https://vega.github.io/vega-lite/">vega lite</a> code.</p> <div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">```</span><span class="nl">vega_lite
-</span><span class="sb">{
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "A dot plot showing each movie in the database, and the difference from the average movie rating. The display is sorted by year to visualize everything in sequential order. The graph is for all Movies before 2019.",
-  "data": {
-    "url": "https://raw.githubusercontent.com/vega/vega/main/docs/data/movies.json"
-  },
-  "transform": [
-    {"filter": "datum['IMDB Rating'] != null"},
-    {"filter": {"timeUnit": "year", "field": "Release Date", "range": [null, 2019]}},
-    {
-      "joinaggregate": [{
-        "op": "mean",
-        "field": "IMDB Rating",
-        "as": "AverageRating"
-      }]
-    },
-    {
-      "calculate": "datum['IMDB Rating'] - datum.AverageRating",
-      "as": "RatingDelta"
-    }
-  ],
-  "mark": "point",
-  "encoding": {
-    "x": {
-      "field": "Release Date",
-      "type": "temporal"
-    },
-    "y": {
-      "field": "RatingDelta",
-      "type": "quantitative",
-      "title": "Rating Delta"
-    },
-    "color": {
-      "field": "RatingDelta",
-      "type": "quantitative",
-      "scale": {"domainMid": 0},
-      "title": "Rating Delta"
-    }
+  html[data-theme="dark"] .thread-note {
+    --thread-color: #e0a63a; /* brighter amber for dark backgrounds */
   }
-}</span>
-<span class="p">```</span>
-</code></pre></div></div> <p>Which generates:</p> <pre><code class="language-vega_lite">{
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "A dot plot showing each movie in the database, and the difference from the average movie rating. The display is sorted by year to visualize everything in sequential order. The graph is for all Movies before 2019.",
-  "data": {
-    "url": "https://raw.githubusercontent.com/vega/vega/main/docs/data/movies.json"
-  },
-  "transform": [
-    {"filter": "datum['IMDB Rating'] != null"},
-    {"filter": {"timeUnit": "year", "field": "Release Date", "range": [null, 2019]}},
-    {
-      "joinaggregate": [{
-        "op": "mean",
-        "field": "IMDB Rating",
-        "as": "AverageRating"
-      }]
-    },
-    {
-      "calculate": "datum['IMDB Rating'] - datum.AverageRating",
-      "as": "RatingDelta"
-    }
-  ],
-  "mark": "point",
-  "encoding": {
-    "x": {
-      "field": "Release Date",
-      "type": "temporal"
-    },
-    "y": {
-      "field": "RatingDelta",
-      "type": "quantitative",
-      "title": "Rating Delta"
-    },
-    "color": {
-      "field": "RatingDelta",
-      "type": "quantitative",
-      "scale": {"domainMid": 0},
-      "title": "Rating Delta"
-    }
+  .thread-note .thread-label {
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.09em;
+    font-weight: 700;
+    color: var(--thread-color);
+    margin-right: 0.5rem;
   }
-}
-</code></pre> <p>This plot supports both light and dark themes.</p>]]></content><author><name></name></author><category term="sample-posts"/><category term="formatting"/><category term="charts"/><summary type="html"><![CDATA[this is what included vega lite code could look like]]></summary></entry></feed>
+</style> <h2 id="1--why-spins">1 · Why spins?</h2> <p>A useful qubit has to do two contradictory things at once. It must be <strong>isolated</strong> — sealed off from its noisy surroundings so the fragile quantum information doesn’t leak away — and it must be <strong>controllable</strong> — coupled to the outside world strongly enough that we can write, rotate, and read it on demand. Isolation and control pull in opposite directions, and essentially every qubit platform is a particular compromise between them. Hold that tension in mind: it is the thread running through this whole post.</p> <p>The spin of a single electron is one of nature’s neatest answers. A spin-½ is a <em>genuine</em> two-level system: it has exactly two states, up and down, and no third level to accidentally leak into. That sounds trivial until you compare it with the leading superconducting qubits, the transmons, which are really weakly anharmonic oscillators with a whole ladder of levels — you engineer them so the qubit only ever uses the bottom two rungs, and leakage out of that subspace is a constant worry. A spin has no such ladder. The Hilbert space <em>is</em> the qubit.</p> <p>Why is a spin so well isolated? Because its only handle on the world is a tiny magnetic moment — about one Bohr magneton. Magnetic dipoles couple weakly to their surroundings, so the electron’s spin barely notices the electric bustle of the solid around it. That weak coupling is exactly what buys spin qubits their long coherence times. But — and this is the whole story in miniature — the same weak coupling that protects the spin also makes it <em>hard to drive</em>. Whatever isolates the qubit from noise also isolates it from your control fields. Every technique in the sections that follow is, at bottom, a way of buying back control without giving up too much isolation.</p> <p class="thread-note"><span class="thread-label">The through-line</span> Isolation and control are one knob turned opposite ways. Every section below comes back to this trade-off — watch for it.</p> <p>There is one more reason to single out spins: they live in semiconductors. The founding proposal of the field — Loss and DiVincenzo’s scheme for encoding a qubit in the spin of a single electron confined to a gate-defined quantum dot <a class="citation" href="#loss1998quantum">(Loss &amp; DiVincenzo, 1998)</a> — was compelling precisely because that electron sits on a semiconductor chip. If your qubit is one electron trapped under a metal gate on silicon, then in principle the whole toolbox of the semiconductor industry — lithography, integration, decades of materials science — is available to scale it up. That is a motivation, not a promise; the engineering is genuinely hard. But it is why so much effort goes into a system whose control problem we just admitted is difficult. (For broad reviews of semiconductor spin qubits, see <a class="citation" href="#hanson2007spins">(Hanson et al., 2007; Chatterjee et al., 2021; Burkard et al., 2023)</a>.)</p> <p>So the plan is set: trap a single electron somewhere we can reach it, and find a way to talk to its spin. First, the trap.</p> <div class="sec-divider" aria-hidden="true">•••</div> <h2 id="2--hosting-a-spin-the-quantum-dot">2 · Hosting a spin: the quantum dot</h2> <p>To trap one electron we build an <em>artificial atom</em>. Start with a two-dimensional electron gas (2DEG) — a sheet of mobile electrons pinned to a plane at the interface of a semiconductor heterostructure, or in a silicon quantum well. Then pattern metal gate electrodes on the surface above it. Negative voltages on those gates repel the electrons underneath, sculpting the smooth 2DEG into a small bowl-shaped potential — a <strong>quantum dot</strong> — deep enough to hold a countable number of electrons. Like a real atom, this artificial one has discrete energy levels; unlike a real atom, we get to set its depth and occupancy by turning knobs.</p> <figure style="margin:1.5rem auto;text-align:center;color:var(--global-text-color);"> <svg viewBox="0 0 420 218" width="440" style="max-width:100%;height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gate-defined double quantum dot potential-energy landscape"> <defs><marker id="dd-ax" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="currentColor"/></marker></defs> <g fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.5"> <rect x="112" y="10" width="46" height="15" rx="4"/> <rect x="177" y="10" width="44" height="15" rx="4"/> <rect x="238" y="10" width="46" height="15" rx="4"/> </g> <g fill="currentColor" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle"> <text x="135" y="21">V<tspan baseline-shift="sub" font-size="8">L</tspan></text> <text x="199" y="21">V<tspan baseline-shift="sub" font-size="8">M</tspan></text> <text x="261" y="21">V<tspan baseline-shift="sub" font-size="8">R</tspan></text> </g> <g stroke="currentColor" stroke-opacity="0.3" stroke-dasharray="3 3"> <line x1="135" y1="25" x2="139" y2="146"/> <line x1="199" y1="25" x2="200" y2="96"/> <line x1="261" y1="25" x2="241" y2="146"/> </g> <g fill="var(--global-theme-color)" fill-opacity="0.16"> <rect x="12" y="138" width="52" height="42"/> <rect x="316" y="138" width="52" height="42"/> </g> <g stroke="currentColor" stroke-opacity="0.35" stroke-dasharray="4 3"> <line x1="12" y1="138" x2="64" y2="138"/> <line x1="316" y1="138" x2="368" y2="138"/> </g> <path d="M 15 138 H 60 Q 86 46 112 150 Q 138 166 165 150 Q 190 82 216 150 Q 241 166 268 150 Q 294 46 320 138 H 365" fill="none" stroke="currentColor" stroke-width="2"/> <line x1="126" y1="149" x2="152" y2="149" stroke="var(--global-theme-color)" stroke-width="2"/> <line x1="228" y1="149" x2="254" y2="149" stroke="var(--global-theme-color)" stroke-width="2"/> <circle cx="139" cy="149" r="4.5" fill="var(--global-theme-color)"/> <circle cx="241" cy="149" r="4.5" fill="var(--global-theme-color)"/> <g fill="currentColor" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle" fill-opacity="0.85"> <text x="38" y="198">source</text> <text x="342" y="198">drain</text> <text x="139" y="179">dot 1</text> <text x="241" y="179">dot 2</text> <text x="200" y="70">tunnel barrier</text> <text x="70" y="132" text-anchor="start" font-style="italic">&#956;</text> </g> <line x1="12" y1="192" x2="12" y2="38" stroke="currentColor" stroke-opacity="0.5" stroke-width="1" marker-end="url(#dd-ax)"/> <text x="19" y="44" fill="currentColor" font-size="11" text-anchor="start" fill-opacity="0.85">E</text> </svg> <figcaption style="font-size:0.85rem;opacity:0.8;max-width:32rem;margin:0.5rem auto 0;"> Potential-energy landscape of a gate-defined double dot. Negative gate voltages raise tunnel barriers that carve two wells out of the 2DEG, each holding a countable number of electrons at a discrete level near the reservoir chemical potential μ. The middle gate V<sub>M</sub> sets the interdot tunnel coupling; the plunger gates V<sub>L</sub>, V<sub>R</sub> set each dot's occupancy. </figcaption> </figure> <p>The knob that matters is electron number, and the effect that turns it <em>into</em> a knob is <strong>Coulomb blockade</strong>. Cramming electrons into a tiny dot costs energy: admitting one more means paying a charging energy fixed by the dot’s minuscule capacitance, and that cost is large compared with the thermal energy available at the ~100 mK of a dilution refrigerator. Because thermal fluctuations can’t cover the price, the electron number is <em>pinned</em> to an integer. Sweep a gate voltage and nothing happens… nothing… then at one special voltage it becomes favourable to admit exactly one more electron, and the occupancy clicks up by one. Gate voltage in, integer electron number out. That staircase is how we load a dot with a single spin.</p> <p>For two electrons — which we’ll need in Section 4 — the natural device is a <strong>double quantum dot</strong>: two bowls side by side, each with its own gate, with a tunnel barrier between them. The relevant knobs become the two occupancies $(N_L, N_R)$, and the map of which charge state is stable versus the two gate voltages is the <strong>charge stability diagram</strong>, the famous “honeycomb” <a class="citation" href="#vanderwiel2002electron">(van der Wiel et al., 2002)</a>:</p> <figure style="margin:1.5rem auto;text-align:center;color:var(--global-text-color);"> <svg viewBox="60 25 300 285" width="360" style="max-width:100%;height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Double quantum dot charge stability diagram (honeycomb)"> <defs> <marker id="eps-arrow" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="var(--global-theme-color)"/></marker> <marker id="ax-arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="currentColor"/></marker> </defs> <polygon points="200,106 238.1,128 238.1,172 200,194 161.9,172 161.9,128" fill="var(--global-theme-color)" fill-opacity="0.14"/> <polygon points="161.9,40 200,62 200,106 161.9,128 123.8,106 123.8,62" fill="var(--global-theme-color)" fill-opacity="0.14"/> <g fill="none" stroke="currentColor" stroke-opacity="0.55" stroke-width="1.3"> <polygon points="200,106 238.1,128 238.1,172 200,194 161.9,172 161.9,128"/> <polygon points="123.8,106 161.9,128 161.9,172 123.8,194 85.7,172 85.7,128"/> <polygon points="276.2,106 314.3,128 314.3,172 276.2,194 238.1,172 238.1,128"/> <polygon points="161.9,40 200,62 200,106 161.9,128 123.8,106 123.8,62"/> <polygon points="238.1,40 276.2,62 276.2,106 238.1,128 200,106 200,62"/> <polygon points="161.9,172 200,194 200,238 161.9,260 123.8,238 123.8,194"/> <polygon points="238.1,172 276.2,194 276.2,238 238.1,260 200,238 200,194"/> </g> <g fill="currentColor" font-size="13" font-family="system-ui, sans-serif" text-anchor="middle" dominant-baseline="central"> <text x="200" y="150" font-weight="600">(1,1)</text> <text x="161.9" y="84" font-weight="600">(0,2)</text> <text x="123.8" y="150">(0,1)</text> <text x="276.2" y="150">(2,1)</text> <text x="238.1" y="84">(1,2)</text> <text x="161.9" y="216">(1,0)</text> <text x="238.1" y="216">(2,0)</text> </g> <line x1="191" y1="134" x2="172" y2="100" stroke="var(--global-theme-color)" stroke-width="1.7" stroke-dasharray="4 3" marker-start="url(#eps-arrow)" marker-end="url(#eps-arrow)"/> <text x="150" y="118" fill="var(--global-theme-color)" font-size="15" font-style="italic" text-anchor="middle" font-family="system-ui, sans-serif">&#949;</text> <g stroke="currentColor" fill="currentColor"> <line x1="80" y1="102" x2="110" y2="102" stroke-width="1.2" marker-end="url(#ax-arrow)"/> <line x1="80" y1="102" x2="80" y2="72" stroke-width="1.2" marker-end="url(#ax-arrow)"/> <text x="114" y="105" font-size="11" text-anchor="start" font-family="system-ui, sans-serif">V<tspan baseline-shift="sub" font-size="8">L</tspan></text> <text x="80" y="64" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">V<tspan baseline-shift="sub" font-size="8">R</tspan></text> </g> </svg> <figcaption style="font-size:0.85rem;opacity:0.8;max-width:30rem;margin:0.5rem auto 0;"> Charge stability diagram of a double dot. Each cell is a fixed charge state (N<sub>L</sub>, N<sub>R</sub>); raising a gate voltage adds an electron to that dot. The detuning ε tunes across the (1,1)–(0,2) interdot transition (highlighted), shuttling one electron from the left dot to the right. </figcaption> </figure> <p>Each cell is a region of fixed $(N_L, N_R)$; crossing a boundary adds or moves one electron. Two cells will matter for us: $(1,1)$, one electron on each dot, and $(0,2)$, both electrons bunched on the right dot. They meet along the <em>interdot transition</em>, and the gate-voltage combination that drives the system across that boundary — shuttling one electron from left to right — is the <strong>detuning</strong> $\varepsilon$. Remember that axis; the entire two-qubit story in Section 4 plays out on it.</p> <style>
+  .learn-more-box {
+    border: 1.5px solid var(--global-theme-color);
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--global-theme-color) 6%, transparent);
+    margin: 1.5rem 0;
+    overflow: hidden;
+  }
+  .learn-more-box > details > summary {
+    cursor: pointer;
+    padding: 0.7rem 1rem;
+    font-weight: 600;
+    color: var(--global-theme-color);
+  }
+  .learn-more-box > details > summary:hover {
+    background: color-mix(in srgb, var(--global-theme-color) 10%, transparent);
+  }
+  .learn-more-box > details[open] > summary {
+    border-bottom: 1px solid var(--global-divider-color);
+  }
+  .learn-more-box > details > *:not(summary) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .learn-more-box > details > summary + * {
+    padding-top: 0.75rem;
+  }
+  .learn-more-box > details > *:not(summary):last-child {
+    padding-bottom: 0.75rem;
+  }
+</style> <div class="learn-more-box"> <details><summary>Why is the stability diagram a honeycomb? (the capacitance model)</summary> <p>A double dot is, electrostatically, just two coupled capacitors. In the <strong>constant-interaction model</strong> <a class="citation" href="#vanderwiel2002electron">(van der Wiel et al., 2002)</a> the energy of the charge state $(N_1, N_2)$ at gate-induced charges $(n_{g1}, n_{g2}) \propto (V_{g1}, V_{g2})$ is</p> \[U(N_1,N_2) = \tfrac{1}{2}E_{c1}\,(N_1 - n_{g1})^2 + \tfrac{1}{2}E_{c2}\,(N_2 - n_{g2})^2 + E_{cm}\,(N_1 - n_{g1})(N_2 - n_{g2}),\] <p>where $E_{c1}$ and $E_{c2}$ are the single-dot charging energies and $E_{cm}$ is the <strong>interdot (mutual) charging energy</strong>. The dot settles into whichever integer $(N_1, N_2)$ minimises $U$, so the $(n_{g1}, n_{g2})$ plane tiles into regions of fixed charge.</p> <p>The region boundaries come in three families: add an electron to dot 1 ($(N_1,N_2)\,\to\,(N_1{+}1,N_2)$), add one to dot 2, or move one across the middle ($(N_1{+}1,N_2)\,\to\,(N_1,N_2{+}1)$). Each is a straight line, and each has a different slope. When $E_{cm} = 0$ the dots are independent: only the first two families survive, they run horizontal and vertical, and the plane is a plain <strong>square grid</strong>. Turn $E_{cm}$ on and the interdot term lifts the degeneracy at every four-corner, splitting it into two <strong>triple points</strong> joined by a short interdot segment — the segment that carries the $\varepsilon$ axis. That is the honeycomb. Slide the coupling from zero and watch the square grid open up:</p> <div style="border:1px solid var(--global-divider-color);border-radius:8px;padding:1rem;margin:1.25rem 0;"> <div id="cs1-mount"></div> <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:center;margin-top:0.75rem;font-size:0.9rem;"> <label style="display:flex;align-items:center;gap:0.5rem;"> interdot coupling E<sub>cm</sub> <input id="cs1-ecm" type="range" min="0" max="0.6" step="0.02" value="0.3"/> <span id="cs1-ecm-val" style="min-width:2.6em;font-variant-numeric:tabular-nums;">0.30</span> </label> <span style="opacity:0.7;">0 → square grid&nbsp;·&nbsp;larger → honeycomb</span> </div> </div> <p>The highlighted cells are the $(1,1)$ and $(0,2)$ states from the main text; at $E_{cm}=0$ they touch only at a point, and as the coupling grows they develop the shared $\varepsilon$ edge that the whole two-qubit story rides on.</p> </details> </div> <script src="/assets/js/charge-stability.js"></script> <script>
+  (function () {
+    var mount = document.getElementById("cs1-mount");
+    if (!mount || typeof createChargeStability !== "function") return;
+    var cs = createChargeStability(mount, { size: 300, ecm: 0.3 });
+    var w = document.getElementById("cs1-ecm"), v = document.getElementById("cs1-ecm-val");
+    w.addEventListener("input", function () { cs.setCoupling(w.value); v.textContent = (+w.value).toFixed(2); });
+    var det = mount.closest("details");
+    if (det) det.addEventListener("toggle", function () { if (det.open) cs.redraw(); });
+  })();
+</script> <p>Trapping the electron is only half the job — we also have to <em>read it out</em>, and here a spin hides a problem: a single spin’s magnetic moment is far too faint to detect directly. The trick is <strong>spin-to-charge conversion</strong> — arrange things so the spin decides whether the electron can <em>move</em>, then detect the motion instead. In Elzerman readout <a class="citation" href="#elzerman2004single">(Elzerman et al., 2004)</a> you tune the dot so a spin-up electron has just enough energy to tunnel out to a nearby reservoir while a spin-down electron does not; the spin state becomes a charge-tunnelling event. A second mechanism we’ll meet in Section 4 — <strong>Pauli spin blockade</strong>, where two electrons may share one dot only if their spins form a singlet <a class="citation" href="#ono2002current">(Ono et al., 2002)</a> — turns a <em>two</em>-spin state into a charge signal the same way. Either route, we never measure the spin directly: we build a situation where a charge has to move if and only if the spin is in a particular state, and then we watch the charge with a nearby electrometer (a quantum point contact or single-electron transistor). We never ask the spin what it’s doing — we get a charge to snitch on it.</p> <p>One last choice colours everything downstream: the host material. GaAs was the workhorse for years — clean, well understood — but it carries a hidden tax we’ll pay in Section 5: every gallium and arsenic nucleus has a spin, so the electron sits in a storm of $\sim\,10^5$–$10^6$ fluctuating nuclear magnets. Silicon can be <strong>isotopically purified</strong> into nearly spin-free $^{28}$Si, giving the electron a quiet neighbourhood to live in. That single decision — move to a quieter host — is why so much of the field has migrated to silicon.</p> <div class="sec-divider" aria-hidden="true">•••</div> <h2 id="3--single-spin-control">3 · Single-spin control</h2> <p>We have one electron parked in a quantum dot. How do we turn it into a qubit we can actually rotate? Everything starts with a static magnetic field.</p> <h3 id="larmor-precession-and-the-bloch-sphere">Larmor precession and the Bloch sphere</h3> <p>Put the electron in a field $B_0$ along $z$. Its two spin states split in energy by the Zeeman effect, described by</p> \[H_0 = \tfrac{1}{2}\hbar\omega_0\,\sigma_z , \qquad \omega_0 = \frac{g\mu_B B_0}{\hbar},\] <p>where $\omega_0$ is the <strong>Larmor frequency</strong>. Any state that isn’t exactly $\lvert 0\rangle$ or $\lvert 1\rangle$ has a transverse component that rotates about $z$ at $\omega_0$ — the spin <em>precesses</em>, like a gyroscope in gravity.</p> <p>It pays to picture this geometrically. Every pure single-qubit state maps to a point on the unit sphere through the expectation value of the Pauli operators, $\mathbf{r} = \langle\boldsymbol{\sigma}\rangle$ — the <strong>Bloch vector</strong>. The north pole is $\lvert 0\rangle$, the south pole $\lvert 1\rangle$, and the equator holds the equal superpositions. Under $H_0$ the Bloch vector just spins about the vertical axis. That is motion, but not yet <em>control</em>: to steer the spin anywhere on the sphere we need a knob transverse to $z$.</p> <h3 id="driving-the-spin-esr-and-the-rotating-frame">Driving the spin: ESR and the rotating frame</h3> <p>The knob is a small oscillating magnetic field along $x$ — magnetic resonance. Add</p> \[H_1(t) = \tfrac{1}{2}\hbar\omega_1\cos(\omega t)\,\sigma_x ,\] <p>with drive frequency $\omega$ and strength set by $\omega_1 = g\mu_B B_1/\hbar$ (the same Zeeman form as $H_0$, now with a small oscillating field $B_1$). The full Hamiltonian is messy because it is time-dependent, but it simplifies enormously if we stop watching from the lab and instead co-rotate with the drive. Moving to the frame rotating at $\omega$ about $z$, and dropping the fast counter-rotating term that averages to nothing (the <strong>rotating-wave approximation</strong>), the Hamiltonian becomes <em>static</em>:</p> \[H = \tfrac{1}{2}\hbar\left(\Omega\,\sigma_x + \Delta\,\sigma_z\right), \qquad \Delta = \omega_0 - \omega, \qquad \Omega = \tfrac{1}{2}\omega_1 .\] <div class="learn-more-box"> <details><summary>Derivation: from the lab frame to the static rotating-frame Hamiltonian</summary> <p>Start in the lab frame with the static field plus the drive:</p> \[H_\text{lab}(t) = \tfrac{1}{2}\hbar\omega_0\,\sigma_z + \tfrac{1}{2}\hbar\omega_1\cos(\omega t)\,\sigma_x .\] <p>Move into the frame rotating at the drive frequency $\omega$ about $z$ with $U(t) = e^{\,i\omega t\,\sigma_z/2}$, so $\lvert\tilde\psi\rangle = U(t)\lvert\psi\rangle$. A time-dependent change of frame adds a generator term to the Hamiltonian:</p> \[\tilde H = U H_\text{lab} U^\dagger + i\hbar\,(\partial_t U)\,U^\dagger .\] <p>That generator term is $i\hbar(\partial_t U)U^\dagger = -\tfrac12\hbar\omega\,\sigma_z$, and since $U$ commutes with $\sigma_z$ the field part collapses to $\tfrac12\hbar(\omega_0-\omega)\sigma_z$. The drive is the interesting piece; rotating $\sigma_x$ gives</p> \[U\,\sigma_x\,U^\dagger = \sigma_x\cos\omega t - \sigma_y\sin\omega t ,\] <p>so the drive term becomes</p> \[U\,\left(\tfrac12\hbar\omega_1\cos\omega t\,\sigma_x\right)\,U^\dagger = \tfrac12\hbar\omega_1\cos\omega t\,\big(\sigma_x\cos\omega t - \sigma_y\sin\omega t\big).\] <p>Now use $\cos^2\omega t = \tfrac12(1+\cos 2\omega t)$ and $\cos\omega t\,\sin\omega t = \tfrac12\sin 2\omega t$ to split it into a slow and a fast part:</p> \[= \underbrace{\tfrac14\hbar\omega_1\,\sigma_x}_{\text{slow — co-rotating}} \;+\; \underbrace{\tfrac14\hbar\omega_1\big(\cos 2\omega t\,\sigma_x - \sin 2\omega t\,\sigma_y\big)}_{\text{fast — counter-rotating, }\sim 2\omega} .\] <p>The <strong>rotating-wave approximation</strong> discards the fast $2\omega$ terms. This is legitimate when the drive is weak compared with the splitting, $\omega_1 \ll \omega_0 \approx \omega$: over one Rabi period those terms oscillate many times and average to nothing. What is left is <em>time-independent</em>:</p> \[\tilde H = \tfrac12\hbar(\omega_0-\omega)\,\sigma_z + \tfrac14\hbar\omega_1\,\sigma_x = \tfrac12\hbar\big(\Omega\,\sigma_x + \Delta\,\sigma_z\big), \qquad \Delta = \omega_0-\omega, \quad \Omega = \tfrac12\omega_1 .\] <p>The factor of two in $\Omega = \tfrac12\omega_1$ is the RWA’s fingerprint: a linearly polarised drive is really two counter-rotating circular fields, and only the co-rotating half does the work.</p> </details> </div> <p>This little Hamiltonian is the workhorse of the entire field. Two knobs: the <strong>Rabi frequency</strong> $\Omega$ (how hard you drive) and the <strong>detuning</strong> $\Delta$ (how far off resonance you sit). In Bloch-vector language it says the state precesses about a fixed axis $\mathbf{n} \propto (\Omega, 0, \Delta)$ at the <strong>generalized Rabi frequency</strong></p> \[\Omega_R = \sqrt{\Omega^2 + \Delta^2}.\] <h3 id="rabi-oscillations-geometrically">Rabi oscillations, geometrically</h3> <p>Everything about single-qubit gates is in that tilted axis. Start at the north pole $\lvert 0\rangle$ and let it evolve:</p> <ul> <li><strong>On resonance</strong> ($\Delta = 0$) the axis lies flat along $x$. The state swings in the $y$–$z$ plane straight through both poles: full-contrast <strong>Rabi flopping</strong> between $\lvert 0\rangle$ and $\lvert 1\rangle$, with excited-state population $P_1(t) = \sin^2(\Omega t/2)$.</li> <li><strong>Detuned</strong> ($\Delta \neq 0$) the axis tilts up toward $z$. Now the state cones around a slanted axis and never reaches the south pole: the oscillation is <em>faster</em> (at $\Omega_R$) but has <em>reduced contrast</em>, $P_1^{\max} = \Omega^2/\Omega_R^2 &lt; 1$.</li> </ul> <p>Drag the sliders below and watch it happen — the labels $\Omega$ and $\Delta$ are exactly the two knobs in the Hamiltonian above.</p> <div class="bloch-widget" style="border:1px solid var(--global-divider-color);border-radius:8px;padding:1rem 1rem 1.25rem;margin:1.5rem 0;"> <div id="bs1-mount" style="display:flex;justify-content:center;"></div> <div style="display:flex;flex-wrap:wrap;gap:1.25rem;align-items:center;justify-content:center;margin-top:0.75rem;font-size:0.9rem;"> <label style="display:flex;align-items:center;gap:0.5rem;"> Ω <input id="bs1-omega" type="range" min="0" max="3" step="0.05" value="1"/> <span id="bs1-omega-val" style="min-width:2.4em;font-variant-numeric:tabular-nums;">1.00</span> </label> <label style="display:flex;align-items:center;gap:0.5rem;"> Δ <input id="bs1-delta" type="range" min="-3" max="3" step="0.05" value="0"/> <span id="bs1-delta-val" style="min-width:2.8em;font-variant-numeric:tabular-nums;">0.00</span> </label> <span>P<sub>1</sub> = <span id="bs1-p1" style="font-variant-numeric:tabular-nums;">0.00</span></span> <span style="display:flex;gap:0.5rem;"> <button id="bs1-toggle" type="button" style="cursor:pointer;padding:0.25rem 0.75rem;border-radius:6px;border:1px solid var(--global-divider-color);background:transparent;color:var(--global-text-color);">Pause</button> <button id="bs1-reset" type="button" style="cursor:pointer;padding:0.25rem 0.75rem;border-radius:6px;border:1px solid var(--global-divider-color);background:transparent;color:var(--global-text-color);">Reset</button> </span> </div> </div> <script src="/assets/js/bloch-sphere.js"></script> <script>
+  (function () {
+    var mount = document.getElementById("bs1-mount");
+    if (!mount || typeof createBlochSphere !== "function") return;
+    var p1 = document.getElementById("bs1-p1");
+    var bs = createBlochSphere(mount, {
+      omega: 1, delta: 0, size: 320,
+      onState: function (s) { p1.textContent = s.p1.toFixed(2); },
+    });
+    var wO = document.getElementById("bs1-omega"), wD = document.getElementById("bs1-delta");
+    var vO = document.getElementById("bs1-omega-val"), vD = document.getElementById("bs1-delta-val");
+    wO.addEventListener("input", function () { bs.setOmega(wO.value); vO.textContent = (+wO.value).toFixed(2); });
+    wD.addEventListener("input", function () { bs.setDelta(wD.value); vD.textContent = (+wD.value).toFixed(2); });
+    var tg = document.getElementById("bs1-toggle");
+    tg.addEventListener("click", function () { tg.textContent = bs.toggle() ? "Pause" : "Play"; });
+    document.getElementById("bs1-reset").addEventListener("click", function () { bs.reset(); });
+  })();
+</script> <h3 id="from-resonance-to-a-real-gate">From resonance to a real gate</h3> <p>There is a catch we flagged at the very start: the electron spin barely couples to anything, which is wonderful for coherence and painful for control. A raw oscillating magnetic field of the size we can generate on-chip drives $\Omega$ only weakly. The engineering fix is <strong>electric-dipole spin resonance (EDSR)</strong>: instead of waving a magnetic field at the spin, we shake the electron <em>spatially</em> with a fast electric gate voltage, and let either a micromagnet’s field gradient or the material’s intrinsic spin–orbit coupling convert that motion into an effective transverse magnetic drive. Electric fields are easy to apply quickly and locally, so EDSR buys back the control handle that isolation took away — the same tension, resolved by clever engineering.</p> <p class="thread-note"><span class="thread-label">The through-line</span> There it is again — EDSR buys back the control that isolation took away. In §5 we'll pay for that electric handle with charge noise.</p> <p>Once you can set $\Omega$ and $\Delta$, a <strong>gate is just a timed pulse</strong>. Sit on resonance ($\Delta = 0$) and leave the drive on for exactly half a Rabi period, $t_\pi = \pi/\Omega$: the Bloch vector rotates from the north pole to the south pole — an $X$ gate. Stop at a quarter period and you have a Hadamard-like $\pi/2$ rotation; change the drive’s phase and you rotate about $y$ instead of $x$. With typical numbers ($\Omega/2\pi \sim 1\text{–}10\,\text{MHz}$) a full $\pi$ rotation takes on the order of $t_\pi \sim 100\,\text{ns}$. Every single-qubit gate in the rest of this series is a choice of axis, angle, and duration on the sphere you just played with.</p> <div class="sec-divider" aria-hidden="true">•••</div> <h2 id="4--two-spins-exchange">4 · Two spins: exchange</h2> <p>One spin gave us a qubit. To compute we need two qubits that can <em>interact</em>, and the interaction that couples neighbouring spins in a double dot is the <strong>exchange</strong> coupling. Where does it come from? Not from any magnetic force between the spins — that is absurdly weak. It comes from a charge process, dressed up by the Pauli principle.</p> <p>Put one electron in each dot — the $(1,1)$ charge state from §2. The tunnel barrier lets an electron briefly hop next door and back, and whether it <em>may</em> is decided by Pauli. If the two spins form a <strong>singlet</strong> (antisymmetric in spin), the orbital part may be symmetric, so both electrons are allowed to pile momentarily into the same dot — the $(0,2)$ state. If they form a <strong>triplet</strong> (symmetric in spin), they are forbidden from sharing the lowest orbital. Only the singlet gets to lower its energy through these virtual excursions to $(0,2)$, and second-order perturbation theory gives the size of the push-down:</p> \[J \approx \frac{4t^2}{U},\] <p>with $t$ the tunnel coupling and $U$ the cost of double occupancy <a class="citation" href="#burkard1999coupled">(Burkard et al., 1999)</a>. That singlet–triplet splitting <em>is</em> the exchange energy.</p> <p>Sit with that for a moment, because it is the condensed-matter jewel of the whole subject: a <strong>charge</strong> process — virtual tunnelling, set by a Coulomb energy — produces a <strong>spin</strong> interaction, purely because Pauli welds spin symmetry to orbital symmetry. We never wrote down a spin–spin force; it <em>emerged</em> from the question of who is allowed to be where. Packaged as a Heisenberg coupling, it reads</p> \[H_\text{exch} = J(\varepsilon)\,\mathbf{S}_1 \cdot \mathbf{S}_2 .\] <p>And here is why it is useful: $J$ is a <strong>knob</strong>. It depends on the detuning $\varepsilon$ and the barrier — pull the dots apart and $J \to 0$; push toward the $(1,1)$–$(0,2)$ anticrossing and $J$ swells, exponentially sensitive and switchable in <strong>nanoseconds</strong>. (Compare a fixed magnetic dipole coupling, which you are simply stuck with.) Turn $J$ on for a set time and the two spins partly trade places; the pulse that produces a half-swap, $\sqrt{\text{SWAP}}$, is an entangling two-qubit gate — together with the single-spin rotations of §3, that is a universal set <a class="citation" href="#loss1998quantum">(Loss &amp; DiVincenzo, 1998)</a>.</p> <p>There is a slicker way to use exchange, and it reorganises everything. Instead of one qubit per spin, encode <strong>one qubit in two spins</strong>, living in the $m=0$ subspace ${S, T_0}$. Now exchange is not the coupler between qubits — it is the qubit’s own <strong>z-axis</strong>: $J(\varepsilon)$ is the energy splitting between $S$ and $T_0$, so a pulse of $\varepsilon$ is a $z$-rotation. What supplies the <strong>x-axis</strong>? A magnetic field <em>difference</em> between the two dots, $\Delta B_z$, which couples $S$ and $T_0$ directly. In GaAs the always-present hyperfine field gradient — the very nuclear-spin noise that will torment single spins in §5 — can be pressed into service as exactly this control axis: a bug turned into a feature <a class="citation" href="#petta2005coherent">(Petta et al., 2005)</a>.</p> <p>Best of all, control and readout live in the same diagram. Sweep $\varepsilon$ to the right and the singlet dives into the $(0,2)$ dot while any triplet stays stuck in $(1,1)$ — <strong>Pauli spin blockade</strong> again — turning the spin state into the charge signal of §2. The plot below is the whole story on one axis: on the left (deep $(1,1)$) the tunable $J(\varepsilon)$ gap that runs the gates; on the right the singlet plunging into $(0,2)$ for readout. Drag $\varepsilon$, and toggle the gradient to open the $S$–$T_0$ avoided crossing that is the qubit’s x-axis.</p> <div style="border:1px solid var(--global-divider-color);border-radius:8px;padding:1rem;margin:1.5rem 0;"> <div id="dd1-mount"></div> <div style="display:flex;flex-wrap:wrap;gap:1.25rem;align-items:center;justify-content:center;margin-top:0.75rem;font-size:0.9rem;"> <label style="display:flex;align-items:center;gap:0.5rem;"> detuning ε <input id="dd1-eps" type="range" min="-6" max="6" step="0.1" value="-2"/> <span id="dd1-eps-val" style="min-width:3em;font-variant-numeric:tabular-nums;">−2.0</span> </label> <label style="display:flex;align-items:center;gap:0.4rem;cursor:pointer;"> <input id="dd1-grad" type="checkbox"/> magnetic gradient ΔB<sub>z</sub> </label> </div> </div> <script src="/assets/js/double-dot-levels.js"></script> <script>
+  (function () {
+    var mount = document.getElementById("dd1-mount");
+    if (!mount || typeof createDoubleDotLevels !== "function") return;
+    var dd = createDoubleDotLevels(mount, { eps: -2, gradVal: 0.6 });
+    var e = document.getElementById("dd1-eps"), ev = document.getElementById("dd1-eps-val");
+    e.addEventListener("input", function () { dd.setEps(e.value); ev.textContent = (+e.value).toFixed(1); });
+    document.getElementById("dd1-grad").addEventListener("change", function () { dd.setGradient(this.checked); });
+  })();
+</script> <p>One last step completes a pattern. §3 controlled a single spin with a microwave drive; here two spins gave us both a qubit and an entangling gate. Push once more: <strong>three</strong> spins in a row, coupled by exchange <em>alone</em>, can encode a qubit and perform every gate with no microwave drive at all — “exchange-only” operation, universal from a single tunable interaction <a class="citation" href="#divincenzo2000universal">(DiVincenzo et al., 2000)</a>. One spin, two spins, three spins; each rung adds a layer of control, and exchange is the thread running up the ladder.</p> <div class="sec-divider" aria-hidden="true">•••</div> <h2 id="5--coherence-and-its-enemies">5 · Coherence and its enemies</h2> <p>We can now trap a spin, rotate it, couple two of them, and read them out. The hardest question is the one left: how long does the quantum information survive? Three timescales tell the story. <strong>$T_1$</strong> is the relaxation time — how long before the spin flips from excited to ground, dumping its energy into the environment; for spins this is mercifully long, often milliseconds to seconds. <strong>$T_2$</strong> is the coherence time — how long a superposition keeps its phase; this is the one that hurts. And <strong>$T_2^{\ast}$</strong> is the coherence you actually measure in a plain experiment, cut short by <em>slow</em> noise that varies from one shot to the next. The gap between $T_2$ and $T_2^{\ast}$ is the whole game — and it is where the next post lives.</p> <p>Two enemies dominate, and each is an old friend from an earlier section.</p> <p>The first is <strong>hyperfine coupling</strong> to the nuclei of the host. In GaAs every atom carries a nuclear spin, so the electron sits in a bath of $\sim\,10^5$–$10^6$ tiny magnets whose net field — the Overhauser field — drifts slowly and randomly. The electron’s Larmor frequency wanders with it, scrambling the phase and giving a dishearteningly short $T_2^{\ast} \sim 10\,\text{ns}$ in GaAs. There are two escapes: purify the host to nearly spin-free $^{28}$Si so the bath all but vanishes <a class="citation" href="#veldhorst2015two">(Veldhorst et al., 2015)</a>, or — because the field drifts <em>slowly</em> — refocus it with echo pulses, which is exactly the doorway into dynamical decoupling <a class="citation" href="#petta2005coherent">(Petta et al., 2005)</a>.</p> <p>The second enemy is the sharper irony. Everything that made the spin <em>controllable</em> in §3 and §4 — EDSR, exchange, the electric knob on $\varepsilon$ — coupled it to electric fields. And electric fields are noisy: charges trap and release in the oxide and at interfaces, jittering the very potentials that define the dots. <strong>Charge noise</strong> is the price of electrical control <a class="citation" href="#burkard2023semiconductor">(Burkard et al., 2023)</a>.</p> <p class="thread-note"><span class="thread-label">The through-line</span> And there is the bill. §1 warned that isolation and control are one knob turned opposite ways; charge noise is what you pay for turning it toward control.</p> <p>Put a number on it. Even a good $T_2^{\ast} \sim 1\,\mu\text{s}$ against $\sim 100\,\text{ns}$ gates leaves only $\sim 10^3$–$10^4$ operations before coherence is gone — not enough for a fault-tolerant machine. But here is the hopeful part, and the hook for what comes next: much of this noise is <em>slow</em>, and slow noise can be undone. Keep flipping the qubit so the wandering error averages away — <strong>dynamical decoupling</strong> — and the effective coherence time stretches by orders of magnitude. That is the subject of the next post.</p> <div class="sec-divider" aria-hidden="true">•••</div> <h2 id="6--the-landscape">6 · The landscape</h2> <p>Gate-defined dots are not the only way to hold a spin, and the alternatives are worth a glance — each strikes a different bargain with the same isolation-versus-control trade-off.</p> <p><strong>Donors.</strong> Instead of trapping an electron under a gate, use the electron or nuclear spin of a single phosphorus atom implanted in silicon — the idea Kane proposed in 1998 <a class="citation" href="#kane1998silicon">(Kane, 1998)</a>. In isotopically purified $^{28}$Si these spins hold coherence records — seconds for the nuclear spin. The price is placement: putting individual atoms exactly where you want them, and wiring up to them, is brutally hard.</p> <p><strong>Hole spins.</strong> Use the <em>absence</em> of an electron — a hole — instead. Holes carry strong spin–orbit coupling, so they can be driven all-electrically and fast, with no micromagnet, in silicon or germanium. The same spin–orbit that buys the speed also opens fresh noise channels, so it is a trade rather than a free lunch — but it is one of the field’s liveliest frontiers.</p> <p><strong>NV centres.</strong> A nitrogen–vacancy defect in diamond is a different regime entirely: an optically addressable spin that works at room temperature, prized less for building processors than for quantum <em>sensing</em> — magnetometry at the nanoscale.</p> <p>Every one of these — gate dots, donors, holes, NV centres, and the silicon two-qubit gates now emerging <a class="citation" href="#veldhorst2015two">(Veldhorst et al., 2015)</a> — is answering the question we started with: how do you isolate a quantum system well enough to keep it, yet couple to it well enough to use it? The whole field is a catalogue of answers to that single tension. Which is where we came in.</p> <div class="sec-divider" aria-hidden="true">•••</div> <h2 id="references">References</h2> <h2 class="bibliography">2023</h2> <ol class="bibliography"><li><div class="row"> <div class="col col-sm-2 abbr"> </div> <div id="burkard2023semiconductor" class="col-sm-8"> <div class="title">Semiconductor spin qubits</div> <div class="author"> Guido Burkard, Thaddeus D. Ladd, Andrew Pan, and <span class="more-authors" title="click to view 2 more authors" onclick=" var element=this; element.setAttribute('title', ''); var more_authors_text=element.textContent == '2 more authors' ? 'John M. Nichol, Jason R. Petta' : '2 more authors'; var cursorPosition=0; var textAdder=setInterval(function(){ element.innerHTML = more_authors_text.substring(0, cursorPosition + 1); if (++cursorPosition == more_authors_text.length){ clearInterval(textAdder); } }, '10'); ">2 more authors</span> </div> <div class="periodical"> <em>Reviews of Modern Physics</em>, 2023 </div> <div class="periodical"> </div> <div class="links"> <a href="https://doi.org/10.1103/RevModPhys.95.025003" class="btn btn-sm z-depth-0" role="button">DOI</a> </div> </div> </div> </li></ol> <h2 class="bibliography">2021</h2> <ol class="bibliography"><li><div class="row"> <div class="col col-sm-2 abbr"> </div> <div id="chatterjee2021semiconductor" class="col-sm-8"> <div class="title">Semiconductor qubits in practice</div> <div class="author"> Anasua Chatterjee, Paul Stevenson, Silvano De Franceschi, and <span class="more-authors" title="click to view 3 more authors" onclick=" var element=this; element.setAttribute('title', ''); var more_authors_text=element.textContent == '3 more authors' ? 'Andrea Morello, Nathalie P. Leon, Ferdinand Kuemmeth' : '3 more authors'; var cursorPosition=0; var textAdder=setInterval(function(){ element.innerHTML = more_authors_text.substring(0, cursorPosition + 1); if (++cursorPosition == more_authors_text.length){ clearInterval(textAdder); } }, '10'); ">3 more authors</span> </div> <div class="periodical"> <em>Nature Reviews Physics</em>, 2021 </div> <div class="periodical"> </div> <div class="links"> <a href="https://doi.org/10.1038/s42254-021-00283-9" class="btn btn-sm z-depth-0" role="button">DOI</a> </div> </div> </div> </li></ol> <h2 class="bibliography">2015</h2> <ol class="bibliography"><li><div class="row"> <div class="col col-sm-2 abbr"> </div> <div id="veldhorst2015two" class="col-sm-8"> <div class="title">A two-qubit logic gate in silicon</div> <div class="author"> M. Veldhorst, C. H. Yang, J. C. C. Hwang, and <span class="more-authors" title="click to view 9 more authors" onclick=" var element=this; element.setAttribute('title', ''); var more_authors_text=element.textContent == '9 more authors' ? 'W. Huang, J. P. Dehollain, J. T. Muhonen, S. Simmons, A. Laucht, F. E. Hudson, K. M. Itoh, A. Morello, A. S. Dzurak' : '9 more authors'; var cursorPosition=0; var textAdder=setInterval(function(){ element.innerHTML = more_authors_text.substring(0, cursorPosition + 1); if (++cursorPosition == more_authors_text.length){ clearInterval(textAdder); } }, '10'); ">9 more authors</span> </div> <div class="periodical"> <em>Nature</em>, 2015 </div> <div class="periodical"> </div> <div class="links"> <a href="https://doi.org/10.1038/nature15263" class="btn btn-sm z-depth-0" role="button">DOI</a> </div> </div> </div> </li></ol> <h2 class="bibliography">2007</h2> <ol class="bibliography"><li><div class="row"> <div class="col col-sm-2 abbr"> </div> <div id="hanson2007spins" class="col-sm-8"> <div class="title">Spins in few-electron quantum dots</div> <div class="author"> R. Hanson, L. P. Kouwenhoven, J. R. Petta, and <span class="more-authors" title="click to view 2 more authors" onclick=" var element=this; element.setAttribute('title', ''); var more_authors_text=element.textContent == '2 more authors' ? 'S. Tarucha, L. M. K. Vandersypen' : '2 more authors'; var cursorPosition=0; var textAdder=setInterval(function(){ element.innerHTML = more_authors_text.substring(0, cursorPosition + 1); if (++cursorPosition == more_authors_text.length){ clearInterval(textAdder); } }, '10'); ">2 more authors</span> </div> <div class="periodical"> <em>Reviews of Modern Physics</em>, 2007 </div> <div class="periodical"> </div> <div class="links"> <a href="https://doi.org/10.1103/RevModPhys.79.1217" class="btn btn-sm z-depth-0" role="button">DOI</a> </div> </div> </div> </li></ol> <h2 class="bibliography">2005</h2> <ol class="bibliography"><li><div class="row"> <div class="col col-sm-2 abbr"> </div> <div id="petta2005coherent" class="col-sm-8"> <div class="title">Coherent manipulation of coupled electron spins in semiconductor quantum dots</div> <div class="author"> J. R. Petta, A. C. Johnson, J. M. Taylor, and <span class="more-authors" title="click to view 6 more authors" onclick=" var element=this; element.setAttribute('title', ''); var more_authors_text=element.textContent == '6 more authors' ? 'E. A. Laird, A. Yacoby, M. D. Lukin, C. M. Marcus, M. P. Hanson, A. C. Gossard' : '6 more authors'; var cursorPosition=0; var textAdder=setInterval(function(){ element.innerHTML = more_authors_text.substring(0, cursorPosition + 1); if (++cursorPosition == more_authors_text.length){ clearInterval(textAdder); } }, '10'); ">6 more authors</span> </div> <div class="periodical"> <em>Science</em>, 2005 </div> <div class="periodical"> </div> <div class="links"> <a href="https://doi.org/10.1126/science.1116955" class="btn btn-sm z-depth-0" role="button">DOI</a> </div> </div> </div> </li></ol> <h2 class="bibliography">2004</h2> <ol class="bibliography"><li><div class="row"> <div class="col col-sm-2 abbr"> </div> <div id="elzerman2004single" class="col-sm-8"> <div class="title">Single-shot read-out of an individual electron spin in a quantum dot</div> <div class="author"> J. M. Elzerman, R. Hanson, L. H. Beveren, and <span class="more-authors" title="click to view 3 more authors" onclick=" var element=this; element.setAttribute('title', ''); var more_authors_text=element.textContent == '3 more authors' ? 'B. Witkamp, L. M. K. Vandersypen, L. P. Kouwenhoven' : '3 more authors'; var cursorPosition=0; var textAdder=setInterval(function(){ element.innerHTML = more_authors_text.substring(0, cursorPosition + 1); if (++cursorPosition == more_authors_text.length){ clearInterval(textAdder); } }, '10'); ">3 more authors</span> </div> <div class="periodical"> <em>Nature</em>, 2004 </div> <div class="periodical"> </div> <div class="links"> <a href="https://doi.org/10.1038/nature02693" class="btn btn-sm z-depth-0" role="button">DOI</a> </div> </div> </div> </li></ol> <h2 class="bibliography">2002</h2> <ol class="bibliography"><li><div class="row"> <div class="col col-sm-2 abbr"> </div> <div id="vanderwiel2002electron" class="col-sm-8"> <div class="title">Electron transport through double quantum dots</div> <div class="author"> W. G. Wiel, S. De Franceschi, J. M. Elzerman, and <span class="more-authors" title="click to view 3 more authors" onclick=" var element=this; element.setAttribute('title', ''); var more_authors_text=element.textContent == '3 more authors' ? 'T. Fujisawa, S. Tarucha, L. P. Kouwenhoven' : '3 more authors'; var cursorPosition=0; var textAdder=setInterval(function(){ element.innerHTML = more_authors_text.substring(0, cursorPosition + 1); if (++cursorPosition == more_authors_text.length){ clearInterval(textAdder); } }, '10'); ">3 more authors</span> </div> <div class="periodical"> <em>Reviews of Modern Physics</em>, 2002 </div> <div class="periodical"> </div> <div class="links"> <a href="https://doi.org/10.1103/RevModPhys.75.1" class="btn btn-sm z-depth-0" role="button">DOI</a> </div> </div> </div> </li> <li><div class="row"> <div class="col col-sm-2 abbr"> </div> <div id="ono2002current" class="col-sm-8"> <div class="title">Current rectification by Pauli exclusion in a weakly coupled double quantum dot system</div> <div class="author"> K. Ono, D. G. Austing, Y. Tokura, and <span class="more-authors" title="click to view 1 more author" onclick=" var element=this; element.setAttribute('title', ''); var more_authors_text=element.textContent == '1 more author' ? 'S. Tarucha' : '1 more author'; var cursorPosition=0; var textAdder=setInterval(function(){ element.innerHTML = more_authors_text.substring(0, cursorPosition + 1); if (++cursorPosition == more_authors_text.length){ clearInterval(textAdder); } }, '10'); ">1 more author</span> </div> <div class="periodical"> <em>Science</em>, 2002 </div> <div class="periodical"> </div> <div class="links"> <a href="https://doi.org/10.1126/science.1070958" class="btn btn-sm z-depth-0" role="button">DOI</a> </div> </div> </div> </li></ol> <h2 class="bibliography">2000</h2> <ol class="bibliography"><li><div class="row"> <div class="col col-sm-2 abbr"> </div> <div id="divincenzo2000universal" class="col-sm-8"> <div class="title">Universal quantum computation with the exchange interaction</div> <div class="author"> D. P. DiVincenzo, D. Bacon, J. Kempe, and <span class="more-authors" title="click to view 2 more authors" onclick=" var element=this; element.setAttribute('title', ''); var more_authors_text=element.textContent == '2 more authors' ? 'G. Burkard, K. B. Whaley' : '2 more authors'; var cursorPosition=0; var textAdder=setInterval(function(){ element.innerHTML = more_authors_text.substring(0, cursorPosition + 1); if (++cursorPosition == more_authors_text.length){ clearInterval(textAdder); } }, '10'); ">2 more authors</span> </div> <div class="periodical"> <em>Nature</em>, 2000 </div> <div class="periodical"> </div> <div class="links"> <a href="https://doi.org/10.1038/35042541" class="btn btn-sm z-depth-0" role="button">DOI</a> </div> </div> </div> </li></ol> <h2 class="bibliography">1999</h2> <ol class="bibliography"><li><div class="row"> <div class="col col-sm-2 abbr"> </div> <div id="burkard1999coupled" class="col-sm-8"> <div class="title">Coupled quantum dots as quantum gates</div> <div class="author"> Guido Burkard, Daniel Loss, and David P. DiVincenzo </div> <div class="periodical"> <em>Physical Review B</em>, 1999 </div> <div class="periodical"> </div> <div class="links"> <a href="https://doi.org/10.1103/PhysRevB.59.2070" class="btn btn-sm z-depth-0" role="button">DOI</a> </div> </div> </div> </li></ol> <h2 class="bibliography">1998</h2> <ol class="bibliography"><li><div class="row"> <div class="col col-sm-2 abbr"> </div> <div id="loss1998quantum" class="col-sm-8"> <div class="title">Quantum computation with quantum dots</div> <div class="author"> Daniel Loss and David P. DiVincenzo </div> <div class="periodical"> <em>Physical Review A</em>, 1998 </div> <div class="periodical"> </div> <div class="links"> <a href="https://doi.org/10.1103/PhysRevA.57.120" class="btn btn-sm z-depth-0" role="button">DOI</a> </div> </div> </div> </li> <li><div class="row"> <div class="col col-sm-2 abbr"> </div> <div id="kane1998silicon" class="col-sm-8"> <div class="title">A silicon-based nuclear spin quantum computer</div> <div class="author"> B. E. Kane </div> <div class="periodical"> <em>Nature</em>, 1998 </div> <div class="periodical"> </div> <div class="links"> <a href="https://doi.org/10.1038/30156" class="btn btn-sm z-depth-0" role="button">DOI</a> </div> </div> </div> </li></ol> <blockquote class="block-tip"> <h5 id="about-this-post">ABOUT THIS POST</h5> <p>A learning-in-public post: I write these to teach myself the physics behind my PhD, with <strong>Claude AI</strong> as a collaborator. The direction and the physics-checking are mine — corrections welcome!</p> </blockquote>]]></content><author><name></name></author><category term="spin-qubits"/><category term="quantum-computing"/><category term="spin-qubits"/><summary type="html"><![CDATA[How you build a qubit out of a single electron spin — trapping it, driving it, coupling two of them, and the coherence price you pay for control.]]></summary></entry></feed>
