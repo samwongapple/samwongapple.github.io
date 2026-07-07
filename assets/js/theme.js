@@ -291,6 +291,12 @@ let initTheme = () => {
     mode_toggle.addEventListener("click", function () {
       toggleThemeSetting();
     });
+
+    // Local override: drop the built-in "Theme" commands from the Cmd-K search palette.
+    const ninja = document.querySelector("ninja-keys");
+    if (ninja && Array.isArray(ninja.data)) {
+      ninja.data = ninja.data.filter((item) => item.section !== "Theme");
+    }
   });
 
   // Add event listener to the system theme preference change.
