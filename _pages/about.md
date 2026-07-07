@@ -26,4 +26,4 @@ latest_posts:
 
 I'm Sam Wong, a PhD student in Physics at the University of British Columbia. I work on the theory of spin qubits — exploring how electron and nuclear spins in solid-state systems can be controlled, protected, and scaled into quantum processors. My research sits at the intersection of quantum computing and condensed matter physics.
 
-This site is mostly my **[blog](/blog/)** — a learning-in-public record where I work through the physics behind spin qubits (dynamical decoupling, decoherence, multi-qubit gates, host materials), building intuition first and reaching for formalism second. Posts lean on interactive [animations](/animations/) to make the ideas visual.
+This site is mostly my **[blog](/blog/)** — a learning-in-public record where I work through the physics behind spin qubits (dynamical decoupling, decoherence, multi-qubit gates, host materials), building intuition first and reaching for formalism second. Posts lean on interactive animations and visualisations to build intuition as the ideas form.

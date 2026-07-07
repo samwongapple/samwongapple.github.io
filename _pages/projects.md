@@ -3,7 +3,7 @@ layout: page
 title: animations
 permalink: /animations/
 description: Interactive demos and visualizations of quantum systems and spin dynamics.
-nav: true
+nav: false
 nav_order: 3
 horizontal: false
 ---

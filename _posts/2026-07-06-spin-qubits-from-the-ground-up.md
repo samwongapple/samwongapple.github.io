@@ -692,7 +692,7 @@ Which is where we came in.
 
 ## References
 
-{% bibliography --file refs_spin_qubits --cited %}
+{% bibliography --file refs_spin_qubits --cited --group_by none %}
 
 > ##### ABOUT THIS POST
 >
