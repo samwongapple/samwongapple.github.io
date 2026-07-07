@@ -175,6 +175,9 @@ newsletter:
 collections:
   projects:
     output: true
+  programming:
+    output: true
+    permalink: /programming/:title/
 
 # -----------------------------------------------------------------------------
 # Jekyll settings
