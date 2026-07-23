@@ -1,0 +1,52 @@
+# -----------------------------------------------------------------------------
+# Production-only config overlay
+# -----------------------------------------------------------------------------
+# This file is layered ON TOP of _config.yml **only in the public deploy build**
+# (see .github/workflows/deploy.yml:
+#   `jekyll build --config _config.yml,_config_prod.yml`).
+#
+# Purpose: keep the `blog` and `programming` sections PRIVATE. They stay in the
+# repo and render normally on a LOCAL build — `bundle exec jekyll serve`, which
+# uses _config.yml alone — so you can keep reading and studying them. But they
+# are unpublished from the live GitHub Pages site: no post pages, no listing
+# pages, no navbar links, no sitemap or RSS entries.
+#
+# HOW: Jekyll REPLACES arrays across configs (it does not concatenate). So this
+# re-declares the full `exclude:` list from _config.yml verbatim and appends the
+# private paths at the bottom. If you ever edit `exclude:` in _config.yml, mirror
+# the change here so the two lists stay in sync.
+#
+# To publish a section again, delete its lines from the appended block below.
+# -----------------------------------------------------------------------------
+
+exclude:
+  # --- verbatim copy of the base exclude list from _config.yml ---
+  - al-folio-upgrade-report.md
+  - bin/
+  - CONTRIBUTING.md
+  - CUSTOMIZE.md
+  - Dockerfile
+  - docker-compose.yml
+  - docker-compose-slim.yml
+  - docs/
+  - FAQ.md
+  - Gemfile
+  - Gemfile.lock
+  - INSTALL.md
+  - LICENSE
+  - lighthouse_results/
+  - package.json
+  - package-lock.json
+  - _pages/about_einstein.md
+  - purgecss.config.js
+  - README.md
+  - readme_preview/
+  - gems/
+  - migrations/
+  - vendor
+  # --- private sections: kept local, excluded from the public build ---
+  - _posts # blog posts
+  - _programming # programming notes collection
+  - _pages/blog.md # blog listing page (+ its navbar link)
+  - _pages/programming.md # programming listing page (+ its navbar link)
+  - _config_prod.yml # don't copy this overlay into the built site

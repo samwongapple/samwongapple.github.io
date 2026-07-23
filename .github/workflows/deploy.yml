@@ -96,7 +96,9 @@ jobs:
           sudo apt-get update && sudo apt-get install -y imagemagick
           pip3 install --upgrade nbconvert
           export JEKYLL_ENV=production
-          bundle exec jekyll build
+          # _config_prod.yml unpublishes the private blog + programming sections
+          # from the public site (they still build locally via _config.yml alone).
+          bundle exec jekyll build --config _config.yml,_config_prod.yml
       - name: Purge unused CSS 🧹
         run: |
           npm install -g purgecss
