@@ -8,11 +8,12 @@ middle_name:
 last_name: Wong
 contact_note:
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
-  PhD student in Physics at UBC — quantum computing and condensed matter theory, currently focused on spin qubits.
+  PhD student in Physics at UBC — quantum computing and condensed matter theory. Free fermions and matchgates,
+  influence matrices, and ZX calculus for quantum error correction.
 footer_text: >
   Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
   Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
-keywords: spin qubits, quantum computing, condensed matter physics, quantum information, UBC # add your own keywords or leave empty
+keywords: free fermions, matchgates, influence matrix, ZX calculus, quantum error correction, tensor networks, quantum computing, condensed matter physics, spin qubits, UBC # add your own keywords or leave empty
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: ⚛️ # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
 
@@ -121,7 +122,7 @@ bing_site_verification: # out your bing-site-verification ID (Bing Webmaster)
 # -----------------------------------------------------------------------------
 
 blog_name: blog # blog_name will be displayed in your blog page
-blog_description: notes on spin qubits, quantum computing, and physics
+blog_description: learning notes on free fermions, matchgates, influence matrices, and the structures that make many-body quantum systems computable
 permalink: /blog/:year/:title/
 lsi: false # produce an index for related posts
 
@@ -314,8 +315,16 @@ jekyll-archives:
       tags: "/blog/:type/:name/"
       categories: "/blog/:type/:name/"
 
-display_tags: ["formatting", "images", "links", "math", "code", "blockquotes"] # these tags will be displayed on the front page of your blog
-display_categories: ["external-services"] # these categories will be displayed on the front page of your blog
+# Only list tags/categories that ACTUALLY exist in _posts — jekyll-archives builds an
+# archive page per existing tag/category, so naming one with no posts yields a dead link.
+# As each new thread's first post lands, add its category here:
+#   matchgates · zx-calculus
+#
+# NOTE: /blog/ groups posts into threads from _data/blog_threads.yml, so it renders the
+# `display_tags` strip but NOT `display_categories` — thread sections replaced it.
+# `display_categories` is kept in sync only for the category archive pages.
+display_tags: ["free-fermions", "entanglement", "majorana", "spin-qubits", "decoherence", "influence-matrix", "tensor-networks"] # these tags will be displayed on the front page of your blog
+display_categories: ["free-fermions", "spin-qubits", "influence-matrix"] # these categories will be displayed on the front page of your blog
 
 # -----------------------------------------------------------------------------
 # Jekyll Scholar

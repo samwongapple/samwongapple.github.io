@@ -1,0 +1,40 @@
+# -----------------------------------------------------------------------------
+# Blog threads — drives the topic grouping on /blog/
+# -----------------------------------------------------------------------------
+# Each entry renders as one section on the blog page. `slug` must match a post's
+# `categories:` value; posts inside a thread are listed in READING ORDER (oldest
+# first), since each post opens on the previous one's hook.
+#
+# Threads with no posts yet are skipped automatically — so entries below can be
+# declared before their first post exists.
+#
+# Order here = order on the page.
+#
+# To start a new thread:
+#   1. add an entry here
+#   2. set `categories: [<slug>]` in the post's front matter
+#   3. add <slug> to `display_categories` in _config.yml (only once it has a post,
+#      or the archive link 404s)
+#
+# Any post whose category is not listed here still appears, under "Other notes".
+# -----------------------------------------------------------------------------
+
+- slug: free-fermions
+  name: Free fermions
+  blurb: When the exponential collapses into one matrix — Gaussian states, the correlation matrix, and reading entanglement off its eigenvalues.
+
+- slug: matchgates
+  name: Matchgates
+  blurb: The same physics wearing a circuit-model costume — efficiently simulable, until a single gate from outside the family hands back universality.
+
+- slug: influence-matrix
+  name: Influence matrices
+  blurb: Compression moved from space into time — an environment's effect on a subsystem as an object whose temporal entanglement stays low.
+
+- slug: zx-calculus
+  name: ZX calculus & error correction
+  blurb: A graphical rewriting language for quantum circuits, and what it buys you when pointed at quantum error correction.
+
+- slug: spin-qubits
+  name: Spin qubits
+  blurb: Building a qubit out of a single electron spin — trapping it, driving it, and the coherence price you pay for control.
