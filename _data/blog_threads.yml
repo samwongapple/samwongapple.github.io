@@ -31,6 +31,10 @@
   name: Influence matrices
   blurb: Compression moved from space into time — an environment's effect on a subsystem as an object whose temporal entanglement stays low.
 
+- slug: kibble-zurek
+  name: Kibble–Zurek
+  blurb: What a phase transition crossed at finite speed leaves behind — adiabaticity failing at a closing gap, and the claim that the wreckage obeys a universal power law.
+
 - slug: zx-calculus
   name: ZX calculus & error correction
   blurb: A graphical rewriting language for quantum circuits, and what it buys you when pointed at quantum error correction.

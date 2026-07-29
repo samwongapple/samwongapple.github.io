@@ -318,14 +318,44 @@ Trapping the electron is only half the job — we also have to *read it out*, an
 hides a problem: a single spin's magnetic moment is far too faint to detect directly. The
 trick is **spin-to-charge conversion** — arrange things so the spin decides whether the
 electron can *move*, then detect the motion instead. In Elzerman readout {% cite elzerman2004single --file refs_spin_qubits %} you tune the dot
-so a spin-up electron has just enough energy to tunnel out to a nearby reservoir while a
-spin-down electron does not; the spin state becomes a charge-tunnelling event. A second
+so the higher-energy spin state has just enough energy to tunnel out to a nearby reservoir
+while the lower-energy one does not; the spin state becomes a charge-tunnelling event. A second
 mechanism we'll meet in Section 4 — **Pauli spin blockade**, where two electrons may share
 one dot only if their spins form a singlet {% cite ono2002current --file refs_spin_qubits %} — turns a *two*-spin state into a charge signal
 the same way. Either route, we never measure the spin directly: we build a situation where
 a charge has to move if and only if the spin is in a particular state, and then we watch
 the charge with a nearby electrometer (a quantum point contact or single-electron
 transistor). We never ask the spin what it's doing — we get a charge to snitch on it.
+
+<div style="border:1px solid var(--global-divider-color);border-radius:8px;padding:1rem;margin:1.5rem 0;">
+  <div id="elz-mount"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:0.6rem;align-items:center;justify-content:center;margin-top:0.75rem;font-size:0.9rem;">
+    <span style="opacity:0.8;">prepare spin:</span>
+    <button id="elz-up" type="button" style="cursor:pointer;padding:0.25rem 0.7rem;border-radius:6px;border:1px solid var(--global-divider-color);background:transparent;color:var(--global-text-color);">↑ excited</button>
+    <button id="elz-down" type="button" style="cursor:pointer;padding:0.25rem 0.7rem;border-radius:6px;border:1px solid var(--global-divider-color);background:transparent;color:var(--global-text-color);">↓ ground</button>
+    <button id="elz-run" type="button" style="cursor:pointer;padding:0.25rem 0.7rem;border-radius:6px;border:1px solid var(--global-theme-color);background:transparent;color:var(--global-theme-color);">▶ run readout</button>
+  </div>
+  <p style="font-size:0.85rem;opacity:0.8;max-width:34rem;margin:0.75rem auto 0;text-align:center;">
+    Energy-selective readout: the reservoir level μ sits between the two spin states. Only the
+    higher-energy (excited) electron can tunnel out — the dot briefly empties and the charge
+    sensor blips; the ground state stays put and the trace is flat.
+  </p>
+</div>
+
+<script src="{{ '/assets/js/elzerman-readout.js' | relative_url }}"></script>
+<script>
+  (function () {
+    var mount = document.getElementById("elz-mount");
+    if (!mount || typeof createElzermanReadout !== "function") return;
+    var elz = createElzermanReadout(mount, { spin: "up" });
+    var up = document.getElementById("elz-up"), down = document.getElementById("elz-down"), run = document.getElementById("elz-run");
+    function setActive(w) { up.style.fontWeight = w === "up" ? "700" : "400"; down.style.fontWeight = w === "down" ? "700" : "400"; }
+    up.addEventListener("click", function () { elz.setSpin("up"); setActive("up"); });
+    down.addEventListener("click", function () { elz.setSpin("down"); setActive("down"); });
+    run.addEventListener("click", function () { run.disabled = true; elz.run(function () { run.disabled = false; }); });
+    setActive("up");
+  })();
+</script>
 
 One last choice colours everything downstream: the host material. GaAs was the workhorse
 for years — clean, well understood — but it carries a hidden tax we'll pay in Section 5:
@@ -520,11 +550,20 @@ handle that isolation took away — the same tension, resolved by clever enginee
 Once you can set $\Omega$ and $\Delta$, a **gate is just a timed pulse**. Sit on
 resonance ($\Delta = 0$) and leave the drive on for exactly half a Rabi period,
 $t_\pi = \pi/\Omega$: the Bloch vector rotates from the north pole to the south pole — an
-$X$ gate. Stop at a quarter period and you have a Hadamard-like $\pi/2$ rotation; change
+$X$ gate. Stop at a quarter period and you have a $\pi/2$ pulse, which rotates the spin from the pole onto the equator of the Bloch sphere — an equal superposition; change
 the drive's phase and you rotate about $y$ instead of $x$. With typical numbers
 ($\Omega/2\pi \sim 1\text{–}10\,\text{MHz}$) a full $\pi$ rotation takes on the order of
 $t_\pi \sim 100\,\text{ns}$. Every single-qubit gate in the rest of this series is a
 choice of axis, angle, and duration on the sphere you just played with.
+
+<div class="learn-more-box" markdown="0">
+{% details Why this is an equal superposition, not a Hadamard gate %}
+A $\pi/2$ rotation about $\hat{y}$ sends $\lvert 0\rangle \to (\lvert 0\rangle + \lvert 1\rangle)/\sqrt{2}$,
+exactly what the Hadamard gate does to $\lvert 0\rangle$. But they are not the same gate: Hadamard
+is a $\pi$ rotation about the $(\hat{x} + \hat{z})/\sqrt{2}$ axis. They agree on $\lvert 0\rangle$
+up to a global phase, not on general input states.
+{% enddetails %}
+</div>
 
 <div class="sec-divider" aria-hidden="true">•••</div>
 
@@ -609,6 +648,36 @@ qubit's x-axis.
     var e = document.getElementById("dd1-eps"), ev = document.getElementById("dd1-eps-val");
     e.addEventListener("input", function () { dd.setEps(e.value); ev.textContent = (+e.value).toFixed(1); });
     document.getElementById("dd1-grad").addEventListener("change", function () { dd.setGradient(this.checked); });
+  })();
+</script>
+
+<div style="border:1px solid var(--global-divider-color);border-radius:8px;padding:1rem;margin:1.5rem 0;">
+  <div id="psb-mount"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:0.6rem;align-items:center;justify-content:center;margin-top:0.75rem;font-size:0.9rem;">
+    <span style="opacity:0.8;">prepare state:</span>
+    <button id="psb-s" type="button" style="cursor:pointer;padding:0.25rem 0.7rem;border-radius:6px;border:1px solid var(--global-divider-color);background:transparent;color:var(--global-text-color);">singlet ↑↓</button>
+    <button id="psb-t" type="button" style="cursor:pointer;padding:0.25rem 0.7rem;border-radius:6px;border:1px solid var(--global-divider-color);background:transparent;color:var(--global-text-color);">triplet ↑↑</button>
+    <button id="psb-run" type="button" style="cursor:pointer;padding:0.25rem 0.7rem;border-radius:6px;border:1px solid var(--global-theme-color);background:transparent;color:var(--global-theme-color);">▶ attempt transfer</button>
+  </div>
+  <p style="font-size:0.85rem;opacity:0.8;max-width:34rem;margin:0.75rem auto 0;text-align:center;">
+    The same readout in real space: prepare a singlet (antiparallel) or triplet (parallel) and
+    attempt the (1,1)→(0,2) transfer. Pauli lets the singlet through — a charge moves — but
+    blocks the triplet, so the charge stays. That difference is the spin measurement.
+  </p>
+</div>
+
+<script src="{{ '/assets/js/pauli-blockade.js' | relative_url }}"></script>
+<script>
+  (function () {
+    var mount = document.getElementById("psb-mount");
+    if (!mount || typeof createPauliBlockade !== "function") return;
+    var psb = createPauliBlockade(mount, { mode: "singlet" });
+    var s = document.getElementById("psb-s"), tt = document.getElementById("psb-t"), run = document.getElementById("psb-run");
+    function setActive(w) { s.style.fontWeight = w === "s" ? "700" : "400"; tt.style.fontWeight = w === "t" ? "700" : "400"; }
+    s.addEventListener("click", function () { psb.setState("singlet"); setActive("s"); });
+    tt.addEventListener("click", function () { psb.setState("triplet"); setActive("t"); });
+    run.addEventListener("click", function () { run.disabled = true; psb.run(function () { run.disabled = false; }); });
+    setActive("s");
   })();
 </script>
 
