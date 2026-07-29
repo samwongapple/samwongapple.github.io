@@ -401,3 +401,5 @@ either would have alone.
 > code on my own machine and checked against exact diagonalization — the direction and the
 > physics-checking are mine. Corrections welcome!
 {: .block-tip }
+
+<script src="{{ '/assets/js/equation-numbers.js' | relative_url }}"></script>

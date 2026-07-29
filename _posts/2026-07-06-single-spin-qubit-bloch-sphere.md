@@ -168,3 +168,5 @@ This post deliberately exercises the whole toolkit so I can reuse it:
 
 Everything inherits the site's dark theme and teal accent automatically, because the
 widget reads its colours from the theme's CSS variables.
+
+<script src="{{ '/assets/js/equation-numbers.js' | relative_url }}"></script>

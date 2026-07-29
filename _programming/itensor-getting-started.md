@@ -87,3 +87,5 @@ Every entry in this section should hit these, so the section reads consistently:
 - **The math the code implements**, with inline math like $\chi$ and display math for
   anything worth setting off.
 - **A closing line** on what the example proves or what to try next.
+
+<script src="{{ '/assets/js/equation-numbers.js' | relative_url }}"></script>

@@ -770,3 +770,5 @@ Which is where we came in.
 > corrections welcome!
 {: .block-tip }
 
+
+<script src="{{ '/assets/js/equation-numbers.js' | relative_url }}"></script>

@@ -387,3 +387,5 @@ This table is load-bearing for §3: matchgate generators are built from rows 1�
 > **Claude AI** as a collaborator. The direction and the physics-checking are mine —
 > corrections welcome!
 {: .block-tip }
+
+<script src="{{ '/assets/js/equation-numbers.js' | relative_url }}"></script>

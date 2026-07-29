@@ -1026,3 +1026,5 @@ gaps vanish linearly in their distance from it.
 > **Claude AI** as a collaborator. The direction and the physics-checking are mine —
 > corrections welcome!
 {: .block-tip }
+
+<script src="{{ '/assets/js/equation-numbers.js' | relative_url }}"></script>
