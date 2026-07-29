@@ -1,0 +1,685 @@
+# -----------------------------------------------------------------------------
+# Concept registry — the vocabulary of the blog's knowledge graph
+# -----------------------------------------------------------------------------
+# This file names concepts. It does NOT record which post derives them: that
+# lives in post front matter (`provides` / `provides_planned` / `requires` /
+# `uses`) and is the single source of truth. Providers are resolved at build
+# time by scanning posts, so this file can never drift out of sync with them.
+#
+# Entry schema
+#   id      kebab-case slug. STABLE — never rename; front matter references it.
+#   name    human-readable title, used on /notation/ and in concept-links.
+#   symbol  canonical notation, or null. LaTeX without delimiters. When two
+#           concepts share a glyph that is a deliberate, documented collision —
+#           see docs/notation-collisions in CONTRIBUTING-posts.md.
+#   blurb   one line: what it is. Shown on hover and on /notation/.
+#   tags    [<thread>, <kind>]. First tag groups the notation page.
+#             threads: foundations · spin-qubits · decoherence · free-fermions
+#                      circuits-simulation · temporal-methods · critical-dynamics
+#             kinds:   prerequisite · model · formalism · technique · result
+#                      phenomenon · hardware
+#
+# Rules the validator enforces:
+#   - exactly one post may `provide` a given id (two = error, zero = warning)
+#   - every id here must be referenced by at least one post (else: dead entry)
+#   - every id in any post's lists must exist here
+#
+# Concepts with no provider are deliberate. Three kinds appear below, marked
+# in comments: (GAP) leaned on but never derived anywhere; (A2) reserved for
+# the planned free-fermion pairing post; (PLANNED) claimed via
+# `provides_planned` by a post whose section is scaffolded but unwritten.
+# -----------------------------------------------------------------------------
+
+# =============================================================================
+# FOUNDATIONS — assumed background. Every entry here is currently a GAP:
+# referenced by `requires`, derived by no post. That is accurate and expected;
+# they are candidates for a future foundations post, not bugs.
+# =============================================================================
+
+- id: pauli-algebra
+  name: "Pauli operators"
+  symbol: "X,\\; Y,\\; Z"
+  blurb: "The three single-qubit Hermitian involutions and their multiplication rules."
+  tags: [foundations, prerequisite]
+
+- id: bloch-sphere
+  name: "Bloch sphere and Bloch vector"
+  symbol: "\\mathbf{r} = \\langle \\boldsymbol{P} \\rangle"
+  blurb: "Pure single-qubit states as points on the unit sphere, via expectation values of X, Y, Z."
+  tags: [foundations, prerequisite]
+
+- id: zeeman-splitting
+  name: "Zeeman splitting"
+  symbol: "\\hbar\\omega_0 = g\\mu_B B_0"
+  blurb: "Energy splitting of a spin's two states in a static magnetic field."
+  tags: [foundations, prerequisite]
+
+- id: density-matrix
+  name: "Density matrix"
+  symbol: "\\rho"
+  blurb: "State description covering mixtures and subsystems; evolves by the von Neumann equation."
+  tags: [foundations, prerequisite]
+
+- id: partial-trace
+  name: "Partial trace and reduced states"
+  symbol: "\\rho_A = \\mathrm{Tr}_B\\,\\rho"
+  blurb: "Discarding a subsystem to get the state of what remains."
+  tags: [foundations, prerequisite]
+
+- id: von-neumann-entropy
+  name: "Von Neumann entropy"
+  symbol: "S = -\\mathrm{Tr}\\,\\rho\\ln\\rho"
+  blurb: "Entropy of a quantum state; for a pure global state it measures entanglement across a cut."
+  tags: [foundations, prerequisite]
+
+- id: second-quantization
+  name: "Second quantization"
+  symbol: "c_i^\\dagger,\\; c_i"
+  blurb: "Fermionic creation and annihilation operators and their anticommutation algebra."
+  tags: [foundations, prerequisite]
+
+- id: fock-space
+  name: "Fock space"
+  symbol: "\\lvert n_1 n_2 \\cdots \\rangle"
+  blurb: "Occupation-number basis for many identical particles."
+  tags: [foundations, prerequisite]
+
+- id: spectral-gap
+  name: "Spectral gap"
+  symbol: "\\Delta"
+  blurb: "Energy separation between the ground state and the first excited state."
+  tags: [foundations, prerequisite]
+
+- id: correlation-length
+  name: "Correlation length"
+  symbol: "\\xi"
+  blurb: "Distance over which correlations decay; diverges at a critical point."
+  tags: [foundations, prerequisite]
+
+- id: critical-exponents
+  name: "Critical exponents"
+  symbol: "\\nu,\\; z"
+  blurb: "Powers governing how correlation length and relaxation time diverge at a transition."
+  tags: [foundations, prerequisite]
+
+- id: conformal-central-charge
+  name: "Central charge"
+  symbol: "c"
+  blurb: "Label of a conformal field theory; sets the coefficient of critical entanglement scaling."
+  tags: [foundations, prerequisite]
+
+- id: quantum-phase-transition
+  name: "Quantum phase transition"
+  symbol: null
+  blurb: "A ground-state change of phase driven by a coupling rather than by temperature."
+  tags: [foundations, prerequisite]
+
+- id: central-limit-theorem
+  name: "Central limit theorem"
+  symbol: null
+  blurb: "Sums of many weak independent contributions are Gaussian regardless of their individual law."
+  tags: [foundations, prerequisite]
+
+- id: tensor-network-diagrams
+  name: "Tensor-network diagrams"
+  symbol: null
+  blurb: "Graphical notation for tensors and contraction; legs are indices, joins are sums."
+  tags: [foundations, prerequisite]
+
+- id: matrix-product-states
+  name: "Matrix product states"
+  symbol: "\\chi"
+  blurb: "One-dimensional tensor-network ansatz whose bond dimension bounds the entanglement it can carry."
+  tags: [foundations, prerequisite]
+
+# =============================================================================
+# SPIN QUBITS — canonical home: "Spin Qubits from the Ground Up"
+# =============================================================================
+
+- id: quantum-dot
+  name: "Gate-defined quantum dot"
+  symbol: null
+  blurb: "An artificial atom: gate voltages sculpt a 2DEG into a well holding a countable number of electrons."
+  tags: [spin-qubits, hardware]
+
+- id: coulomb-blockade
+  name: "Coulomb blockade"
+  symbol: "E_c"
+  blurb: "Charging energy pins the electron number to an integer when it exceeds the thermal energy."
+  tags: [spin-qubits, phenomenon]
+
+- id: charge-stability-diagram
+  name: "Charge stability diagram"
+  symbol: "(N_L, N_R)"
+  blurb: "The honeycomb of stable charge states of a double dot versus its two gate voltages."
+  tags: [spin-qubits, result]
+
+- id: double-dot-detuning
+  name: "Double-dot detuning"
+  symbol: "\\varepsilon"
+  blurb: "The gate-voltage combination that drives a double dot across the (1,1)–(0,2) interdot transition."
+  tags: [spin-qubits, technique]
+
+- id: spin-to-charge-conversion
+  name: "Spin-to-charge conversion"
+  symbol: null
+  blurb: "Reading a spin by arranging for it to decide whether a charge may move, then watching the charge."
+  tags: [spin-qubits, technique]
+
+- id: elzerman-readout
+  name: "Elzerman readout"
+  symbol: null
+  blurb: "Energy-selective readout: only the excited spin state can tunnel out to the reservoir."
+  tags: [spin-qubits, technique]
+
+- id: pauli-spin-blockade
+  name: "Pauli spin blockade"
+  symbol: null
+  blurb: "Two electrons may share one dot only as a singlet, turning a two-spin state into a charge signal."
+  tags: [spin-qubits, phenomenon]
+
+- id: larmor-precession
+  name: "Larmor precession"
+  symbol: "\\omega_0"
+  blurb: "Transverse spin components rotate about the static field at the Larmor frequency."
+  tags: [spin-qubits, phenomenon]
+
+- id: esr-drive
+  name: "Electron spin resonance drive"
+  symbol: "B_1"
+  blurb: "A small oscillating transverse magnetic field, the raw control handle on a spin."
+  tags: [spin-qubits, technique]
+
+- id: rotating-wave-approximation
+  name: "Rotating frame and the RWA"
+  symbol: null
+  blurb: "Co-rotating with the drive and dropping the 2ω counter-rotating term makes the Hamiltonian static."
+  tags: [spin-qubits, technique]
+
+- id: drive-detuning
+  name: "Drive detuning"
+  symbol: "\\Delta = \\omega_0 - \\omega"
+  blurb: "How far the drive sits from resonance; tilts the rotation axis toward z."
+  tags: [spin-qubits, formalism]
+
+- id: rabi-oscillations
+  name: "Rabi oscillations"
+  symbol: "\\Omega"
+  blurb: "Driven population flopping between the two levels at the drive strength Ω."
+  tags: [spin-qubits, phenomenon]
+
+- id: generalized-rabi-frequency
+  name: "Generalized Rabi frequency"
+  symbol: "\\Omega_R = \\sqrt{\\Omega^2 + \\Delta^2}"
+  blurb: "Rate of precession about the tilted axis; detuning speeds the oscillation and cuts its contrast."
+  tags: [spin-qubits, result]
+
+- id: single-qubit-gate-as-pulse
+  name: "Gates as timed pulses"
+  symbol: "t_\\pi = \\pi/\\Omega"
+  blurb: "A single-qubit gate is a choice of axis, angle and duration on the Bloch sphere."
+  tags: [spin-qubits, technique]
+
+- id: edsr
+  name: "Electric-dipole spin resonance"
+  symbol: null
+  blurb: "Shaking the electron spatially with an electric gate, converted to a spin drive by a gradient or spin–orbit."
+  tags: [spin-qubits, technique]
+
+- id: exchange-coupling
+  name: "Exchange coupling"
+  symbol: "J \\approx 4t^2/U"
+  blurb: "Virtual tunnelling plus the Pauli principle turn a charge process into a tunable spin–spin interaction."
+  tags: [spin-qubits, result]
+
+- id: singlet-triplet-qubit
+  name: "Singlet–triplet qubit"
+  symbol: "\\{S, T_0\\}"
+  blurb: "One qubit encoded in two spins: exchange supplies the z-axis, a field gradient the x-axis."
+  tags: [spin-qubits, formalism]
+
+- id: exchange-only-qubit
+  name: "Exchange-only qubit"
+  symbol: null
+  blurb: "Three spins coupled by exchange alone give a universal gate set with no microwave drive."
+  tags: [spin-qubits, formalism]
+
+- id: isotopic-purification
+  name: "Isotopic purification"
+  symbol: "^{28}\\mathrm{Si}"
+  blurb: "Removing spin-carrying isotopes from the host to quiet the nuclear bath."
+  tags: [spin-qubits, technique]
+
+# =============================================================================
+# DECOHERENCE — canonical home: "Why Your Qubit Forgets"
+# =============================================================================
+
+- id: coherence-timescales
+  name: "T₁ and T₂"
+  symbol: "T_1,\\; T_2"
+  blurb: "Relaxation and coherence times; for spins T₁ ≫ T₂ and coherence dies almost entirely by dephasing."
+  tags: [decoherence, formalism]
+
+- id: pure-dephasing-model
+  name: "Pure dephasing model"
+  symbol: "\\beta(t)"
+  blurb: "The qubit splitting wobbles by a classical random shift β(t); populations frozen, phase scrambled."
+  tags: [decoherence, model]
+
+- id: ramsey-experiment
+  name: "Ramsey experiment"
+  symbol: null
+  blurb: "π/2 – wait – π/2: converts accumulated phase into population, tracing a decaying fringe."
+  tags: [decoherence, technique]
+
+- id: coherence-function
+  name: "Coherence function"
+  symbol: "W(t) = \\lvert\\langle e^{-i\\phi(t)}\\rangle\\rvert"
+  blurb: "The Ramsey fringe contrast: the modulus of the shot-averaged phase factor."
+  tags: [decoherence, formalism]
+
+- id: stationary-noise
+  name: "Stationarity"
+  symbol: null
+  blurb: "Noise whose statistical moments do not depend on when you look."
+  tags: [decoherence, formalism]
+
+- id: autocorrelation-function
+  name: "Autocorrelation function"
+  symbol: "C(\\tau) = \\langle\\beta(t{+}\\tau)\\beta(t)\\rangle"
+  blurb: "How long a random signal's present value stays informative; its width is the correlation time."
+  tags: [decoherence, formalism]
+
+- id: power-spectral-density
+  name: "Power spectral density"
+  symbol: "S(\\omega)"
+  blurb: "How the noise power is distributed over frequency."
+  tags: [decoherence, formalism]
+
+- id: fourier-wiener-khinchin
+  name: "Wiener–Khinchin theorem"
+  symbol: null
+  blurb: "The spectrum is the Fourier transform of the autocorrelation; memory in time is concentration in frequency."
+  tags: [decoherence, result]
+
+- id: white-noise
+  name: "White noise"
+  symbol: "S_0"
+  blurb: "The memoryless extreme: delta autocorrelation, flat spectrum, exponential decay at a genuine rate."
+  tags: [decoherence, model]
+
+- id: quasistatic-noise
+  name: "Quasistatic noise"
+  symbol: null
+  blurb: "Frozen within one shot, redrawn between shots — perfect memory during a run."
+  tags: [decoherence, model]
+
+- id: ornstein-uhlenbeck-noise
+  name: "Ornstein–Uhlenbeck noise"
+  symbol: "\\tau_c"
+  blurb: "Exponential memory, Lorentzian spectrum; interpolates between the white and quasistatic limits."
+  tags: [decoherence, model]
+
+- id: gaussian-dephasing
+  name: "Gaussian dephasing"
+  symbol: null
+  blurb: "For Gaussian noise every cumulant past the second vanishes, so W = exp(−½⟨φ²⟩) exactly."
+  tags: [decoherence, result]
+
+- id: attenuation-function
+  name: "Attenuation function"
+  symbol: "\\chi(t) = \\tfrac{1}{2}\\langle\\phi^2(t)\\rangle"
+  blurb: "Half the accumulated-phase variance; all of Gaussian dephasing reduces to computing it."
+  tags: [decoherence, result]
+
+- id: t2-star-as-spread
+  name: "T₂* as an ensemble spread"
+  symbol: "T_2^{\\ast} = \\sqrt{2}/\\sigma"
+  blurb: "Under quasistatic noise the decay is Gaussian and T₂* is the inverse width of a distribution, not a rate."
+  tags: [decoherence, result]
+
+- id: motional-narrowing
+  name: "Motional narrowing"
+  symbol: null
+  blurb: "Faster noise at fixed power dephases more slowly — the qubit averages the kicks away within a shot."
+  tags: [decoherence, phenomenon]
+
+- id: filter-function
+  name: "Filter function"
+  symbol: "F(\\omega, t) = 2\\sin^2(\\omega t/2)/\\omega^2"
+  blurb: "Free evolution weights the noise spectrum as a low-pass probe peaked at DC with height t²/2."
+  tags: [decoherence, result]
+
+- id: overhauser-field
+  name: "Overhauser field"
+  symbol: "\\delta B"
+  blurb: "The net hyperfine field of ~10⁵–10⁶ host nuclei; Gaussian by the CLT, with width scaling as 1/√N."
+  tags: [decoherence, phenomenon]
+
+- id: charge-noise
+  name: "Charge noise"
+  symbol: null
+  blurb: "Traps clicking in the oxide jitter the gate potentials — the price of electrical control."
+  tags: [decoherence, phenomenon]
+
+# --- GAP: promised as "the next post" at the end of both spin-qubit posts ---
+- id: hahn-echo
+  name: "Hahn echo"
+  symbol: null
+  blurb: "A single π pulse mid-evolution unwinds any frozen phase, separating T₂ from T₂*."
+  tags: [decoherence, technique]
+
+- id: dynamical-decoupling
+  name: "Dynamical decoupling"
+  symbol: null
+  blurb: "Pulse trains that reshape the filter function to suppress the noise band the qubit actually sees."
+  tags: [decoherence, technique]
+
+- id: random-telegraph-noise
+  name: "Random telegraph noise"
+  symbol: null
+  blurb: "A single strong two-state fluctuator: non-Gaussian, and coherence can revive."
+  tags: [decoherence, model]
+
+# =============================================================================
+# FREE FERMIONS — canonical home: "Free Fermions: All the Entanglement Is in One Matrix"
+# =============================================================================
+
+- id: quadratic-hamiltonian
+  name: "Quadratic Hamiltonian"
+  symbol: "H = \\sum_{ij} h_{ij}\\, c_i^\\dagger c_j"
+  blurb: 'At most two fermion operators per term — the precise meaning of "free".'
+  tags: [free-fermions, model]
+
+- id: tight-binding-chain
+  name: "Tight-binding chain"
+  symbol: "t"
+  blurb: "Nearest-neighbour hopping on a line; the running example of the free-fermion thread."
+  tags: [free-fermions, model]
+
+- id: gaussian-state
+  name: "Gaussian state"
+  symbol: null
+  blurb: "Ground and thermal states of quadratic Hamiltonians: fully specified by their two-point functions."
+  tags: [free-fermions, formalism]
+
+- id: wicks-theorem
+  name: "Wick's theorem"
+  symbol: null
+  blurb: "Every correlator of a Gaussian state factorizes into sums of products of two-point functions."
+  tags: [free-fermions, result]
+
+- id: correlation-matrix
+  name: "Correlation matrix"
+  symbol: "C_{ij} = \\langle c_i^\\dagger c_j \\rangle"
+  blurb: "The L×L Hermitian matrix that is the entire state — L² numbers instead of 2^L amplitudes."
+  tags: [free-fermions, formalism]
+
+- id: entanglement-hamiltonian
+  name: "Entanglement Hamiltonian"
+  symbol: "H_A"
+  blurb: "The reduced state of a Gaussian state is itself Gaussian: ρ_A = e^{−H_A}/Z with H_A quadratic."
+  tags: [free-fermions, result]
+
+- id: natural-orbitals
+  name: "Natural orbitals"
+  symbol: "f_k"
+  blurb: "The eigenbasis of C|_A, in which the reduced state factorizes into independent two-level modes."
+  tags: [free-fermions, formalism]
+
+- id: entanglement-spectrum
+  name: "Entanglement spectrum"
+  symbol: "\\zeta_k"
+  blurb: "Eigenvalues of the restricted correlation matrix — fractional occupations, each in [0,1]."
+  tags: [free-fermions, formalism]
+
+- id: peschel-formula
+  name: "Peschel's formulas"
+  symbol: "S_A = -\\sum_k \\big[\\zeta_k\\ln\\zeta_k + (1{-}\\zeta_k)\\ln(1{-}\\zeta_k)\\big]"
+  blurb: "Entanglement energies and entropy read directly off the spectrum of C|_A."
+  tags: [free-fermions, result]
+
+- id: straddling-orbitals
+  name: "Straddling orbitals"
+  symbol: null
+  blurb: "Only orbitals that cannot decide which side of the cut they live on carry entanglement."
+  tags: [free-fermions, result]
+
+- id: area-law
+  name: "Area law"
+  symbol: "S_A \\propto \\lvert\\partial A\\rvert"
+  blurb: "In a gapped ground state only near-boundary orbitals straddle, so entropy scales with the boundary."
+  tags: [free-fermions, result]
+
+- id: critical-log-entropy
+  name: "Critical logarithm"
+  symbol: "S_A \\simeq \\tfrac{c}{3}\\ln L_A"
+  blurb: "At criticality the boundary is soft and the entropy of a block diverges logarithmically."
+  tags: [free-fermions, result]
+
+- id: renyi-entropy
+  name: "Rényi entropies"
+  symbol: "S_n"
+  blurb: "One-line functional of the same ζ_k; n = 2 is the purity that swap tests measure."
+  tags: [free-fermions, result]
+
+- id: mutual-information
+  name: "Mutual information"
+  symbol: "I(A{:}B)"
+  blurb: "Three restrictions of the same C; the right correlation measure when the global state is mixed."
+  tags: [free-fermions, result]
+
+- id: number-fluctuations
+  name: "Number fluctuations"
+  symbol: "\\langle\\Delta N_A^2\\rangle = \\mathrm{Tr}\\big[C|_A(1 - C|_A)\\big]"
+  blurb: "Only straddling orbitals fluctuate — charge noise across a cut as an entanglement meter."
+  tags: [free-fermions, result]
+
+- id: thermal-gaussian-states
+  name: "Thermal Gaussian states"
+  symbol: "C = (e^{\\beta h}+1)^{-1}"
+  blurb: "The formulas never assumed purity; at finite temperature S_A stops being an entanglement measure."
+  tags: [free-fermions, result]
+
+# --- A2: reserved for the planned free-fermion pairing post ---
+- id: majorana-operators-fermion
+  name: "Majorana operators (fermion language)"
+  symbol: "\\gamma_a"
+  blurb: "Hermitian square roots of the fermion algebra, built from c and c†; the natural variables once pairing is allowed."
+  tags: [free-fermions, formalism]
+
+- id: covariance-matrix
+  name: "Covariance matrix"
+  symbol: "\\Gamma_{ab} = \\tfrac{i}{2}\\langle[\\gamma_a, \\gamma_b]\\rangle"
+  blurb: "The Majorana-basis counterpart of C; the whole state once particle number is no longer conserved."
+  tags: [free-fermions, formalism]
+
+- id: bdg-pairing
+  name: "Pairing and BdG"
+  symbol: null
+  blurb: "Hamiltonians that create and destroy fermions in pairs; C alone no longer suffices."
+  tags: [free-fermions, formalism]
+
+# =============================================================================
+# CIRCUITS AND SIMULATION — canonical home: "Matchgates"
+# =============================================================================
+
+- id: jordan-wigner
+  name: "Jordan–Wigner transformation"
+  symbol: "\\gamma_{2k-1} = Z_1\\cdots Z_{k-1} X_k"
+  blurb: "The change of variables mapping qubits on a line to fermion modes."
+  tags: [circuits-simulation, technique]
+
+- id: majorana-operators-qubit
+  name: "Majorana operators (on qubits)"
+  symbol: "\\gamma_a,\\;\\; \\{\\gamma_a,\\gamma_b\\} = 2\\delta_{ab}"
+  blurb: "Pauli strings obeying the Majorana algebra; the computational basis becomes a Fock basis."
+  tags: [circuits-simulation, formalism]
+
+- id: jw-string-locality
+  name: "The Z-string and locality"
+  symbol: "Z_1 \\cdots Z_{k-1}"
+  blurb: "The string is exchange-statistics bookkeeping; it cancels for neighbours and only for neighbours."
+  tags: [circuits-simulation, result]
+
+# --- PLANNED: claimed by the matchgates post, sections unwritten ---
+- id: matchgate-family
+  name: "Matchgates"
+  symbol: "G(A, B),\\;\\; \\det A = \\det B"
+  blurb: "Two-qubit gates block-diagonal in the parity basis, with equal determinants."
+  tags: [circuits-simulation, formalism]
+
+- id: majorana-so2n-rotation
+  name: "Gates as Majorana rotations"
+  symbol: "U^\\dagger \\gamma_a U = \\sum_b R_{ab}\\gamma_b,\\; R \\in SO(2n)"
+  blurb: "A matchgate acts linearly on the Majoranas; a circuit is a product of rotations."
+  tags: [circuits-simulation, result]
+
+- id: fermionic-linear-optics
+  name: "Fermionic linear optics"
+  symbol: null
+  blurb: "Nearest-neighbour matchgate circuits are exactly evolution under a quadratic fermion Hamiltonian."
+  tags: [circuits-simulation, formalism]
+
+- id: classical-simulability
+  name: "Classical simulability of matchgate circuits"
+  symbol: null
+  blurb: "Track the 2n×2n covariance matrix instead of 2^n amplitudes; each gate is a local rotation."
+  tags: [circuits-simulation, result]
+
+- id: swap-universality
+  name: "SWAP and universality"
+  symbol: null
+  blurb: "SWAP fails det A = det B; adding it to nearest-neighbour matchgates restores universal quantum computation."
+  tags: [circuits-simulation, result]
+
+# =============================================================================
+# TEMPORAL METHODS — canonical home: "The Influence Matrix"
+# =============================================================================
+
+- id: kicked-ising-floquet
+  name: "Kicked Ising chain"
+  symbol: "U_F = e^{-ib\\sum_j X_j}\\, e^{-iJ\\sum_j Z_j Z_{j+1}}"
+  blurb: "Discrete-time Floquet circuit: an Ising layer then a transverse kick; the running model in time."
+  tags: [temporal-methods, model]
+
+- id: folded-circuit
+  name: "Folding"
+  symbol: "U \\otimes U^{*}"
+  blurb: "Stacking the bra and ket branches so every leg carries both indices, dimension 4 per site per step."
+  tags: [temporal-methods, technique]
+
+- id: factorized-initial-state
+  name: "Factorized initial state"
+  symbol: "\\rho_0 = \\rho_{\\mathrm{s}} \\otimes \\rho_{\\mathrm{bath}}"
+  blurb: "Load-bearing assumption: without it the bath side never detaches from the system's initial condition."
+  tags: [temporal-methods, formalism]
+
+- id: influence-matrix
+  name: "Influence matrix"
+  symbol: "\\mathrm{IM} \\in (\\mathbb{C}^4)^{\\otimes T}"
+  blurb: "Everything on the bath side of the cut, rolled into one tensor with one leg per time step."
+  tags: [temporal-methods, formalism]
+
+- id: feynman-vernon-functional
+  name: "Feynman–Vernon influence functional"
+  symbol: null
+  blurb: "A weight on each pair of forward and backward system trajectories, the environment integrated out once."
+  tags: [temporal-methods, result]
+
+- id: space-time-rotation
+  name: "Space–time rotation"
+  symbol: null
+  blurb: "Contract the network sideways instead of upward: space becomes the evolution direction."
+  tags: [temporal-methods, technique]
+
+- id: dual-transfer-matrix
+  name: "Dual transfer matrix"
+  symbol: "\\hat{\\mathcal{T}}"
+  blurb: "One bath site's worth of folded gates, read sideways, acting on the temporal Hilbert space."
+  tags: [temporal-methods, formalism]
+
+- id: im-fixed-point
+  name: "The IM as a fixed point"
+  symbol: null
+  blurb: "For a translation-invariant bath the influence matrix converges to a fixed point — solve the bath once."
+  tags: [temporal-methods, result]
+
+# --- PLANNED: claimed by the influence-matrix post, section unwritten ---
+- id: multi-time-correlators
+  name: "IM components as bath correlators"
+  symbol: null
+  blurb: "Specific temporal index configurations of the IM are the bath's multi-time correlation functions."
+  tags: [temporal-methods, result]
+
+# --- GAP: named as the series' organizing quantity, defined nowhere ---
+- id: temporal-entanglement
+  name: "Temporal entanglement"
+  symbol: null
+  blurb: "Entanglement of the influence matrix across a cut in time; the fingerprint of the bath's dynamical phase."
+  tags: [temporal-methods, formalism]
+
+- id: dual-unitary-circuits
+  name: "Dual-unitary circuits"
+  symbol: null
+  blurb: "Circuits whose sideways evolution is itself unitary — the maximally solvable extreme of the rotation."
+  tags: [temporal-methods, model]
+
+# =============================================================================
+# CRITICAL DYNAMICS — canonical home: "When Adiabaticity Fails: Kibble–Zurek"
+# =============================================================================
+
+- id: instantaneous-eigenstates
+  name: "Instantaneous eigenstates"
+  symbol: "H(t)\\lvert n(t)\\rangle = E_n(t)\\lvert n(t)\\rangle"
+  blurb: "The snapshot eigenbasis at each moment; no physical state is obliged to follow it."
+  tags: [critical-dynamics, formalism]
+
+- id: adiabatic-theorem
+  name: "Adiabatic theorem"
+  symbol: "\\hbar\\lvert\\langle m\\rvert\\partial_t H\\lvert n\\rangle\\rvert / (E_m - E_n)^2 \\ll 1"
+  blurb: "A slowly driven state tracks its instantaneous eigenstate; adiabaticity dies by the gap, as 1/Δ²."
+  tags: [critical-dynamics, result]
+
+- id: response-time
+  name: "Response time"
+  symbol: "\\tau_{\\text{response}} \\sim \\hbar/\\Delta"
+  blurb: "The time a gapped system needs to notice its Hamiltonian changed; diverges at a critical point."
+  tags: [critical-dynamics, formalism]
+
+# --- PLANNED: claimed by the Kibble–Zurek post, sections unwritten ---
+- id: landau-zener
+  name: "Landau–Zener formula"
+  symbol: "P_{\\mathrm{ex}} = e^{-\\pi\\Delta^2/2\\hbar v}"
+  blurb: "A single avoided crossing swept at constant rate — the minimal quench, solved exactly."
+  tags: [critical-dynamics, result]
+
+- id: quench-ramp
+  name: "Quench ramp"
+  symbol: "\\lambda(t) = t/\\tau_Q"
+  blurb: "Linear drive of the control parameter through the critical point at rate 1/τ_Q."
+  tags: [critical-dynamics, formalism]
+
+- id: tfim
+  name: "Transverse-field Ising chain"
+  symbol: "g"
+  blurb: "The exactly solvable testbed: a continuum of Landau–Zener crossings, one per momentum mode."
+  tags: [critical-dynamics, model]
+
+- id: kibble-zurek-freezeout
+  name: "Kibble–Zurek freeze-out"
+  symbol: "\\hat{t}"
+  blurb: "The heuristic: the system stops keeping up when the response time equals the time left to the transition."
+  tags: [critical-dynamics, result]
+
+- id: kz-scaling-exponents
+  name: "Kibble–Zurek scaling"
+  symbol: "\\hat{\\xi} \\propto \\tau_Q^{\\nu/(1+z\\nu)}"
+  blurb: "Frozen length and defect density as power laws in the ramp rate, built from equilibrium exponents alone."
+  tags: [critical-dynamics, result]
+
+- id: defect-density
+  name: "Defect density"
+  symbol: "n \\sim \\tau_Q^{-1/2}"
+  blurb: "Kinks left behind by a finite-speed crossing; the headline prediction for the Ising chain."
+  tags: [critical-dynamics, result]

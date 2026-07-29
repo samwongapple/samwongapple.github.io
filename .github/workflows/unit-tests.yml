@@ -69,6 +69,12 @@ jobs:
       - name: Run style contract lint 🧷
         run: npm run lint:style-contract
 
+      # Non-blocking for now: reports the concept-graph state without gating
+      # deploys. Drop continue-on-error once the retrofit has landed.
+      - name: Validate concept graph 🕸️
+        run: bin/validate-concepts
+        continue-on-error: true
+
       - name: Install build prerequisites 🔧
         run: |
           sudo apt-get update && sudo apt-get install -y imagemagick

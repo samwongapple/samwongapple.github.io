@@ -1,0 +1,374 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# -----------------------------------------------------------------------------
+# validate-concepts — check the blog's concept graph
+#
+#   bin/validate-concepts            human-readable report
+#   bin/validate-concepts --quiet    errors and warnings only
+#
+# Exit 0 = clean or warnings only.  Exit 1 = at least one error.
+#
+# Checks:
+#   E1  every id used in front matter exists in _data/concepts.yml
+#   E2  no concept has two or more providers          (duplicate derivation)
+#   E3  no post both provides and plans the same id
+#   E4  every post carries concept metadata           (the backstop)
+#   E5  the requires graph is acyclic
+#   E6  every {% concept_link %} names a known id
+#   W1  concepts with no provider, split three ways
+#   W2  registry entries no post references           (dead entry)
+#   W3  concept-links that resolve to nothing
+#   W4  two posts planning the same id
+#
+# Stdlib only: yaml, set, pathname.
+# -----------------------------------------------------------------------------
+
+require 'yaml'
+require 'set'
+require 'pathname'
+
+# Posts are UTF-8 (em dashes, Greek, arrows). Don't inherit the shell's LANG.
+def read_utf8(path) = File.read(path.to_s, encoding: 'UTF-8')
+
+ROOT = Pathname.new(__dir__).parent
+REGISTRY = ROOT / '_data' / 'concepts.yml'
+POSTS_DIR = ROOT / '_posts'
+
+QUIET = ARGV.include?('--quiet')
+TTY = $stdout.tty? && !ENV['NO_COLOR']
+
+def color(text, code) = TTY ? "\e[#{code}m#{text}\e[0m" : text
+def bold(t) = color(t, '1')
+def red(t) = color(t, '31')
+def yellow(t) = color(t, '33')
+def green(t) = color(t, '32')
+def dim(t) = color(t, '2')
+
+ERRORS = []
+WARNINGS = []
+
+def error(msg) = ERRORS << msg
+def warning(msg) = WARNINGS << msg
+
+# -----------------------------------------------------------------------------
+# Load the registry
+# -----------------------------------------------------------------------------
+
+unless REGISTRY.exist?
+  warn red("fatal: #{REGISTRY.relative_path_from(ROOT)} not found")
+  exit 1
+end
+
+registry = YAML.safe_load(read_utf8(REGISTRY), permitted_classes: [Date, Time], aliases: true)
+unless registry.is_a?(Array)
+  warn red("fatal: #{REGISTRY.relative_path_from(ROOT)} must be a list of concepts")
+  exit 1
+end
+
+CONCEPTS = {}
+registry.each_with_index do |entry, i|
+  id = entry['id']
+  if id.nil? || id.to_s.empty?
+    error "registry entry ##{i + 1} has no `id`"
+    next
+  end
+  if CONCEPTS.key?(id)
+    error "registry defines `#{id}` twice"
+    next
+  end
+  unless id.match?(/\A[a-z0-9]+(-[a-z0-9]+)*\z/)
+    warning "registry id `#{id}` is not kebab-case"
+  end
+  CONCEPTS[id] = entry
+end
+
+# -----------------------------------------------------------------------------
+# Load the posts
+# -----------------------------------------------------------------------------
+
+FIELDS = %w[provides provides_planned requires uses].freeze
+Post = Struct.new(:path, :title, :fields, :links, keyword_init: true)
+
+posts = []
+skipped = []
+
+Dir.glob(POSTS_DIR / '*.{md,markdown,html}').sort.each do |file|
+  path = Pathname.new(file)
+  raw = read_utf8(path)
+
+  unless raw.start_with?('---')
+    warning "#{path.basename}: no front matter, skipped"
+    next
+  end
+
+  _, front, body = raw.split(/^---\s*$/, 3)
+  begin
+    fm = YAML.safe_load(front, permitted_classes: [Date, Time], aliases: true) || {}
+  rescue Psych::SyntaxError => e
+    error "#{path.basename}: front matter is not valid YAML (#{e.message})"
+    next
+  end
+
+  # Unpublished posts are out of the graph by design (see CONTRIBUTING-posts.md).
+  if fm['published'] == false
+    skipped << path.basename.to_s
+    next
+  end
+
+  fields = FIELDS.to_h do |f|
+    v = fm[f]
+    [f, v.nil? ? nil : Array(v).map(&:to_s)]
+  end
+
+  links = body.to_s.scan(/\{%-?\s*concept_link\s+([a-z0-9-]+)/).flatten
+
+  posts << Post.new(path: path, title: fm['title'].to_s, fields: fields, links: links)
+end
+
+if posts.empty?
+  warn red('fatal: no published posts found')
+  exit 1
+end
+
+# -----------------------------------------------------------------------------
+# E1 / E3 / E4 — per-post checks
+# -----------------------------------------------------------------------------
+
+posts.each do |post|
+  name = post.path.basename.to_s
+
+  # E4: the backstop. A post with none of the three core fields escaped both
+  # /newpost and the CLAUDE.md rule.
+  if %w[provides requires uses].all? { |f| post.fields[f].nil? }
+    error "#{name}: carries no concept metadata (needs provides / requires / uses)"
+  end
+
+  FIELDS.each do |field|
+    (post.fields[field] || []).each do |id|
+      next if CONCEPTS.key?(id)
+
+      error "#{name}: `#{field}` names `#{id}`, which is not in _data/concepts.yml"
+    end
+  end
+
+  # E3
+  overlap = (post.fields['provides'] || []) & (post.fields['provides_planned'] || [])
+  overlap.each do |id|
+    error "#{name}: `#{id}` is in both provides and provides_planned"
+  end
+
+  # A concept can't be both a prerequisite and something you derive here.
+  both = (post.fields['provides'] || []) & (post.fields['requires'] || [])
+  both.each do |id|
+    error "#{name}: `#{id}` is both provided and required by the same post"
+  end
+end
+
+# -----------------------------------------------------------------------------
+# E2 / W1 / W4 — provider counting
+# -----------------------------------------------------------------------------
+
+providers = Hash.new { |h, k| h[k] = [] }
+planners  = Hash.new { |h, k| h[k] = [] }
+referrers = Hash.new { |h, k| h[k] = [] }
+
+posts.each do |post|
+  name = post.path.basename.to_s
+  (post.fields['provides'] || []).each { |id| providers[id] << name }
+  (post.fields['provides_planned'] || []).each { |id| planners[id] << name }
+  FIELDS.each { |f| (post.fields[f] || []).each { |id| referrers[id] << name } }
+  post.links.each { |id| referrers[id] << name }
+end
+
+# Collapse the default-proc hashes: reading a missing key on them creates it,
+# which would silently corrupt every count below.
+providers = providers.to_h.reject { |_, v| v.empty? }.freeze
+planners  = planners.to_h.reject { |_, v| v.empty? }.freeze
+referrers = referrers.to_h.reject { |_, v| v.empty? }.freeze
+
+# Nothing has been retrofitted yet: every graph check below would fire on every
+# concept and say nothing useful. Report the fact once instead.
+RETROFITTED = posts.any? { |p| FIELDS.any? { |f| p.fields[f] } }
+
+providers.each do |id, list|
+  next if list.size <= 1
+
+  error "`#{id}` is provided by #{list.size} posts — duplicate derivation:\n" +
+        list.map { |n| "        #{n}" }.join("\n")
+end
+
+planners.each do |id, list|
+  next if list.size <= 1
+
+  warning "`#{id}` is planned by #{list.size} posts: #{list.join(', ')}"
+end
+
+# W1, split so assumed background doesn't drown real debts. The buckets are
+# disjoint: a concept nobody references at all is a dead entry (W2), not a gap —
+# "leaned on, promised by nobody" has to mean something actually leans on it.
+unprovided = CONCEPTS.keys.reject { |id| providers.key?(id) }
+claimed    = unprovided.select { |id| planners.key?(id) }
+background = (unprovided - claimed).select { |id| Array(CONCEPTS[id]['tags']).include?('prerequisite') }
+unclaimed  = (unprovided - claimed - background).select { |id| referrers.key?(id) }
+
+# -----------------------------------------------------------------------------
+# W2 — dead registry entries
+# -----------------------------------------------------------------------------
+
+dead = RETROFITTED ? CONCEPTS.keys.reject { |id| referrers.key?(id) } : []
+if dead.size > 8
+  # Listing dozens of these one per line drowns everything else; the detail
+  # goes in the report body instead.
+  warning "#{dead.size} registry entries are referenced by no post (listed above)"
+else
+  dead.each { |id| warning "`#{id}` is in the registry but no post references it" }
+end
+
+# -----------------------------------------------------------------------------
+# E6 / W3 — concept links
+# -----------------------------------------------------------------------------
+
+total_links = 0
+unresolved_links = []
+
+posts.each do |post|
+  name = post.path.basename.to_s
+  post.links.each do |id|
+    total_links += 1
+    if !CONCEPTS.key?(id)
+      error "#{name}: concept_link names `#{id}`, which is not in _data/concepts.yml"
+    elsif !providers.key?(id)
+      unresolved_links << [name, id]
+    end
+  end
+end
+
+unresolved_links.each do |name, id|
+  warning "#{name}: concept_link `#{id}` has no canonical provider — renders unresolved"
+end
+
+# -----------------------------------------------------------------------------
+# E5 — cycle detection over the requires graph
+#
+# Edge: concept A (provided by post P) --requires--> concept B, for each B in
+# P's requires. Only hard prerequisites participate; `uses` is a reference, not
+# a dependency, and including it would manufacture false cycles.
+# -----------------------------------------------------------------------------
+
+deps = Hash.new { |h, k| h[k] = [] }
+posts.each do |post|
+  needs = post.fields['requires'] || []
+  (post.fields['provides'] || []).each do |id|
+    deps[id] = (deps[id] + needs).uniq
+  end
+end
+
+WHITE = 0
+GREY = 1
+BLACK = 2
+state = Hash.new(WHITE)
+cycles = []
+
+visit = lambda do |node, stack|
+  state[node] = GREY
+  stack.push(node)
+  deps[node].each do |nxt|
+    next unless CONCEPTS.key?(nxt)
+
+    if state[nxt] == GREY
+      cycles << (stack[stack.index(nxt)..] + [nxt])
+    elsif state[nxt] == WHITE
+      visit.call(nxt, stack)
+    end
+  end
+  stack.pop
+  state[node] = BLACK
+end
+
+deps.keys.sort.each { |n| visit.call(n, []) if state[n] == WHITE }
+
+cycles.uniq.each do |cycle|
+  error "dependency cycle:\n        #{cycle.join(' -> ')}"
+end
+
+# -----------------------------------------------------------------------------
+# Report
+# -----------------------------------------------------------------------------
+
+unless QUIET
+  puts
+  puts bold('Concept graph')
+  puts "  #{CONCEPTS.size} concepts in the registry"
+  puts "  #{posts.size} published posts scanned" +
+       (skipped.any? ? dim("  (#{skipped.size} unpublished, skipped)") : '')
+  puts "  #{providers.size} concepts have a canonical provider"
+  puts "  #{total_links} concept-links"
+  puts
+
+  by_thread = CONCEPTS.values.group_by { |c| Array(c['tags']).first || '(untagged)' }
+  width = by_thread.keys.map(&:length).max.to_i
+  by_thread.each do |thread, list|
+    ids = list.map { |c| c['id'] }
+    have = ids.count { |id| providers.key?(id) }
+    plan = ids.count { |id| !providers.key?(id) && planners.key?(id) }
+    gap  = ids.size - have - plan
+    line = format("  %-#{width}s  %3d provided  %3d planned  %3d gap", thread, have, plan, gap)
+    puts gap.positive? ? line : green(line)
+  end
+  puts
+
+  unless RETROFITTED
+    puts yellow('  No post carries concept metadata yet — the registry is written but')
+    puts yellow('  unconnected. Gap and dead-entry analysis is suppressed until the')
+    puts yellow('  retrofit lands; it would flag all ' + CONCEPTS.size.to_s + ' concepts and mean nothing.')
+    puts
+  end
+
+  if RETROFITTED && claimed.any?
+    puts bold('Claimed but unwritten') + dim(' — a post says it will derive these')
+    claimed.sort.each { |id| puts "  #{yellow('~')} #{id}#{dim("  (#{planners[id].join(', ')})")}" }
+    puts
+  end
+
+  if RETROFITTED && unclaimed.any?
+    puts bold('Unclaimed gaps') + dim(' — leaned on, promised by nobody')
+    unclaimed.sort.each do |id|
+      n = referrers.fetch(id, []).uniq.size
+      puts "  #{yellow('!')} #{id}#{dim("  (referenced by #{n} post#{'s' if n != 1})")}"
+    end
+    puts
+  end
+
+  if RETROFITTED && background.any?
+    puts bold('Assumed background') + dim(' — tagged `prerequisite`, derived nowhere by design')
+    puts dim('  ' + background.sort.join(', '))
+    puts
+  end
+
+  if dead.size > 8
+    puts bold('Dead registry entries') + dim(' — defined but referenced by no post')
+    puts dim('  ' + dead.sort.join(', '))
+    puts
+  end
+end
+
+if ERRORS.any?
+  puts bold(red("#{ERRORS.size} error#{'s' if ERRORS.size != 1}"))
+  ERRORS.each { |m| puts "  #{red('x')} #{m}" }
+  puts
+end
+
+if WARNINGS.any?
+  puts bold(yellow("#{WARNINGS.size} warning#{'s' if WARNINGS.size != 1}"))
+  WARNINGS.each { |m| puts "  #{yellow('!')} #{m}" }
+  puts
+end
+
+if ERRORS.empty? && WARNINGS.empty?
+  puts green('Concept graph is clean.')
+elsif ERRORS.empty?
+  puts green('No errors.') + dim('  Warnings above are informational.')
+end
+
+exit(ERRORS.any? ? 1 : 0)
