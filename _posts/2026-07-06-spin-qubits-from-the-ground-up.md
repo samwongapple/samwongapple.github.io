@@ -6,6 +6,29 @@ description: How you build a qubit out of a single electron spin — trapping it
 tags: [quantum-computing, spin-qubits]
 categories: [spin-qubits]
 related_posts: false
+provides:
+  [
+    quantum-dot,
+    coulomb-blockade,
+    charge-stability-diagram,
+    double-dot-detuning,
+    spin-to-charge-conversion,
+    elzerman-readout,
+    pauli-spin-blockade,
+    larmor-precession,
+    esr-drive,
+    rotating-wave-approximation,
+    drive-detuning,
+    rabi-oscillations,
+    generalized-rabi-frequency,
+    single-qubit-gate-as-pulse,
+    edsr,
+    exchange-coupling,
+    singlet-triplet-qubit,
+    exchange-only-qubit,
+  ]
+requires: [pauli-algebra, bloch-sphere, zeeman-splitting]
+uses: [coherence-timescales, overhauser-field, charge-noise, isotopic-purification, hahn-echo, t2-star-as-spread]
 toc:
   sidebar: left
 ---

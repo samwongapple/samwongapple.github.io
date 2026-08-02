@@ -122,7 +122,48 @@ toc:
 
 ## 1 · The question the bath must answer
 
-<!-- (to be written after sections 2–4 — see scaffold comment above) -->
+*This is Part 1 of a series on the influence matrix approach to many-body dynamics — the
+"tools from my research" thread continues. Each part pairs with a hands-on numerical
+companion in the [programming section]({{ '/programming/' | relative_url }}).*
+
+Here is a dishonest fraction, and every many-body theorist has paid for it. Take a chain of
+$$L$$ interacting spins, quench it or drive it, and ask the most modest question available:
+what does *one site* do? The answer, $$\langle Z_1(t)\rangle$$, is a handful of real
+numbers — one per time step. But the machine that produces those numbers is the full
+many-body state, $$2^L$$ complex amplitudes churning under the dynamics, and the standard
+route to the handful is to simulate the churn. Exponential cost in, a few numbers out. The
+ratio of what you compute to what you wanted is as bad as ratios get in physics.
+
+The frustration has a precise shape. The site you care about never meets the whole system —
+it meets its neighbour, which meets the next, and everything beyond arrives filtered through
+that one contact. From where site 1 sits, the other $$L-1$$ spins are not "the rest of the
+many-body problem"; they are a **bath** — and everything a bath does to you is summarized
+in what crosses the boundary. Whatever that summary is, it is a function of one site's
+worth of contact over $$T$$ steps. It ought to be *small*. So why are we paying $$2^L$$?
+
+Feynman and Vernon asked the question in 1963 and answered half of it
+{% cite feynman1963theory --file refs_influence_matrix %}. Integrate the environment out
+*once*, they said, and what survives is a single object — the **influence functional** — a
+weight attached to each trajectory of the system, encoding everything the environment will
+ever do to it: every memory, every back-reaction, every correlation between what it did at
+one time and what it will do at another. It is a beautiful, complete answer with a famous
+practical flaw: for a general many-body environment the functional is a function on pairs
+of paths, and sixty years of quantum dissipation theory is largely the art of not having to
+write it down.
+
+The modern twist — the subject of this series, following work by Lerose, Sonner and Abanin
+{% cite lerose2021influence --file refs_influence_matrix %} — is that for a lattice system
+evolving in discrete time, the influence functional stops being an intimidating formal
+object and becomes a concrete, finite-dimensional **vector**: the **influence matrix**, a
+tensor with one leg per time step, living in a Hilbert space whose "sites" are *instants*.
+And a vector on a one-dimensional lattice is exactly the kind of object tensor-network
+methods were built to handle — except the lattice direction is time.
+
+This post constructs that object exactly and takes it apart: what it is, where it lives,
+what its components mean. No approximations yet, and no payoff either — the exact influence
+matrix is as expensive as the problem it came from. The payoff begins in Part 2, when we
+ask how *entangled* this vector is and discover that the answer is a property of the bath's
+own dynamical phase. First, the construction.
 
 <div class="sec-divider" aria-hidden="true">•••</div>
 
@@ -663,8 +704,10 @@ free fermions and the whole object collapses to one temporal correlation matrix.
 <!-- =====================================================================
      SECTION 3 — The space-time rotation (~550 words + WIDGET)
      - The conceptual heart. Two contraction orders for the same network:
-       by time-columns (standard evolution, cost exp in SPACE) or by
-       space-rows (transverse contraction, cost exp in TIME, naively). The
+       by ROWS = time layers (standard evolution, cost exp in SPACE) or by
+       COLUMNS = site world-lines (transverse contraction, cost exp in
+       TIME, naively). NB: a column is vertical (one site, all times); a
+       row is horizontal (one time layer, all sites). The
        IM is the transverse contraction's output: each added bath site
        updates IM ← T̂[IM], with T̂ a dual transfer matrix acting on the
        temporal Hilbert space.
@@ -688,13 +731,15 @@ A tensor network does not care in which order you contract it — the answer is 
 But the *cost* cares enormously, and the influence matrix is what you get by taking the
 "wrong" order seriously.
 
-The standard order sweeps **upward, column by column in time**. Contract the initial state
+The standard order sweeps **upward, one time layer at a time** — a whole row of the
+network at each stroke. Contract the initial state
 with the first layer of gates, then the next, maintaining the full many-body state (folded:
 a $$4^L$$-component object) as you go. This is ordinary time evolution. Its currency is the
 spatial Hilbert space: every step costs you the exponential of $$L$$, and the time
 direction is cheap — just repeat.
 
-Now rotate your head ninety degrees and sweep **sideways, row by row in space**. Start at
+Now rotate your head ninety degrees and sweep **sideways, one site at a time** — a whole
+column at each stroke. Start at
 the far edge of the bath, site $$L$$: contract its entire vertical world-line — initial
 state, $$T$$ gates, closing trace — into one object. That object is a vector on the
 *temporal* lattice: one leg per time step. Absorb site $$L-1$$: another world-line of
@@ -710,6 +755,112 @@ where $$\hat{\mathcal{T}}$$ — one site's worth of folded gates, read sideways 
 what pops out is precisely the influence matrix of section 2. Same network, same answer;
 different order, and a completely different object in your hands along the way.
 
+<figure style="margin:1.75rem auto;text-align:center;color:var(--global-text-color);">
+  <svg viewBox="0 0 560 366" width="560" style="max-width:100%;height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The same lattice contracted two ways, with space running left to right and time running bottom to top in both panels. On the left, whole time layers are absorbed one after another sweeping upward, so the boundary carried in memory is a horizontal cut whose legs run along space, one per site, giving an ordinary many-body state of size four to the L. On the right, one site's entire world-line is absorbed at a time sweeping inward from the far bath, so the boundary is a vertical cut whose legs run along time, one per step, giving a state of size four to the T whose lattice sites are instants">
+    <defs>
+      <marker id="sw-a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--global-theme-color)"/></marker>
+      <marker id="sw-g" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="currentColor" fill-opacity="0.6"/></marker>
+    </defs>
+
+    <!-- ============================ LEFT PANEL ============================ -->
+    <text x="124" y="22" fill="currentColor" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle" font-weight="600">absorb one time layer at a time</text>
+    <text x="124" y="37" fill="currentColor" font-size="9.5" font-family="system-ui, sans-serif" text-anchor="middle" fill-opacity="0.7">a row of the network &#8212; ordinary evolution</text>
+
+    <rect x="48" y="120" width="152" height="60" fill="currentColor" fill-opacity="0.07"/>
+    <g stroke="currentColor" stroke-opacity="0.38" stroke-width="1.1">
+      <line x1="60" y1="62" x2="60" y2="180"/><line x1="92" y1="62" x2="92" y2="180"/><line x1="124" y1="62" x2="124" y2="180"/><line x1="156" y1="62" x2="156" y2="180"/><line x1="188" y1="62" x2="188" y2="180"/>
+      <line x1="55" y1="75" x2="193" y2="75"/><line x1="55" y1="105" x2="193" y2="105"/><line x1="55" y1="135" x2="193" y2="135"/><line x1="55" y1="165" x2="193" y2="165"/>
+    </g>
+    <g fill="currentColor" fill-opacity="0.5">
+      <circle cx="60" cy="75" r="2.6"/><circle cx="92" cy="75" r="2.6"/><circle cx="124" cy="75" r="2.6"/><circle cx="156" cy="75" r="2.6"/><circle cx="188" cy="75" r="2.6"/>
+      <circle cx="60" cy="105" r="2.6"/><circle cx="92" cy="105" r="2.6"/><circle cx="124" cy="105" r="2.6"/><circle cx="156" cy="105" r="2.6"/><circle cx="188" cy="105" r="2.6"/>
+      <circle cx="60" cy="135" r="2.6"/><circle cx="92" cy="135" r="2.6"/><circle cx="124" cy="135" r="2.6"/><circle cx="156" cy="135" r="2.6"/><circle cx="188" cy="135" r="2.6"/>
+      <circle cx="60" cy="165" r="2.6"/><circle cx="92" cy="165" r="2.6"/><circle cx="124" cy="165" r="2.6"/><circle cx="156" cy="165" r="2.6"/><circle cx="188" cy="165" r="2.6"/>
+    </g>
+    <!-- the boundary carried in memory, and the legs crossing it -->
+    <g stroke="var(--global-theme-color)" stroke-width="3.2">
+      <line x1="60" y1="111" x2="60" y2="129"/><line x1="92" y1="111" x2="92" y2="129"/><line x1="124" y1="111" x2="124" y2="129"/><line x1="156" y1="111" x2="156" y2="129"/><line x1="188" y1="111" x2="188" y2="129"/>
+    </g>
+    <line x1="48" y1="120" x2="200" y2="120" stroke="var(--global-theme-color)" stroke-width="2.6"/>
+    <!-- axes -->
+    <line x1="32" y1="175" x2="32" y2="70" stroke="currentColor" stroke-opacity="0.6" stroke-width="1.2" marker-end="url(#sw-g)"/>
+    <text x="32" y="58" fill="currentColor" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle" fill-opacity="0.8">time</text>
+    <line x1="60" y1="194" x2="188" y2="194" stroke="currentColor" stroke-opacity="0.6" stroke-width="1.2" marker-end="url(#sw-g)"/>
+    <text x="124" y="208" fill="currentColor" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle" fill-opacity="0.8">space</text>
+    <!-- sweep direction -->
+    <line x1="212" y1="170" x2="212" y2="84" stroke="var(--global-theme-color)" stroke-width="1.4" marker-end="url(#sw-a)"/>
+    <text x="212" y="76" fill="var(--global-theme-color)" font-size="9.5" font-family="system-ui, sans-serif" text-anchor="middle">sweep</text>
+
+    <text x="124" y="240" fill="currentColor" font-size="9.5" font-family="system-ui, sans-serif" text-anchor="middle" fill-opacity="0.8">what you carry across the cut</text>
+    <!-- the carried object: a bar with legs pointing along SPACE -->
+    <rect x="64" y="262" width="120" height="16" rx="5" fill="var(--global-theme-color)" fill-opacity="0.22" stroke="var(--global-theme-color)" stroke-width="1.5"/>
+    <text x="124" y="274" fill="currentColor" font-size="9.5" font-family="system-ui, sans-serif" text-anchor="middle">state</text>
+    <g stroke="var(--global-theme-color)" stroke-width="1.3">
+      <line x1="72" y1="278" x2="72" y2="298"/><line x1="100" y1="278" x2="100" y2="298"/><line x1="124" y1="278" x2="124" y2="298"/><line x1="148" y1="278" x2="148" y2="298"/><line x1="176" y1="278" x2="176" y2="298"/>
+    </g>
+    <g fill="var(--global-theme-color)">
+      <circle cx="72" cy="298" r="2.4"/><circle cx="100" cy="298" r="2.4"/><circle cx="124" cy="298" r="2.4"/><circle cx="148" cy="298" r="2.4"/><circle cx="176" cy="298" r="2.4"/>
+    </g>
+    <text x="124" y="336" fill="currentColor" font-size="9.5" font-family="system-ui, sans-serif" text-anchor="middle" fill-opacity="0.85">legs run along space, one per site</text>
+    <text x="124" y="352" fill="var(--global-theme-color)" font-size="10.5" font-family="system-ui, sans-serif" text-anchor="middle">4<tspan baseline-shift="super" font-size="8">L</tspan> numbers</text>
+
+    <line x1="270" y1="56" x2="270" y2="352" stroke="currentColor" stroke-opacity="0.16" stroke-width="1"/>
+
+    <!-- ============================ RIGHT PANEL ============================ -->
+    <text x="414" y="22" fill="currentColor" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle" font-weight="600">absorb one site at a time</text>
+    <text x="414" y="37" fill="currentColor" font-size="9.5" font-family="system-ui, sans-serif" text-anchor="middle" fill-opacity="0.7">a column of the network &#8212; the transverse order</text>
+
+    <rect x="398" y="62" width="87" height="118" fill="currentColor" fill-opacity="0.07"/>
+    <g stroke="currentColor" stroke-opacity="0.38" stroke-width="1.1">
+      <line x1="350" y1="62" x2="350" y2="180"/><line x1="382" y1="62" x2="382" y2="180"/><line x1="414" y1="62" x2="414" y2="180"/><line x1="446" y1="62" x2="446" y2="180"/><line x1="478" y1="62" x2="478" y2="180"/>
+      <line x1="345" y1="75" x2="483" y2="75"/><line x1="345" y1="105" x2="483" y2="105"/><line x1="345" y1="135" x2="483" y2="135"/><line x1="345" y1="165" x2="483" y2="165"/>
+    </g>
+    <g fill="currentColor" fill-opacity="0.5">
+      <circle cx="350" cy="75" r="2.6"/><circle cx="382" cy="75" r="2.6"/><circle cx="414" cy="75" r="2.6"/><circle cx="446" cy="75" r="2.6"/><circle cx="478" cy="75" r="2.6"/>
+      <circle cx="350" cy="105" r="2.6"/><circle cx="382" cy="105" r="2.6"/><circle cx="414" cy="105" r="2.6"/><circle cx="446" cy="105" r="2.6"/><circle cx="478" cy="105" r="2.6"/>
+      <circle cx="350" cy="135" r="2.6"/><circle cx="382" cy="135" r="2.6"/><circle cx="414" cy="135" r="2.6"/><circle cx="446" cy="135" r="2.6"/><circle cx="478" cy="135" r="2.6"/>
+      <circle cx="350" cy="165" r="2.6"/><circle cx="382" cy="165" r="2.6"/><circle cx="414" cy="165" r="2.6"/><circle cx="446" cy="165" r="2.6"/><circle cx="478" cy="165" r="2.6"/>
+    </g>
+    <g stroke="var(--global-theme-color)" stroke-width="3.2">
+      <line x1="389" y1="75" x2="407" y2="75"/><line x1="389" y1="105" x2="407" y2="105"/><line x1="389" y1="135" x2="407" y2="135"/><line x1="389" y1="165" x2="407" y2="165"/>
+    </g>
+    <line x1="398" y1="62" x2="398" y2="180" stroke="var(--global-theme-color)" stroke-width="2.6"/>
+    <!-- axes: identical orientation to the left panel -->
+    <line x1="322" y1="175" x2="322" y2="70" stroke="currentColor" stroke-opacity="0.6" stroke-width="1.2" marker-end="url(#sw-g)"/>
+    <text x="322" y="58" fill="currentColor" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle" fill-opacity="0.8">time</text>
+    <line x1="350" y1="194" x2="478" y2="194" stroke="currentColor" stroke-opacity="0.6" stroke-width="1.2" marker-end="url(#sw-g)"/>
+    <text x="414" y="208" fill="currentColor" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle" fill-opacity="0.8">space</text>
+    <!-- sweep runs inward, from the far bath toward the system -->
+    <line x1="478" y1="224" x2="360" y2="224" stroke="var(--global-theme-color)" stroke-width="1.4" marker-end="url(#sw-a)"/>
+    <text x="496" y="228" fill="var(--global-theme-color)" font-size="9.5" font-family="system-ui, sans-serif" text-anchor="start">sweep</text>
+
+    <text x="414" y="240" fill="currentColor" font-size="9.5" font-family="system-ui, sans-serif" text-anchor="middle" fill-opacity="0.8">what you carry across the cut</text>
+    <!-- the carried object: a bar with legs pointing along TIME -->
+    <rect x="406" y="248" width="16" height="61" rx="5" fill="var(--global-theme-color)" fill-opacity="0.22" stroke="var(--global-theme-color)" stroke-width="1.5"/>
+    <text x="414" y="278" fill="currentColor" font-size="9.5" font-family="system-ui, sans-serif" text-anchor="middle" transform="rotate(-90 414 278)">state</text>
+    <g stroke="var(--global-theme-color)" stroke-width="1.3">
+      <line x1="406" y1="256" x2="386" y2="256"/><line x1="406" y1="271" x2="386" y2="271"/><line x1="406" y1="286" x2="386" y2="286"/><line x1="406" y1="301" x2="386" y2="301"/>
+    </g>
+    <g fill="var(--global-theme-color)">
+      <circle cx="386" cy="256" r="2.4"/><circle cx="386" cy="271" r="2.4"/><circle cx="386" cy="286" r="2.4"/><circle cx="386" cy="301" r="2.4"/>
+    </g>
+    <text x="414" y="336" fill="currentColor" font-size="9.5" font-family="system-ui, sans-serif" text-anchor="middle" fill-opacity="0.85">legs run along time, one per step</text>
+    <text x="414" y="352" fill="var(--global-theme-color)" font-size="10.5" font-family="system-ui, sans-serif" text-anchor="middle">4<tspan baseline-shift="super" font-size="8">T</tspan> numbers</text>
+  </svg>
+  <figcaption style="font-size:0.85rem;opacity:0.82;max-width:34rem;margin:0.5rem auto 0;">
+    One network, two contraction orders, the same final number. In <em>both</em> panels the
+    axes are the same — space runs left to right, one column per site, and time runs bottom
+    to top, one row per step. Only the sweep differs. On the left you swallow a whole time
+    layer at a time, so the boundary you must hold in memory is <em>horizontal</em>: the legs
+    crossing it run along the space axis, one per site, and the object is an ordinary
+    many-body state of 4<sup>L</sup> numbers. On the right you swallow one site's entire
+    world-line at a time, so the boundary is <em>vertical</em>: its legs run along the time
+    axis, one per step, and the object is a state whose lattice sites are <em>instants</em>,
+    of 4<sup>T</sup> numbers. The influence matrix is what the right-hand sweep is carrying
+    when it arrives at the system.
+  </figcaption>
+</figure>
+
 The roles have swapped, and it is worth saying vividly: **space is now the evolution
 direction.** The "state" being evolved is a wavefunction on a one-dimensional lattice whose
 sites are time steps; the "Hamiltonian" driving it is the dual transfer matrix
@@ -721,6 +872,116 @@ $$\hat{\mathcal{T}}$$ {% cite lerose2021influence --file refs_influence_matrix %
 that fixed-point equation once and the bath is solved *forever* — for any impurity you
 plant at the boundary, any drive you apply to it, any observable you measure. The
 exponentially large environment has been distilled into one temporal state.
+
+<figure style="margin:1.75rem auto;text-align:center;color:var(--global-text-color);">
+  <svg viewBox="0 0 520 312" width="520" style="max-width:100%;height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two rows. In the top row, a blob labelled IM sub k joins through four folded legs into a tall box labelled T-hat, one bath site's world-line of gates read sideways, and the result equals a new blob labelled IM sub k plus one with four open legs. In the bottom row the same operation is applied to a blob labelled IM star and returns IM star unchanged: the fixed point reached deep inside the bath">
+    <defs>
+      <marker id="fx-a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="currentColor"/></marker>
+    </defs>
+
+    <!-- ===== row 1: absorbing one more bath site ===== -->
+    <text x="34" y="24" fill="currentColor" font-size="10.5" font-family="system-ui, sans-serif" text-anchor="start" fill-opacity="0.8">absorb one more bath site:</text>
+
+    <rect x="40" y="34" width="68" height="90" rx="10" fill="var(--global-theme-color)" fill-opacity="0.18" stroke="var(--global-theme-color)" stroke-width="1.6"/>
+    <text x="74" y="84" fill="currentColor" font-size="13" font-family="system-ui, sans-serif" text-anchor="middle" font-weight="600">IM<tspan baseline-shift="sub" font-size="9">k</tspan></text>
+
+    <g stroke="var(--global-theme-color)" stroke-width="1.15">
+      <line x1="108" y1="46" x2="152" y2="46"/><line x1="108" y1="49" x2="152" y2="49" stroke-dasharray="3 3"/>
+      <line x1="108" y1="68" x2="152" y2="68"/><line x1="108" y1="71" x2="152" y2="71" stroke-dasharray="3 3"/>
+      <line x1="108" y1="90" x2="152" y2="90"/><line x1="108" y1="93" x2="152" y2="93" stroke-dasharray="3 3"/>
+      <line x1="108" y1="112" x2="152" y2="112"/><line x1="108" y1="115" x2="152" y2="115" stroke-dasharray="3 3"/>
+    </g>
+
+    <rect x="152" y="34" width="42" height="90" rx="6" fill="currentColor" fill-opacity="0.11" stroke="currentColor" stroke-opacity="0.6" stroke-width="1.5"/>
+    <text x="173" y="84" fill="currentColor" font-size="13" font-family="system-ui, sans-serif" text-anchor="middle">&#84;&#770;</text>
+
+    <g stroke="var(--global-theme-color)" stroke-width="1.15">
+      <line x1="194" y1="46" x2="238" y2="46"/><line x1="194" y1="49" x2="238" y2="49" stroke-dasharray="3 3"/>
+      <line x1="194" y1="68" x2="238" y2="68"/><line x1="194" y1="71" x2="238" y2="71" stroke-dasharray="3 3"/>
+      <line x1="194" y1="90" x2="238" y2="90"/><line x1="194" y1="93" x2="238" y2="93" stroke-dasharray="3 3"/>
+      <line x1="194" y1="112" x2="238" y2="112"/><line x1="194" y1="115" x2="238" y2="115" stroke-dasharray="3 3"/>
+    </g>
+
+    <text x="252" y="86" fill="currentColor" font-size="15" font-family="system-ui, sans-serif" text-anchor="middle" fill-opacity="0.8">=</text>
+
+    <rect x="268" y="34" width="68" height="90" rx="10" fill="var(--global-theme-color)" fill-opacity="0.18" stroke="var(--global-theme-color)" stroke-width="1.6"/>
+    <text x="302" y="84" fill="currentColor" font-size="13" font-family="system-ui, sans-serif" text-anchor="middle" font-weight="600">IM<tspan baseline-shift="sub" font-size="9">k+1</tspan></text>
+    <g stroke="var(--global-theme-color)" stroke-width="1.15">
+      <line x1="336" y1="46" x2="378" y2="46"/><line x1="336" y1="49" x2="378" y2="49" stroke-dasharray="3 3"/>
+      <line x1="336" y1="68" x2="378" y2="68"/><line x1="336" y1="71" x2="378" y2="71" stroke-dasharray="3 3"/>
+      <line x1="336" y1="90" x2="378" y2="90"/><line x1="336" y1="93" x2="378" y2="93" stroke-dasharray="3 3"/>
+      <line x1="336" y1="112" x2="378" y2="112"/><line x1="336" y1="115" x2="378" y2="115" stroke-dasharray="3 3"/>
+    </g>
+    <g fill="var(--global-theme-color)">
+      <circle cx="378" cy="47.5" r="2.4"/><circle cx="378" cy="69.5" r="2.4"/><circle cx="378" cy="91.5" r="2.4"/><circle cx="378" cy="113.5" r="2.4"/>
+    </g>
+
+    <g fill="currentColor" font-size="9.5" font-family="system-ui, sans-serif" fill-opacity="0.75">
+      <text x="396" y="70">one bath site&#8217;s</text>
+      <text x="396" y="84">world-line of gates,</text>
+      <text x="396" y="98">read sideways</text>
+    </g>
+
+    <!-- repeat: sits high and to the right, clear of the row-2 label below it -->
+    <text x="258" y="144" fill="currentColor" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle" fill-opacity="0.65">repeat, site after site, deeper into the bath</text>
+
+    <!-- ===== row 2: the fixed point (shifted down 18px to clear the line above) ===== -->
+    <text x="34" y="174" fill="currentColor" font-size="10.5" font-family="system-ui, sans-serif" text-anchor="start" fill-opacity="0.8">deep in a uniform bath:</text>
+
+    <rect x="40" y="182" width="68" height="90" rx="10" fill="var(--global-theme-color)" fill-opacity="0.18" stroke="var(--global-theme-color)" stroke-width="1.6"/>
+    <text x="74" y="232" fill="currentColor" font-size="13" font-family="system-ui, sans-serif" text-anchor="middle" font-weight="600">IM<tspan baseline-shift="super" font-size="9">&#8727;</tspan></text>
+
+    <g stroke="var(--global-theme-color)" stroke-width="1.15">
+      <line x1="108" y1="194" x2="152" y2="194"/><line x1="108" y1="197" x2="152" y2="197" stroke-dasharray="3 3"/>
+      <line x1="108" y1="216" x2="152" y2="216"/><line x1="108" y1="219" x2="152" y2="219" stroke-dasharray="3 3"/>
+      <line x1="108" y1="238" x2="152" y2="238"/><line x1="108" y1="241" x2="152" y2="241" stroke-dasharray="3 3"/>
+      <line x1="108" y1="260" x2="152" y2="260"/><line x1="108" y1="263" x2="152" y2="263" stroke-dasharray="3 3"/>
+    </g>
+
+    <rect x="152" y="182" width="42" height="90" rx="6" fill="currentColor" fill-opacity="0.11" stroke="currentColor" stroke-opacity="0.6" stroke-width="1.5"/>
+    <text x="173" y="232" fill="currentColor" font-size="13" font-family="system-ui, sans-serif" text-anchor="middle">&#84;&#770;</text>
+
+    <g stroke="var(--global-theme-color)" stroke-width="1.15">
+      <line x1="194" y1="194" x2="238" y2="194"/><line x1="194" y1="197" x2="238" y2="197" stroke-dasharray="3 3"/>
+      <line x1="194" y1="216" x2="238" y2="216"/><line x1="194" y1="219" x2="238" y2="219" stroke-dasharray="3 3"/>
+      <line x1="194" y1="238" x2="238" y2="238"/><line x1="194" y1="241" x2="238" y2="241" stroke-dasharray="3 3"/>
+      <line x1="194" y1="260" x2="238" y2="260"/><line x1="194" y1="263" x2="238" y2="263" stroke-dasharray="3 3"/>
+    </g>
+
+    <text x="252" y="234" fill="currentColor" font-size="15" font-family="system-ui, sans-serif" text-anchor="middle" fill-opacity="0.8">=</text>
+
+    <rect x="268" y="182" width="68" height="90" rx="10" fill="var(--global-theme-color)" fill-opacity="0.18" stroke="var(--global-theme-color)" stroke-width="1.6"/>
+    <text x="302" y="232" fill="currentColor" font-size="13" font-family="system-ui, sans-serif" text-anchor="middle" font-weight="600">IM<tspan baseline-shift="super" font-size="9">&#8727;</tspan></text>
+    <g stroke="var(--global-theme-color)" stroke-width="1.15">
+      <line x1="336" y1="194" x2="378" y2="194"/><line x1="336" y1="197" x2="378" y2="197" stroke-dasharray="3 3"/>
+      <line x1="336" y1="216" x2="378" y2="216"/><line x1="336" y1="219" x2="378" y2="219" stroke-dasharray="3 3"/>
+      <line x1="336" y1="238" x2="378" y2="238"/><line x1="336" y1="241" x2="378" y2="241" stroke-dasharray="3 3"/>
+      <line x1="336" y1="260" x2="378" y2="260"/><line x1="336" y1="263" x2="378" y2="263" stroke-dasharray="3 3"/>
+    </g>
+    <g fill="var(--global-theme-color)">
+      <circle cx="378" cy="195.5" r="2.4"/><circle cx="378" cy="217.5" r="2.4"/><circle cx="378" cy="239.5" r="2.4"/><circle cx="378" cy="261.5" r="2.4"/>
+    </g>
+
+    <g fill="currentColor" font-size="9.5" font-family="system-ui, sans-serif" fill-opacity="0.75">
+      <text x="392" y="218">one more site now</text>
+      <text x="392" y="232">changes nothing:</text>
+      <text x="392" y="246">solve the bath once,</text>
+      <text x="392" y="260">reuse it forever</text>
+    </g>
+
+    <text x="200" y="298" fill="var(--global-theme-color)" font-size="10.5" font-family="system-ui, sans-serif" text-anchor="middle">space is the evolution direction; the legs are time</text>
+  </svg>
+  <figcaption style="font-size:0.85rem;opacity:0.82;max-width:34rem;margin:0.5rem auto 0;">
+    The rotated problem, drawn as an evolution. Swallowing one more bath site means applying
+    the dual transfer matrix T̂ — that site's whole world-line of gates, read sideways — to
+    the temporal state, and getting back another temporal state with the same T legs. Because
+    every bath site is identical, this is the <em>same</em> operation each time, so the
+    sequence converges: deep enough into a uniform bath, one more site changes nothing and
+    IM<sup>∗</sup> is a fixed point of T̂. That is the payoff of the rotation — solve the
+    bath once and it is solved for every impurity, drive and observable you might attach at
+    the boundary.
+  </figcaption>
+</figure>
 
 <p class="thread-note"><span class="thread-label">The through-line</span> A many-body
 system, seen from inside, is a state in time. This post establishes that the state
@@ -748,28 +1009,57 @@ that extreme at a special point in its $$(b, J)$$ plane — a fact that will det
 Post 2.
 
 The widget below is the whole section in one interactive picture: the same folded network
-contracted both ways — columns lighting up bottom-to-top, then rows left-to-right
-collapsing onto a single temporal state — with the dimension you are paying for shown as
-it grows.
+contracted both ways — rows of the network lighting up bottom-to-top as time layers are
+absorbed, then columns lighting up right-to-left as whole site world-lines are absorbed and
+the network collapses onto a single temporal state — with the dimension you are paying for
+shown as it grows.
 
-<!-- =====================================================================
-     WIDGET GOES HERE — assets/js/influence-matrix-rotation.js
-     Space-time rotation explorer (build after sections 2–3 are approved):
-     - Kicked Ising chain, L = 5–6 (site 1 = system), T = 5–6 steps;
-       sliders for b and J.
-     - Panel A: network diagram; system column in teal; buttons "contract
-       in time" (columns light bottom-to-top, dimension bar shows 2^L
-       growth) and "contract in space" (rows light left-to-right, bar
-       shows temporal dimension; network collapses onto system column as a
-       single IM tensor). The animation IS the pedagogy.
-     - Panel B: <Z_sys(t)> computed BOTH ways — brute force and IM
-       contraction — overlaid, badge showing max deviation ("|Δ| < 1e−12").
-       Exactness is the punchline.
-     - Panel C (stretch, only if clean): dropdown to swap the system
-       drive, reusing the cached IM — Panel B updates instantly.
-     - All exact dense linear algebra; compute on slider release, not
-       drag. No MPS machinery (that's Post 2).
-     ===================================================================== -->
+<div style="border:1px solid var(--global-divider-color);border-radius:8px;padding:1rem;margin:1.5rem 0;">
+  <div id="imrot-mount"></div>
+  <div style="display:flex;flex-wrap:wrap;gap:1.25rem;align-items:center;justify-content:center;margin-top:0.85rem;font-size:0.9rem;">
+    <label style="display:flex;align-items:center;gap:0.5rem;">
+      kick b
+      <input id="imrot-b" type="range" min="0.05" max="1.55" step="0.01" value="0.60">
+      <span id="imrot-b-val" style="min-width:2.6em;font-variant-numeric:tabular-nums;">0.60</span>
+    </label>
+    <label style="display:flex;align-items:center;gap:0.5rem;">
+      coupling J
+      <input id="imrot-j" type="range" min="0.05" max="1.55" step="0.01" value="0.70">
+      <span id="imrot-j-val" style="min-width:2.6em;font-variant-numeric:tabular-nums;">0.70</span>
+    </label>
+    <label style="display:flex;align-items:center;gap:0.5rem;">
+      system drive
+      <select id="imrot-drive" style="font-size:0.85rem;background:transparent;color:inherit;border:1px solid var(--global-divider-color);border-radius:5px;padding:0.15rem 0.3rem;"></select>
+    </label>
+  </div>
+  <p style="font-size:0.8rem;opacity:0.75;margin:0.7rem 0 0;text-align:center;">
+    L = 5, T = 6, all exact. Moving a slider re-contracts the bath (new IM); changing only
+    the <em>drive</em> reuses the cached IM — watch the note under the badge. The brute-force
+    curve carries a pure state of 2⁵ amplitudes; the folded temporal state has 4⁶ components.
+  </p>
+</div>
+
+<script src="{{ '/assets/js/influence-matrix-rotation.js' | relative_url }}"></script>
+<script>
+  (function () {
+    var mount = document.getElementById("imrot-mount");
+    if (!mount || typeof createInfluenceMatrixRotation !== "function") return;
+    var w = createInfluenceMatrixRotation(mount, { L: 5, T: 6, b: 0.6, J: 0.7 });
+    var bS = document.getElementById("imrot-b"), jS = document.getElementById("imrot-j");
+    var bV = document.getElementById("imrot-b-val"), jV = document.getElementById("imrot-j-val");
+    var sel = document.getElementById("imrot-drive");
+    Object.keys(w.drives).forEach(function (k) {
+      var o = document.createElement("option"); o.value = k; o.textContent = w.drives[k].label;
+      sel.appendChild(o);
+    });
+    function upd() { w.setParams(bS.value, jS.value); }
+    bS.addEventListener("input", function () { bV.textContent = (+bS.value).toFixed(2); });
+    jS.addEventListener("input", function () { jV.textContent = (+jS.value).toFixed(2); });
+    bS.addEventListener("change", upd);
+    jS.addEventListener("change", upd);
+    sel.addEventListener("change", function () { w.setDrive(sel.value); });
+  })();
+</script>
 
 <div class="sec-divider" aria-hidden="true">•••</div>
 
@@ -795,7 +1085,225 @@ it grows.
 
 ## 4 · What the IM knows
 
-<!-- (to be written after the widget verifies the section 2–3 conventions) -->
+Time to cash the definition into physics. Fix a bath — say five kicked Ising sites at some
+$$(b, J)$$ — and contract it once, exactly, by the transverse sweep of section 3. You now
+hold $$4^T$$ numbers. Ask for $$\langle Z_1(t)\rangle$$ under some drive on site 1 and the
+answer is a single one-dimensional sum along the time axis, no many-body evolution in sight.
+Now change the question. Give site 1 a different kick angle: same IM, new $$\mathcal{S}^{O}$$,
+contract again. Make its drive time-dependent, a different pulse at every step: same IM.
+Measure $$X_1$$ instead of $$Z_1$$: same IM. Replace the spin at site 1 with a different
+impurity altogether: still the same IM, because none of that is anything the bath was ever
+told about. **The bath answered once, and every one of those questions is a cheap
+re-contraction of one fixed object.**
+
+That is worth writing down properly, because it also explains the object's name. Since the
+coupling is diagonal, the bath never sees an operator — it sees the system's trajectory as a
+sequence of numbers, and evolves under its own gates with those numbers inserted as phases.
+Call that trajectory-dependent bath evolution $$V_{s}$$. Then
+
+$$
+\mathrm{IM}\!\left[s, \bar{s}\right]
+\;=\; \mathrm{Tr}_{\mathrm{bath}}\!\left[\, V_{s}\; \rho_{\mathrm{bath}}\; V_{\bar{s}}^{\dagger} \right],
+$$
+
+a matrix whose row index is the forward trajectory and whose column index is the backward
+one. It comes with a free check: if the system does the same thing on both branches,
+$$s_t = \bar{s}_t$$ for every $$t$$, then $$V_s = V_{\bar s}$$ and the trace collapses to
+$$\mathrm{Tr}\,\rho_{\mathrm{bath}} = 1$$. Unitarity of the bath, visible as a flat
+diagonal.
+
+Now the part that says the IM is not merely a bookkeeping device. Write $$Z_{\mathrm{b}}$$
+for the boundary bath spin — site 2, the only bath operator the coupling ever touches — and
+let $$Z_{\mathrm{b}}(t)$$ be that spin evolved by the bath's *own* dynamics. Because each
+$$s_t = \pm 1$$ and $$Z_{\mathrm{b}}^2 = 1$$, every Ising factor is exactly two terms,
+$$e^{-iJ s_t Z_{\mathrm{b}}} = \cos J - i\, s_t \sin J\, Z_{\mathrm{b}}$$. Expanding all
+$$2T$$ of them makes the influence matrix a *multilinear polynomial* in the trajectories,
+and its coefficients are not arbitrary numbers: the term carrying $$s_t \bar{s}_{t'}$$ is
+
+$$
+\sin^{2}\!J \,\cos^{2T-2}\!J \;\; \big\langle Z_{\mathrm{b}}(t')\, Z_{\mathrm{b}}(t) \big\rangle_{\rho_{\mathrm{bath}}},
+$$
+
+the bath's **two-time correlation function** — the object that controls linear response and
+governs everything at weak coupling. Coefficients with more insertions are the bath's
+higher multi-time correlators, ordered along the forward and backward branches. The
+influence matrix is, quite literally, the generating function for all of them at once.
+
+<figure style="margin:1.75rem auto;text-align:center;color:var(--global-text-color);">
+  <svg viewBox="0 0 560 300" width="560" style="max-width:100%;height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three copies of the same Keldysh contour. Each has a solid forward branch and a dashed backward branch, joined by the bath initial state at the bottom and by the trace at the top, with four time steps marked as faint rungs. The first contour carries no operator insertions and gives the constant term. The second carries one insertion on each branch, at step two forward and step three backward, and equals the two-time correlator of the boundary spin. The third carries three insertions and equals a three-time correlator.">
+    <defs>
+      <marker id="kd-a" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="currentColor" fill-opacity="0.6"/></marker>
+    </defs>
+
+    <!-- time axis and step numbering, shown once on the left-hand contour -->
+    <line x1="44" y1="190" x2="44" y2="92" stroke="currentColor" stroke-opacity="0.55" stroke-width="1.2" marker-end="url(#kd-a)"/>
+    <text x="44" y="84" fill="currentColor" font-size="9.5" font-family="system-ui, sans-serif" text-anchor="middle" fill-opacity="0.8">time</text>
+    <g fill="currentColor" font-size="8.5" font-family="system-ui, sans-serif" text-anchor="end" fill-opacity="0.6">
+      <text x="64" y="183">1</text><text x="64" y="155">2</text><text x="64" y="127">3</text><text x="64" y="99">4</text>
+    </g>
+
+    <text x="100" y="34" fill="currentColor" font-size="9.5" font-family="system-ui, sans-serif" text-anchor="middle" fill-opacity="0.7">no insertions</text>
+    <g stroke="currentColor" stroke-opacity="0.18" stroke-width="1" stroke-dasharray="2 3">
+      <line x1="70" y1="180" x2="130" y2="180"/>
+      <line x1="70" y1="152" x2="130" y2="152"/>
+      <line x1="70" y1="124" x2="130" y2="124"/>
+      <line x1="70" y1="96" x2="130" y2="96"/>
+    </g>
+    <line x1="78" y1="70" x2="78" y2="200" stroke="currentColor" stroke-opacity="0.55" stroke-width="1.5"/>
+    <line x1="122" y1="70" x2="122" y2="200" stroke="currentColor" stroke-opacity="0.55" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <path d="M 78 70 C 78 48, 122 48, 122 70" fill="none" stroke="currentColor" stroke-opacity="0.55" stroke-width="1.5"/>
+    <rect x="60" y="200" width="80" height="20" rx="6" fill="currentColor" fill-opacity="0.12" stroke="currentColor" stroke-opacity="0.5"/>
+    <text x="100" y="214" fill="currentColor" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle" font-style="italic">&#961;<tspan baseline-shift="sub" font-size="6.5">bath</tspan></text>
+    <text x="100" y="248" fill="currentColor" font-size="9.5" font-family="system-ui, sans-serif" text-anchor="middle" fill-opacity="0.85">the constant term</text>
+    <text x="100" y="266" fill="var(--global-theme-color)" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">(cos J)<tspan baseline-shift="super" font-size="7">2T</tspan></text>
+
+    <text x="280" y="34" fill="currentColor" font-size="9.5" font-family="system-ui, sans-serif" text-anchor="middle" fill-opacity="0.7">one insertion per branch</text>
+    <g stroke="currentColor" stroke-opacity="0.18" stroke-width="1" stroke-dasharray="2 3">
+      <line x1="250" y1="180" x2="310" y2="180"/>
+      <line x1="250" y1="152" x2="310" y2="152"/>
+      <line x1="250" y1="124" x2="310" y2="124"/>
+      <line x1="250" y1="96" x2="310" y2="96"/>
+    </g>
+    <line x1="258" y1="70" x2="258" y2="200" stroke="currentColor" stroke-opacity="0.55" stroke-width="1.5"/>
+    <line x1="302" y1="70" x2="302" y2="200" stroke="currentColor" stroke-opacity="0.55" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <path d="M 258 70 C 258 48, 302 48, 302 70" fill="none" stroke="currentColor" stroke-opacity="0.55" stroke-width="1.5"/>
+    <rect x="240" y="200" width="80" height="20" rx="6" fill="currentColor" fill-opacity="0.12" stroke="currentColor" stroke-opacity="0.5"/>
+    <text x="280" y="214" fill="currentColor" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle" font-style="italic">&#961;<tspan baseline-shift="sub" font-size="6.5">bath</tspan></text>
+    <circle cx="258" cy="152" r="5" fill="var(--global-theme-color)"/>
+    <circle cx="302" cy="124" r="5" fill="var(--global-theme-color)"/>
+    <text x="249" y="155" fill="var(--global-theme-color)" font-size="9" font-family="system-ui, sans-serif" text-anchor="end">Z<tspan baseline-shift="sub" font-size="6.5">b</tspan>(2)</text>
+    <text x="311" y="127" fill="var(--global-theme-color)" font-size="9" font-family="system-ui, sans-serif" text-anchor="start">Z<tspan baseline-shift="sub" font-size="6.5">b</tspan>(3)</text>
+    <text x="280" y="248" fill="currentColor" font-size="9.5" font-family="system-ui, sans-serif" text-anchor="middle" fill-opacity="0.85">coefficient of s&#8322; s&#772;&#8323;</text>
+    <text x="280" y="266" fill="var(--global-theme-color)" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">&#10216;Z<tspan baseline-shift="sub" font-size="6.5">b</tspan>(3) Z<tspan baseline-shift="sub" font-size="6.5">b</tspan>(2)&#10217;</text>
+
+    <text x="460" y="34" fill="currentColor" font-size="9.5" font-family="system-ui, sans-serif" text-anchor="middle" fill-opacity="0.7">three insertions</text>
+    <g stroke="currentColor" stroke-opacity="0.18" stroke-width="1" stroke-dasharray="2 3">
+      <line x1="430" y1="180" x2="490" y2="180"/>
+      <line x1="430" y1="152" x2="490" y2="152"/>
+      <line x1="430" y1="124" x2="490" y2="124"/>
+      <line x1="430" y1="96" x2="490" y2="96"/>
+    </g>
+    <line x1="438" y1="70" x2="438" y2="200" stroke="currentColor" stroke-opacity="0.55" stroke-width="1.5"/>
+    <line x1="482" y1="70" x2="482" y2="200" stroke="currentColor" stroke-opacity="0.55" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <path d="M 438 70 C 438 48, 482 48, 482 70" fill="none" stroke="currentColor" stroke-opacity="0.55" stroke-width="1.5"/>
+    <rect x="420" y="200" width="80" height="20" rx="6" fill="currentColor" fill-opacity="0.12" stroke="currentColor" stroke-opacity="0.5"/>
+    <text x="460" y="214" fill="currentColor" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle" font-style="italic">&#961;<tspan baseline-shift="sub" font-size="6.5">bath</tspan></text>
+    <circle cx="438" cy="180" r="5" fill="var(--global-theme-color)"/>
+    <circle cx="438" cy="124" r="5" fill="var(--global-theme-color)"/>
+    <circle cx="482" cy="96" r="5" fill="var(--global-theme-color)"/>
+    <text x="429" y="183" fill="var(--global-theme-color)" font-size="9" font-family="system-ui, sans-serif" text-anchor="end">Z<tspan baseline-shift="sub" font-size="6.5">b</tspan>(1)</text>
+    <text x="429" y="127" fill="var(--global-theme-color)" font-size="9" font-family="system-ui, sans-serif" text-anchor="end">Z<tspan baseline-shift="sub" font-size="6.5">b</tspan>(3)</text>
+    <text x="491" y="99" fill="var(--global-theme-color)" font-size="9" font-family="system-ui, sans-serif" text-anchor="start">Z<tspan baseline-shift="sub" font-size="6.5">b</tspan>(4)</text>
+    <text x="460" y="248" fill="currentColor" font-size="9.5" font-family="system-ui, sans-serif" text-anchor="middle" fill-opacity="0.85">coefficient of s&#8321; s&#8323; s&#772;&#8324;</text>
+    <text x="460" y="266" fill="var(--global-theme-color)" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">&#10216;Z<tspan baseline-shift="sub" font-size="6.5">b</tspan>(4) Z<tspan baseline-shift="sub" font-size="6.5">b</tspan>(3) Z<tspan baseline-shift="sub" font-size="6.5">b</tspan>(1)&#10217;</text>
+
+    <text x="280" y="292" fill="currentColor" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle" fill-opacity="0.65">solid = forward branch&#8195;·&#8195;dashed = backward branch&#8195;·&#8195;teal dot = an inserted Z<tspan baseline-shift="sub" font-size="6.5">b</tspan></text>
+  </svg>
+  <figcaption style="font-size:0.85rem;opacity:0.82;max-width:34rem;margin:0.5rem auto 0;">
+    Reading a coefficient off the contour. Expanding every Ising factor into its two exact
+    terms amounts to choosing, independently at each step and on each branch, whether to
+    insert Z<sub>b</sub> (a teal dot) or the identity (nothing). Each pattern of dots is one
+    monomial in the trajectories, and its coefficient is the bath correlator with Z<sub>b</sub>
+    evaluated at exactly those times, read around the contour with the backward-branch
+    insertions written first. Two dots, one per branch, give the two-time function that
+    controls linear response; more dots give higher correlators. The influence matrix is the
+    sum over <em>every</em> pattern of dots — which is why it holds all of the bath's
+    multi-time correlations at once, and why truncating the patterns is what the familiar
+    approximations do.
+  </figcaption>
+</figure>
+
+Seen that way, the approximation schemes everyone already knows stop looking like separate
+ideas and start looking like places to cut this one object. Keep only the terms with two
+insertions — second order in $$J$$ — and you have kept exactly the two-time correlator: that
+is the Born approximation. Assume in addition that
+$$\langle Z_{\mathrm{b}}(t')Z_{\mathrm{b}}(t)\rangle$$ has died before the next Floquet step,
+and the surviving terms all sit at a single time, so the influence matrix factorizes into one
+independent tensor per step. That is the Markov approximation — and notice what it *is* in
+this language: a **product state in time**. A memoryless bath is a temporal state with no
+entanglement at all. Hold onto that sentence; Post 2 is built on it.
+
+So what has actually been bought? Honestly: understanding, and not yet a single flop. The
+influence matrix is exact, and it is $$4^T$$ numbers — an exponential in $$T$$ where we
+started with an exponential in $$L$$. Worse, the way we built it was to contract the bath
+exactly, which costs whatever the original many-body problem cost. Nothing has been
+compressed; the difficulty has been *moved*, out of space and into time. The reason that is
+progress rather than a lateral shuffle is the question it makes askable, which is the whole
+of Post 2: the influence matrix is a state on a one-dimensional lattice, so **how entangled
+is it?** If the answer is "barely," a matrix-product state in the time direction stores it in
+polynomial space, and everything above becomes an algorithm instead of a definition.
+
+<div class="learn-more-box" markdown="0">
+{% details The dictionary: which components are which correlators, and why a memoryless bath is a product state %}
+**1 · The expansion is exact, not perturbative.**
+Each Ising layer contributes $$e^{-iJ s_t Z_{\mathrm{b}}}$$ to the forward branch. Since
+$$s_t=\pm1$$ and $$Z_{\mathrm{b}}^2 = \mathbb{1}$$, this is *exactly* a two-term sum,
+
+$$
+e^{-iJ s_t Z_{\mathrm{b}}} \;=\; \cos J \,\mathbb{1} \;-\; i \sin J \, s_t\, Z_{\mathrm{b}},
+$$
+
+with no expansion in small $$J$$ anywhere. Doing this at all $$T$$ steps writes $$V_s$$ as a
+sum over subsets $$S \subseteq \{1,\dots,T\}$$ — the steps at which $$Z_{\mathrm{b}}$$ is
+inserted rather than the identity:
+
+$$
+V_{s} \;=\; \mathcal{K}\sum_{S} \left(\cos J\right)^{T-|S|}\left(-i\sin J\right)^{|S|}
+\Big(\prod_{t\in S} s_t\Big)\;
+\mathcal{T}\!\!\prod_{t \in S} Z_{\mathrm{b}}(t),
+$$
+
+where $$\mathcal{K}$$ collects the bath's own gates, $$Z_{\mathrm{b}}(t)$$ is the boundary
+spin in the bath's free Heisenberg picture, and $$\mathcal{T}$$ time-orders.
+
+**2 · Sandwiching gives contour-ordered correlators.**
+Doing the same on the backward branch with its own subset $$\bar{S}$$ and taking the trace
+against $$\rho_{\mathrm{bath}}$$,
+
+$$
+\mathrm{IM}\!\left[s,\bar s\right] = \sum_{S,\bar S}
+c_{S \bar S}\,
+\Big(\prod_{t\in S} s_t\Big)\Big(\prod_{t'\in \bar S} \bar s_{t'}\Big)
+\Big\langle \bar{\mathcal{T}}\!\!\prod_{t'\in\bar S}\! Z_{\mathrm{b}}(t')\;\;
+\mathcal{T}\!\!\prod_{t\in S}\! Z_{\mathrm{b}}(t) \Big\rangle,
+$$
+
+with $$c_{S\bar S} = (\cos J)^{2T-|S|-|\bar S|}(-i\sin J)^{|S|}(i \sin J)^{|\bar S|}$$. So
+the dictionary is exact and complete: **the coefficient of a given monomial in the
+trajectories is the bath's multi-time correlator with insertions at precisely those times**,
+anti-time-ordered on the backward branch, time-ordered on the forward one — a
+contour-ordered correlator. The case $$|S|=|\bar S|=1$$ is the two-time function quoted in
+the main text; $$|S|=|\bar S|=0$$ is the constant $$(\cos J)^{2T}$$, and the requirement that
+everything resum to 1 on the diagonal $$s=\bar s$$ is a nontrivial identity among all the
+higher correlators.
+
+**3 · A decoupled bath is a product state in time.**
+Set $$J=0$$. Every Ising factor becomes the identity, $$V_s$$ stops depending on the
+trajectory, and
+
+$$
+\mathrm{IM}\!\left[s,\bar s\right] = \mathrm{Tr}\!\left[V \rho_{\mathrm{bath}} V^\dagger\right] = 1
+\qquad\text{for every trajectory.}
+$$
+
+A constant function of $$\sigma_1,\dots,\sigma_T$$ is a product state on the temporal
+lattice — it factorizes as $$\prod_t f(\sigma_t)$$ with $$f \equiv 1$$ — so its temporal
+entanglement is exactly zero across every cut. The same conclusion survives the coupling
+being switched back on provided the bath's correlators never link different times: if
+$$\langle Z_{\mathrm{b}}(t')Z_{\mathrm{b}}(t)\rangle \propto \delta_{tt'}$$, only $$S=\bar S$$
+single-time terms survive in step 2 and the sum factorizes step by step,
+
+$$
+\mathrm{IM}\!\left[s,\bar s\right] \;=\; \prod_{t=1}^{T} f\!\left(\sigma_t\right).
+$$
+
+**Memory is temporal entanglement.** A bath that forgets gives a product state in time; a
+bath that remembers correlates the legs. That equivalence is the hinge of the entire series,
+and Post 2 turns it into a computational method — including the startling case of a bath so
+chaotic that it forgets *perfectly*, and whose influence matrix is therefore an exact product
+state even at strong coupling.
+{% enddetails %}
+</div>
 
 <div class="sec-divider" aria-hidden="true">•••</div>
 
@@ -822,7 +1330,53 @@ it grows.
 
 ## 5 · Where this goes
 
-<!-- (to be written last, with the companion link) -->
+The influence matrix now exists: an exact, finite, uncompressed answer to "what does the
+rest of the system do to one site?" Everything that follows in this series is about what
+that object *is like* — and it turns out to be like nothing the spatial picture prepares
+you for.
+
+**[Part 2]({% post_url 2026-07-29-temporal-entanglement-when-a-chaotic-system-is-a-perfect-bath %})** asks the obvious tensor-network question: how entangled is the temporal state,
+across cuts in *time*? That number — the **temporal entanglement** — decides whether an MPS
+in the time direction can compress the IM, and section 4's closing observation (memoryless
+= product state in time) becomes quantitative. The centerpiece is a genuine shock: at the
+kicked Ising chain's self-dual point, a *maximally chaotic* many-body system has an
+influence matrix with no temporal entanglement at all — a **perfect dephaser**, the best
+possible bath, memoryless at strong coupling {% cite lerose2021influence sonner2021influence --file refs_influence_matrix %}.
+Chaos, seen from inside, can mean perfect forgetting.
+
+**[Part 3]({% post_url 2026-07-30-dynamical-phases-through-the-temporal-lens %})** turns that observation into a diagnostic. Temporal entanglement scales
+differently in a thermalizing bath, near an integrable point
+{% cite lerose2021scaling --file refs_influence_matrix %}, and in a localized one
+{% cite sonner2022characterizing --file refs_influence_matrix %} — the dynamical phase of
+matter is legible in the entanglement of a single temporal state.
+
+**[Part 4]({% post_url 2026-07-31-gaussian-influence-matrices-free-fermions-in-the-time-direction %})** specializes to baths of free fermions, where the IM collapses further: it is a
+*Gaussian* state in the temporal fermionic Hilbert space, fully specified by one **temporal
+correlation matrix** {% cite thoenniss2023nonequilibrium --file refs_influence_matrix %}.
+Everything my [free-fermion post]({% post_url 2026-07-06-free-fermions-one-matrix %})
+built for space — the correlation matrix, the $$\zeta$$-spectrum, entropies from
+eigenvalues — gets reused wholesale on the time axis.
+
+**[Part 5]({% post_url 2026-08-01-quantum-impurity-problems-the-influence-matrix-earns-its-keep %})** is the payoff: quantum impurity problems. A small interacting region coupled to
+free-fermion leads is precisely "system + Gaussian bath," and compressing the leads'
+influence matrices attacks nonequilibrium transport problems that resist every spatial
+method {% cite thoenniss2023efficient --file refs_influence_matrix %} — with the impurity
+solvers at the heart of DMFT waiting at the end of the road.
+
+The exact computation behind this post's widget — same physics, honest scales, all the
+code, and the measured walls where dense methods die — lives in the programming companion:
+[**Exact influence matrices, by brute force**]({{ '/programming/influence-matrix-01-exact-dense/' | relative_url }}).
+The companions form their own ladder, ending at a working toy impurity solver.
+
+<p class="thread-note"><span class="thread-label">The through-line</span> A many-body
+system, seen from inside, is a state in time. We now know that state exists and what it
+holds — every multi-time correlation the bath will ever show you. The question the rest of
+the series answers, one part at a time: what kind of state is it?</p>
+
+One open question to carry out the door: the IM stores the bath's *entire* multi-time
+memory, yet section 4 showed that a Markovian bath needs almost none of it. How much of
+that memory does a *generic* many-body bath actually use? That is not a rhetorical
+question — it is a number, and Part 2 computes it.
 
 <div class="sec-divider" aria-hidden="true">•••</div>
 

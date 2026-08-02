@@ -16,6 +16,7 @@
 #   tags    [<thread>, <kind>]. First tag groups the notation page.
 #             threads: foundations · spin-qubits · decoherence · free-fermions
 #                      circuits-simulation · temporal-methods · critical-dynamics
+#                      superconductivity · geometric-control · solvable-circuits
 #             kinds:   prerequisite · model · formalism · technique · result
 #                      phenomenon · hardware
 #
@@ -31,9 +32,11 @@
 # -----------------------------------------------------------------------------
 
 # =============================================================================
-# FOUNDATIONS — assumed background. Every entry here is currently a GAP:
+# FOUNDATIONS — assumed background. Almost every entry here is a GAP:
 # referenced by `requires`, derived by no post. That is accurate and expected;
-# they are candidates for a future foundations post, not bugs.
+# they are candidates for a future foundations post, not bugs. Exception:
+# tensor-network-diagrams is now provided by the solvable-circuits thread's
+# opening post, which derives the calculus from scratch.
 # =============================================================================
 
 - id: pauli-algebra
@@ -381,6 +384,74 @@
   blurb: "A single strong two-state fluctuator: non-Gaussian, and coherence can revive."
   tags: [decoherence, model]
 
+# --- Series A: dynamical decoupling and noise spectroscopy ---
+
+- id: switching-function
+  name: "Switching function"
+  symbol: "y(s) = \\pm 1"
+  blurb: "The sign the qubit records phase with; a π pulse flips it, so a sequence is a square wave."
+  tags: [decoherence, formalism]
+
+- id: sequence-filter-function
+  name: "Sequence filter function"
+  symbol: "F(\\omega,t) = \\tfrac{1}{2}\\lvert\\tilde y(\\omega,t)\\rvert^2"
+  blurb: "The filter a pulse sequence builds; free evolution is the no-pulse case, and every echo has F(0,t) = 0."
+  tags: [decoherence, result]
+
+- id: cpmg
+  name: "CPMG sequence"
+  symbol: "\\omega_{\\text{peak}} \\approx \\pi n/t"
+  blurb: "n evenly spaced π pulses; its filter is a bandpass whose passband slides up with pulse number."
+  tags: [decoherence, technique]
+
+- id: uhrig-sequence
+  name: "Uhrig dynamical decoupling"
+  symbol: "s_j = t\\sin^2\\!\\left(\\tfrac{\\pi j}{2n+2}\\right)"
+  blurb: "Unevenly spaced pulses that make the filter maximally flat at low frequency."
+  tags: [decoherence, technique]
+
+- id: noise-spectroscopy
+  name: "Noise spectroscopy"
+  symbol: "S(\\omega_1) \\approx \\pi^2\\chi/(4t)"
+  blurb: "Reading the overlap integral backwards: a tunable filter plus a decay measurement is a spectrum analyser."
+  tags: [decoherence, technique]
+
+- id: spectral-reconstruction
+  name: "Spectral reconstruction"
+  symbol: null
+  blurb: "Inverting T₂ versus pulse number into S(ω), and the harmonic leakage that limits it."
+  tags: [decoherence, technique]
+
+- id: inverse-problem-framing
+  name: "Noise characterization as an inverse problem"
+  symbol: null
+  blurb: "The spectrum is never observed, only inferred through a filter you chose — so assumptions set what is knowable."
+  tags: [decoherence, formalism]
+
+- id: hyperfine-bath
+  name: "Hyperfine (nuclear) bath"
+  symbol: "H_{\\text{hf}} = \\sum_k A_k \\mathbf{S}\\cdot\\mathbf{I}_k"
+  blurb: "The host nuclei the electron overlaps; loud, but concentrated at low frequency where an echo is blind."
+  tags: [decoherence, phenomenon]
+
+- id: two-level-fluctuator
+  name: "Two-level fluctuator"
+  symbol: "\\gamma"
+  blurb: "A defect switching between two configurations; contributes one Lorentzian with a knee at its switching rate."
+  tags: [decoherence, model]
+
+- id: one-over-f
+  name: "1/f noise"
+  symbol: "S(\\omega) \\propto 1/\\omega"
+  blurb: "What a log-uniform ensemble of fluctuators sums to — scale-free noise from thermally activated disorder."
+  tags: [decoherence, phenomenon]
+
+- id: sweet-spot
+  name: "Sweet spot"
+  symbol: "\\partial\\Omega/\\partial\\varepsilon = 0"
+  blurb: "An operating point where the qubit is first-order insensitive to its dominant noise — and to control."
+  tags: [spin-qubits, technique]
+
 # =============================================================================
 # FREE FERMIONS — canonical home: "Free Fermions: All the Entanglement Is in One Matrix"
 # =============================================================================
@@ -499,6 +570,21 @@
   symbol: null
   blurb: "Hamiltonians that create and destroy fermions in pairs; C alone no longer suffices."
   tags: [free-fermions, formalism]
+
+# The superconductivity series derives both of these in the pairing context but
+# does NOT claim them: the canonical derivation is the linear algebra, and that
+# belongs here. Post 3 of that series declares them under `uses` and links out.
+- id: bogoliubov-transformation
+  name: "Bogoliubov transformation"
+  symbol: "\\alpha_k = u_k c_{k\\uparrow} - v_k c^\\dagger_{-k\\downarrow}"
+  blurb: "The canonical rotation mixing creation and annihilation operators that diagonalises a pairing Hamiltonian."
+  tags: [free-fermions, technique]
+
+- id: quasiparticle-spectrum
+  name: "Quasiparticle spectrum"
+  symbol: "E_k"
+  blurb: "The positive eigenvalues of a BdG Hamiltonian: the energies of the excitations the transformation creates."
+  tags: [free-fermions, result]
 
 # =============================================================================
 # CIRCUITS AND SIMULATION — canonical home: "Matchgates"
@@ -619,11 +705,65 @@
   blurb: "Entanglement of the influence matrix across a cut in time; the fingerprint of the bath's dynamical phase."
   tags: [temporal-methods, formalism]
 
+# =============================================================================
+# SOLVABLE CIRCUITS — canonical home: "Brickwork Circuits" (P1) and
+# "Dual Unitarity: Exactly Solvable, Genuinely Chaotic" (P2).
+#
+# Notation notes for this thread (conventions pinned in P1's scaffold comment):
+#   q    local Hilbert dimension (the free-fermion thread's L×L matrices use L;
+#        no collision — q is reserved here).
+#   Ũ    the RESHUFFLED gate, not the partial transpose.
+#   M_±  light-ray channels; which trace goes with which ray is fixed by the
+#        even-layer-first convention and stated in P2.
+# =============================================================================
+
+- id: brickwork-circuit
+  name: "Brickwork circuit"
+  symbol: "U \\in U(q^2)"
+  blurb: "Staggered layers of one repeated two-site gate — locality plus unitarity and nothing else, the minimal model of many-body dynamics."
+  tags: [solvable-circuits, model]
+
+- id: operator-vectorization
+  name: "Operator vectorization"
+  symbol: "\\lvert O \\rangle\\rangle"
+  blurb: "Operators as vectors in a doubled space with the Hilbert–Schmidt pairing; conjugation becomes the folded gate acting from the left."
+  tags: [solvable-circuits, technique]
+
+- id: lightcone-causality
+  name: "Strict light-cone causality"
+  symbol: "C(x,t) = 0 \\;\\; \\text{outside}"
+  blurb: "Unitarity cancels every gate outside the causal diamond, so correlators vanish identically — not approximately — beyond one site per layer."
+  tags: [solvable-circuits, result]
+
 - id: dual-unitary-circuits
   name: "Dual-unitary circuits"
+  symbol: "U, \\; \\tilde{U}"
+  blurb: "Circuits whose gate is unitary read in time and in space — the temporal thread's maximally solvable extreme, and this thread's defining condition."
+  tags: [solvable-circuits, model]
+
+- id: gate-reshuffling
+  name: "Gate reshuffling"
+  symbol: "\\tilde{U}_{(db),(ca)} = U_{(ab),(cd)}"
+  blurb: "Regrouping a gate's legs so space pairs become input/output — a leg transposition across the diagram, not the partial transpose."
+  tags: [solvable-circuits, technique]
+
+- id: du-correlation-collapse
+  name: "Correlation collapse onto light rays"
   symbol: null
-  blurb: "Circuits whose sideways evolution is itself unitary — the maximally solvable extreme of the rotation."
-  tags: [temporal-methods, model]
+  blurb: "In a dual-unitary circuit every infinite-temperature two-point function vanishes exactly except on the light rays x = ±2t."
+  tags: [solvable-circuits, result]
+
+- id: lightray-channel
+  name: "Light-ray channel"
+  symbol: "\\mathcal{M}_{\\pm}"
+  blurb: "The one-site unital quantum channel, built from the gate by a partial trace, whose powers generate the on-ray correlations forever."
+  tags: [solvable-circuits, formalism]
+
+- id: du-ergodicity-classification
+  name: "Ergodicity classification by channel spectrum"
+  symbol: "\\lvert\\lambda\\rvert \\lessgtr 1"
+  blurb: "The eigenvalues of M± sort dual-unitary circuits into ergodic-and-mixing, non-mixing, and soliton-carrying nonergodic classes."
+  tags: [solvable-circuits, result]
 
 # =============================================================================
 # CRITICAL DYNAMICS — canonical home: "When Adiabaticity Fails: Kibble–Zurek"
@@ -683,3 +823,111 @@
   symbol: "n \\sim \\tau_Q^{-1/2}"
   blurb: "Kinks left behind by a finite-speed crossing; the headline prediction for the Ising chain."
   tags: [critical-dynamics, result]
+
+# =============================================================================
+# SUPERCONDUCTIVITY — canonical home: "What Needs Explaining" and its sequels
+#
+# Notation notes for this thread (see CONTRIBUTING-posts.md §4):
+#   λ_L  penetration depth — ALWAYS subscripted. Bare λ is the Kibble–Zurek
+#        quench ramp and stays that way.
+#   ξ_k  dispersion measured from μ (an energy).  ξ_0, ξ(T)  coherence length
+#        (a length).  Bare ξ remains `correlation-length` and is never used here.
+#        This is a deliberate, documented collision: the decorations always
+#        distinguish the three, and the field uses all of them.
+# =============================================================================
+
+- id: meissner-effect
+  name: "Meissner effect"
+  symbol: "\\mathbf{B} = 0"
+  blurb: "Flux expulsion from the bulk regardless of cooling history — an equilibrium property, which is what makes it a phase and not just perfect conduction."
+  tags: [superconductivity, phenomenon]
+
+- id: london-equation
+  name: "London equations"
+  symbol: "\\nabla \\times \\mathbf{j}_s = -\\mathbf{B}/\\mu_0\\lambda_L^2"
+  blurb: "The minimal phenomenology that produces flux expulsion: assume the current responds to the field itself, not its rate of change."
+  tags: [superconductivity, model]
+
+- id: penetration-depth
+  name: "London penetration depth"
+  symbol: "\\lambda_L = \\sqrt{m/\\mu_0 n_s e^2}"
+  blurb: "The thickness of the surface shell the field actually reaches; the one length the London equations contain."
+  tags: [superconductivity, result]
+
+- id: flux-quantization
+  name: "Flux quantization"
+  symbol: "\\Phi_0 = h/2e"
+  blurb: "Trapped flux comes in units set by charge 2e — the experiment that says the carriers are pairs, before any theory of why."
+  tags: [superconductivity, phenomenon]
+
+# =============================================================================
+# GEOMETRIC CONTROL — canonical home: "Four Metrics, One Ramp"
+#
+# Notation note for this thread (see CONTRIBUTING-posts.md §4):
+#   u^μ  control parameters. Deliberately NOT λ (the Kibble–Zurek quench ramp)
+#        and NOT x (which this thread's two-level toy model uses for the
+#        coupling amplitude, alongside z for the detuning: H = ½(zZ + xX),
+#        lowercase amplitudes against the site-wide capital Paulis).
+#   δ    the adiabaticity tolerance, following all three modern papers. The
+#        gap is Δ site-wide; ε is left to the spin-qubit thread.
+# =============================================================================
+
+- id: adiabatic-gauge-potential
+  name: "Adiabatic gauge potential"
+  symbol: "\\mathcal{A}_\\mu = i\\langle m \\vert \\partial_\\mu n\\rangle = i\\langle m\\vert\\partial_\\mu H\\vert n\\rangle/(E_n - E_m)"
+  blurb: "The generator of parameter translations in the moving eigenbasis; every control metric in this thread is assembled from its matrix elements."
+  tags: [geometric-control, formalism]
+
+- id: quantum-geometric-tensor
+  name: "Quantum geometric tensor"
+  symbol: "Q_{\\mu\\nu}"
+  blurb: "One complex tensor on control space: its real part measures distance between neighbouring ground states, its imaginary part is the Berry curvature."
+  tags: [geometric-control, formalism]
+
+- id: fubini-study-metric
+  name: "Fubini–Study metric on control space"
+  symbol: "g_{\\mu\\nu} = \\mathrm{Re}\\sum_{n\\neq 0} \\langle 0\\vert\\partial_\\mu H\\vert n\\rangle\\langle n\\vert\\partial_\\nu H\\vert 0\\rangle/\\Delta_n^2"
+  blurb: "The real part of the quantum geometric tensor — the gap enters squared, once per level, and the matrix elements are projected on the ground state."
+  tags: [geometric-control, formalism]
+
+- id: geodesic-protocol
+  name: "The geodesic-protocol skeleton"
+  symbol: "T = L_G[\\gamma]/\\delta"
+  blurb: "Fix an adiabaticity tolerance and the protocol time is a path length in some metric on control space; every framework in this thread is this statement with a different metric."
+  tags: [geometric-control, formalism]
+
+- id: path-versus-schedule
+  name: "Path versus schedule"
+  symbol: null
+  blurb: "Choosing how fast to move along a fixed route is a different problem from choosing the route; length functionals are reparametrisation-invariant, so only the second one is geometry."
+  tags: [geometric-control, formalism]
+
+- id: local-adiabaticity
+  name: "Local adiabaticity and FAQUAD"
+  symbol: "\\lvert\\langle 1\\vert\\partial_u H\\vert 0\\rangle\\rvert\\,\\dot u/\\Delta^2 = \\mathrm{const}"
+  blurb: "Hold the instantaneous adiabatic parameter constant over the whole ramp instead of the velocity — Roland–Cerf's condition and its FAQUAD descendant."
+  tags: [geometric-control, technique]
+
+- id: adiabatic-brachistochrone
+  name: "Quantum adiabatic brachistochrone"
+  symbol: "G^{\\mathrm{QAB}}_{\\mu\\nu} = \\mathrm{Tr}[\\partial_\\mu H\\,\\partial_\\nu H]/\\Delta^4"
+  blurb: "A Hilbert–Schmidt numerator over the fourth power of the gap; for affine controls the numerator is a constant matrix and the metric is conformally flat."
+  tags: [geometric-control, formalism]
+
+- id: alpha-beta-hypergeometry
+  name: "(α, β)-hypergeometries"
+  symbol: "G^{(\\alpha,\\beta)}_{\\mu\\nu},\\;\\; n_+ = (\\alpha+\\beta)/2"
+  blurb: "A two-parameter relabelling of control metrics that puts linear, geometric and FAQUAD protocols on one axis; for a single control only n₊ survives."
+  tags: [geometric-control, formalism]
+
+- id: projected-metric-degeneracy
+  name: "Degeneracy of projected control metrics"
+  symbol: "\\mathrm{rank}\\,G \\leq 2"
+  blurb: "Ground-state-projected metrics have rank at most two, so in a two-level system driven by real controls they cannot select a path at all."
+  tags: [geometric-control, result]
+
+- id: landau-zener-arc-length
+  name: "The π/2 of an avoided crossing"
+  symbol: "\\int_{-\\infty}^{\\infty} ds_{\\mathrm{FS}} = \\pi/2"
+  blurb: "A full Landau–Zener sweep has the same Fubini–Study length whatever the minimum gap — unweighted arc length is blind to the bottleneck it is meant to describe."
+  tags: [geometric-control, result]

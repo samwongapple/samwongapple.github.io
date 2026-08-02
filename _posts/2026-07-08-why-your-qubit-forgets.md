@@ -6,6 +6,28 @@ description: T2* is not a decay rate — it is a shot-to-shot spread easily mist
 tags: [quantum-computing, spin-qubits, decoherence]
 categories: [spin-qubits]
 related_posts: false
+provides:
+  [
+    pure-dephasing-model,
+    ramsey-experiment,
+    coherence-function,
+    stationary-noise,
+    autocorrelation-function,
+    power-spectral-density,
+    fourier-wiener-khinchin,
+    white-noise,
+    quasistatic-noise,
+    ornstein-uhlenbeck-noise,
+    gaussian-dephasing,
+    attenuation-function,
+    t2-star-as-spread,
+    motional-narrowing,
+    filter-function,
+    overhauser-field,
+    coherence-timescales,
+  ]
+requires: [bloch-sphere, density-matrix, pauli-algebra, zeeman-splitting]
+uses: [charge-noise, random-telegraph-noise, hahn-echo]
 toc:
   sidebar: left
 ---

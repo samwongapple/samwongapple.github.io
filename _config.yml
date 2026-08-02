@@ -318,13 +318,13 @@ jekyll-archives:
 # Only list tags/categories that ACTUALLY exist in _posts — jekyll-archives builds an
 # archive page per existing tag/category, so naming one with no posts yields a dead link.
 # As each new thread's first post lands, add its category here:
-#   matchgates · zx-calculus
+#   zx-calculus
 #
 # NOTE: /blog/ groups posts into threads from _data/blog_threads.yml, so it renders the
 # `display_tags` strip but NOT `display_categories` — thread sections replaced it.
 # `display_categories` is kept in sync only for the category archive pages.
-display_tags: ["free-fermions", "entanglement", "majorana", "spin-qubits", "decoherence", "influence-matrix", "tensor-networks", "kibble-zurek", "quantum-quench"] # these tags will be displayed on the front page of your blog
-display_categories: ["free-fermions", "spin-qubits", "influence-matrix", "kibble-zurek"] # these categories will be displayed on the front page of your blog
+display_tags: ["free-fermions", "entanglement", "majorana", "spin-qubits", "decoherence", "influence-matrix", "tensor-networks", "kibble-zurek", "quantum-quench", "superconductivity", "matchgates", "quantum-circuits", "dual-unitary"] # these tags will be displayed on the front page of your blog
+display_categories: ["free-fermions", "gaussian-tensor-networks", "spin-qubits", "influence-matrix", "kibble-zurek", "superconductivity", "matchgates", "solvable-circuits"] # these categories will be displayed on the front page of your blog
 
 # -----------------------------------------------------------------------------
 # Jekyll Scholar

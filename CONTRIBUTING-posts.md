@@ -63,7 +63,8 @@ it), `name`, `symbol` (LaTeX without delimiters, or `null`), `blurb` (one line),
 (`[<thread>, <kind>]`).
 
 Threads: `foundations` · `spin-qubits` · `decoherence` · `free-fermions` ·
-`circuits-simulation` · `temporal-methods` · `critical-dynamics`.
+`circuits-simulation` · `temporal-methods` · `critical-dynamics` ·
+`superconductivity` · `geometric-control`.
 Kinds: `prerequisite` · `model` · `formalism` · `technique` · `result` · `phenomenon` ·
 `hardware`.
 
@@ -136,6 +137,28 @@ Site-wide, so that a symbol means one thing across a thread:
 - **`c`** — fermion annihilation operator; also the CFT central charge in one quoted result.
   Prefer `c_i`, `c_i^\dagger` with indices, and write central charge only as `c = 1` in
   context.
+- **`λ`** — the Kibble–Zurek quench ramp `λ(t) = t/τ_Q`, and nothing else. The
+  superconductivity thread's penetration depth is **always** written `λ_L`, and the
+  Ginzburg–Landau ratio always `κ = λ_L/ξ`. Do not drop the subscript, even in a post where
+  no ramp appears.
+- **`ξ`** — bare, it is the `correlation-length` prerequisite; the superconductivity thread
+  never uses it undecorated. There it means two further things, distinguished by decoration
+  and by dimension: `ξ_k` is the dispersion measured from μ (an **energy**), while `ξ_0` and
+  `ξ(T)` are the BCS and Ginzburg–Landau coherence lengths (a **length**). This is a
+  deliberate collision — the field uses all three and inventing a glyph would cost a reader
+  more than it saves. The post that first introduces `ξ_0` must say in prose that it is a
+  length and not the `ξ_k` of the previous post.
+- **`u^μ`** — control parameters, in the geometric-control thread only. Chosen precisely
+  because the field's own letters are all taken here: the source papers write `λ` (owned by
+  the Kibble–Zurek ramp), `x` (that thread's toy model needs it for a coupling amplitude) and
+  `θ` (a Bloch angle in the same post). `δ` is the adiabaticity tolerance there — all three
+  modern papers use it — which leaves `ε` to the spin-qubit thread. Lowercase `z`, `x` are
+  control _amplitudes_ multiplying the capital Paulis `Z`, `X`; the post says so where it
+  defines the model.
+- **`Z`** — the Pauli operator, site-wide, per the first rule above. The one exception is the
+  BTK barrier strength in the Andreev-reflection post, which contains no qubits and no Pauli
+  algebra; that post says so explicitly where it defines `Z`. Do not create a second
+  exception.
 
 Before introducing new notation, check `/notation/`. If it collides with an existing entry,
 either pick a different glyph or add a scoped entry and say so in the prose — but never

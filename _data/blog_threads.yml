@@ -23,6 +23,10 @@
   name: Free fermions
   blurb: When the exponential collapses into one matrix — Gaussian states, the correlation matrix, and reading entanglement off its eigenvalues.
 
+- slug: gaussian-tensor-networks
+  name: Gaussian tensor networks
+  blurb: Translating free-fermion states into the tensor-network language — what the correlation matrix buys you when you deliberately trade it for a train of tensors.
+
 - slug: matchgates
   name: Matchgates
   blurb: The same physics wearing a circuit-model costume — efficiently simulable, until a single gate from outside the family hands back universality.
@@ -30,6 +34,10 @@
 - slug: influence-matrix
   name: Influence matrices
   blurb: Compression moved from space into time — an environment's effect on a subsystem as an object whose temporal entanglement stays low.
+
+- slug: solvable-circuits
+  name: Solvable circuits
+  blurb: Space-time duality as a solvability mechanism — brickwork circuits that stay unitary when read sideways, where genuinely chaotic correlations collapse onto light rays you can compute exactly, forever.
 
 - slug: kibble-zurek
   name: Kibble–Zurek
@@ -42,3 +50,7 @@
 - slug: spin-qubits
   name: Spin qubits
   blurb: Building a qubit out of a single electron spin — trapping it, driving it, and the coherence price you pay for control.
+
+- slug: superconductivity
+  name: Superconductivity
+  blurb: Why electrons pair at all, and why pairing makes a metal expel magnetic fields — mechanism first, from the experiments that constrain the answer down to what the gap does to a single incident electron.

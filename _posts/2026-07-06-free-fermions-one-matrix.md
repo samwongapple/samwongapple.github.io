@@ -559,6 +559,41 @@ the entanglement entropy itself.
        matrix is needed. That is the next post (A2: Majoranas/BdG/Kitaev).
      ===================================================================== -->
 
+## 5 · One matrix, and where it runs out
+
+Step back and look at what the correlation matrix has absorbed. We started with a state
+living in $$2^L$$ dimensions and a reduced density matrix living in $$4^{L_A}$$. We ended
+with an $$L_A \times L_A$$ matrix whose eigenvalues hand over the entanglement Hamiltonian,
+the entanglement entropy, every Rényi entropy, the mutual information between arbitrary
+regions, and the charge fluctuations across the cut — with the area law and the critical
+logarithm arriving as corollaries rather than separate calculations. One diagonalization,
+and the questions just keep getting answered.
+
+The picture underneath it all is the one worth keeping. A Gaussian state's entanglement is
+carried entirely by orbitals that cannot decide which side of the boundary they belong to.
+Interior orbitals are full, exterior ones are empty, and both are silent; only the ones
+caught straddling the cut have anything to say. Count them, weight them by how undecided
+they are, and you have the entropy.
+
+But there is an assumption underneath *that*, and it has been quietly doing work since
+Section 1: particle number is conserved. Every statement above leaned on $$C_{ij} =
+\langle c_i^\dagger c_j\rangle$$ being the whole story — one creation operator, one
+annihilation operator, particle in and particle out.
+
+Superconductors do not respect this. A pairing term takes two electrons out of the
+condensate and puts them into the system, or the reverse; the Hamiltonian contains
+$$c_i^\dagger c_j^\dagger$$ and $$c_i c_j$$, and the ground state is a superposition of
+different particle numbers. Then $$\langle c_i c_j \rangle$$ — an amplitude that ought to
+vanish identically, and did throughout this post — becomes nonzero, and $$C$$ is no longer
+the whole state. Something is missing.
+
+So: is the collapse we just built a special privilege of number-conserving systems, or does
+it survive? The answer turns out to be that it survives — but only after we stop treating
+particles as the fundamental objects and split them in half. That is where the next post
+starts.
+
+<div class="sec-divider" aria-hidden="true">•••</div>
+
 ## References
 
 {% bibliography --file refs_free_fermions --cited --group_by none %}
