@@ -176,9 +176,9 @@ newsletter:
 collections:
   projects:
     output: true
-  programming:
+  algorithms:
     output: true
-    permalink: /programming/:title/
+    permalink: /algorithms/:title/
 
 # -----------------------------------------------------------------------------
 # Jekyll settings
@@ -323,8 +323,33 @@ jekyll-archives:
 # NOTE: /blog/ groups posts into threads from _data/blog_threads.yml, so it renders the
 # `display_tags` strip but NOT `display_categories` — thread sections replaced it.
 # `display_categories` is kept in sync only for the category archive pages.
-display_tags: ["free-fermions", "entanglement", "majorana", "spin-qubits", "decoherence", "influence-matrix", "tensor-networks", "kibble-zurek", "quantum-quench", "superconductivity", "matchgates", "quantum-circuits", "dual-unitary"] # these tags will be displayed on the front page of your blog
-display_categories: ["free-fermions", "gaussian-tensor-networks", "spin-qubits", "influence-matrix", "kibble-zurek", "superconductivity", "matchgates", "solvable-circuits"] # these categories will be displayed on the front page of your blog
+display_tags: [
+    "free-fermions",
+    "entanglement",
+    "majorana",
+    "spin-qubits",
+    "decoherence",
+    "influence-matrix",
+    "tensor-networks",
+    "kibble-zurek",
+    "quantum-quench",
+    "superconductivity",
+    "matchgates",
+    "quantum-circuits",
+    "dual-unitary",
+  ] # these tags will be displayed on the front page of your blog
+display_categories: [
+    "free-fermions",
+    "gaussian-tensor-networks",
+    "spin-qubits",
+    "influence-matrix",
+    "kibble-zurek",
+    "superconductivity",
+    "matchgates",
+    "solvable-circuits",
+    "emergent-randomness",
+    "monitored-dynamics",
+  ] # these categories will be displayed on the front page of your blog
 
 # -----------------------------------------------------------------------------
 # Jekyll Scholar

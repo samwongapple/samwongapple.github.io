@@ -4,7 +4,7 @@ title: "Exact influence matrices, by brute force"
 date: 2026-07-28 09:00:00-0700
 description: Companion 1 of the influence-matrix series — build the influence matrix of a kicked Ising bath as a dense 4^T vector, two independent ways, verify it against brute-force evolution to machine precision, take its Schmidt spectrum across time cuts, and measure exactly where dense methods die.
 tags: [influence-matrix, tensor-networks, julia]
-categories: [programming]
+categories: [influence-matrix]
 related_posts: false
 toc:
   sidebar: left

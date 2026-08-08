@@ -4,7 +4,7 @@ title: "A matrix-product state in the time direction"
 date: 2026-07-29 09:00:00-0700
 description: Companion 2 of the influence-matrix series — a from-scratch temporal MPS and the truncated transverse contraction in plain Julia, refereed by Companion 1's exact object, verifying the perfect dephaser to machine precision and measuring how little bond dimension a chaotic bath's memory actually needs.
 tags: [influence-matrix, tensor-networks, julia]
-categories: [programming]
+categories: [influence-matrix]
 related_posts: false
 toc:
   sidebar: left

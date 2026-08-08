@@ -4,7 +4,7 @@ title: "One matrix in time"
 date: 2026-07-31 09:00:00-0700
 description: Companion 4 of the influence-matrix series — build the Gaussian influence matrix of a free-fermion lead from its spectral function, validate every formula in the pipeline against explicit Fock-space construction via Pfaffians, and measure the logarithmic growth of temporal entanglement from a 2T×2T kernel.
 tags: [influence-matrix, tensor-networks, julia]
-categories: [programming]
+categories: [influence-matrix]
 related_posts: false
 toc:
   sidebar: left

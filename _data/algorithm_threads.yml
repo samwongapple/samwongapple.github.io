@@ -1,0 +1,35 @@
+# -----------------------------------------------------------------------------
+# Algorithm threads — drives the topic grouping on /algorithms/
+# -----------------------------------------------------------------------------
+# Each entry renders as one section on the algorithms page. `slug` must appear in
+# an entry's `categories:` list; entries inside a thread are listed in READING
+# ORDER (oldest first), since a series is meant to be read front-to-back.
+#
+# Threads with no entries yet are skipped automatically — so families can be
+# declared here before their first post exists, and the roadmap stays invisible
+# on the public page until it has content.
+#
+# Order here = order on the page.
+#
+# To start a new thread:
+#   1. add an entry here
+#   2. set `categories: [<slug>]` in the entry's front matter
+#
+# Any entry whose category is not listed here still appears, under "Other notes".
+# -----------------------------------------------------------------------------
+
+- slug: tensor-networks
+  name: Tensor networks
+  blurb: Quantum states as networks of tensors, and computing with them — DMRG and TEBD in 1D, PEPS in 2D, and the contraction schemes (boundary MPS, belief propagation) that keep them tractable.
+
+- slug: influence-matrix
+  name: Influence matrices
+  blurb: The Feynman–Vernon influence functional as an object you can build and truncate — a matrix-product state in the time direction, climbing from exact brute force up to a working impurity solver, each rung refereed by the one below.
+
+- slug: quantum-control
+  name: Quantum control
+  blurb: Shaping control fields to steer a system where you want it — GRAPE and CRAB for pure and mixed states, and Hamiltonian engineering that designs the effective dynamics you actually want.
+
+- slug: quantum-monte-carlo
+  name: Quantum Monte Carlo & Green's functions
+  blurb: Sampling many-body physics too large to diagonalize — Monte Carlo estimators and Green's-function methods for ground states, finite temperature, and spectra. (Tentative — a thread I may grow into.)

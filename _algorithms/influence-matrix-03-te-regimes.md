@@ -4,7 +4,7 @@ title: "Reading a phase diagram off one vector"
 date: 2026-07-30 09:00:00-0700
 description: Companion 3 of the influence-matrix series — a mini research project. Generalize the temporal-MPS engine with longitudinal fields, sweep four dynamical regimes of the kicked Ising chain, disorder-average the localized case, and measure how the temporal entanglement's growth law diagnoses the bath's dynamical phase.
 tags: [influence-matrix, tensor-networks, julia]
-categories: [programming]
+categories: [influence-matrix]
 related_posts: false
 toc:
   sidebar: left

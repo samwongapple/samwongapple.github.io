@@ -5,7 +5,7 @@
 # (see .github/workflows/deploy.yml:
 #   `jekyll build --config _config.yml,_config_prod.yml`).
 #
-# Purpose: keep the `blog` and `programming` sections PRIVATE. They stay in the
+# Purpose: keep the `blog` and `algorithms` sections PRIVATE. They stay in the
 # repo and render normally on a LOCAL build — `bundle exec jekyll serve`, which
 # uses _config.yml alone — so you can keep reading and studying them. But they
 # are unpublished from the live GitHub Pages site: no post pages, no listing
@@ -46,7 +46,7 @@ exclude:
   - vendor
   # --- private sections: kept local, excluded from the public build ---
   - _posts # blog posts
-  - _programming # programming notes collection
+  - _algorithms # algorithm notes collection
   - _pages/blog.md # blog listing page (+ its navbar link)
-  - _pages/programming.md # programming listing page (+ its navbar link)
+  - _pages/algorithms.md # algorithm listing page (+ its navbar link)
   - _config_prod.yml # don't copy this overlay into the built site

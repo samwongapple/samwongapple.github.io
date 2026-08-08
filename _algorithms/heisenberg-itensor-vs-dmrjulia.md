@@ -4,7 +4,7 @@ title: "Same chain, two libraries: DMRG in ITensor and DMRJulia"
 date: 2026-07-07 09:00:00-0700
 description: Running the same spin-1/2 Heisenberg chain through ITensor and DMRJulia — checked against exact diagonalization. Identical energies to ten digits; the real difference is what each library asks you to write and what it shows you.
 tags: [dmrg, tensor-networks, julia]
-categories: [programming]
+categories: [tensor-networks]
 related_posts: false
 toc:
   sidebar: left

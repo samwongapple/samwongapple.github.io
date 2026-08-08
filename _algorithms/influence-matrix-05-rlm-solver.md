@@ -4,7 +4,7 @@ title: "A toy impurity solver, benchmarked"
 date: 2026-08-01 03:30:00-0700
 description: Companion 5, the capstone of the influence-matrix ladder — a kernel-based solver for the resonant level model, graded against exact brute-force evolution in and out of equilibrium, with the Grassmann sign lesson that makes the case for exact referees better than any argument could.
 tags: [influence-matrix, tensor-networks, julia]
-categories: [programming]
+categories: [influence-matrix]
 related_posts: false
 toc:
   sidebar: left
