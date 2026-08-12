@@ -6,6 +6,20 @@ description: Measurement collapses the wavefunction — and the covariance matri
 tags: [matchgates, free-fermions, quantum-circuits, deep-thermalization]
 categories: [matchgates]
 related_posts: false
+provides:
+  [born-rule-gaussian, gaussian-measurement-update, matchgate-weak-simulation, projected-ensemble, deep-thermalization, gaussian-haar-ensemble]
+requires:
+  [
+    gaussian-state,
+    covariance-matrix,
+    majorana-operators-qubit,
+    jordan-wigner,
+    wicks-theorem,
+    matchgate-family,
+    majorana-so2n-rotation,
+    classical-simulability,
+  ]
+uses: [fermionic-linear-optics, brickwork-circuit, haar-measure]
 toc:
   sidebar: left
 ---
@@ -130,11 +144,11 @@ R^{\mathsf T}$$, and every expectation value follows from the matrix.
 the rotation can be run backwards — from $$\Gamma$$ alone a compiler writes the circuit
 that builds the state, priced by its entanglement. Elegant, closed, reversible. And
 incomplete, because a laboratory does one more thing to quantum states, and it is the
-thing the formalism has no obvious right to survive: it *looks*.
+thing the formalism has no obvious right to survive: it _looks_.
 
 A projective measurement is everything a rotation is not. Its outcome is random. It is
 irreversible — no inverse gate un-clicks a detector. And on the wavefunction it acts by
-brute *projection*: strike out every amplitude inconsistent with the outcome, then
+brute _projection_: strike out every amplitude inconsistent with the outcome, then
 rescale what survives by the outcome's probability. That rescaling makes the map
 nonlinear in the state; the striking-out makes it violently non-unitary. If you wanted to
 design an operation to shatter a delicate algebraic structure like Gaussianity — a
@@ -145,16 +159,16 @@ wilderness and never come back.
 
 Here is the engine of this post: **it comes back.** Measure the occupation of one mode of
 a Gaussian state — one qubit, in the computational basis — and two things are true. The
-outcome probabilities are read *linearly* off a single entry of $$\Gamma$$. And the
-collapsed state of the remaining modes is *again Gaussian*, with a covariance matrix
+outcome probabilities are read _linearly_ off a single entry of $$\Gamma$$. And the
+collapsed state of the remaining modes is _again Gaussian_, with a covariance matrix
 $$\Gamma'$$ given in closed form by one rank-style update — no wavefunction ever
 consulted. Gaussian in, Gaussian out. Measurement, the operation that should have broken
 the one-matrix story, turns out to be one more thing the matrix absorbs.
 
 The consequences run from the practical to the frontier. Practically (§3), the update
-upgrades Post 1's simulation from expectation values to honest *samples* — the classical
+upgrades Post 1's simulation from expectation values to honest _samples_ — the classical
 computer can now click detectors too. At the frontier (§4–5), it is the engine behind one
-of the sharpest recent questions about quantum randomness: measure *most* of a system and
+of the sharpest recent questions about quantum randomness: measure _most_ of a system and
 ask how random the leftover states are. That question — the projected ensemble, and its
 "deep thermalization" — has an exact and beautiful answer for matchgate circuits, worked
 out by Bejan, Béri and McGinley
@@ -187,9 +201,11 @@ their paper readable. The widget in §5 runs their experiment in your browser.
 Set it up in the language we own. Measuring qubit $$k$$ in the computational basis is
 measuring $$Z_k$$, and $$Z_k = -i\gamma_a\gamma_b$$ with $$(a,b) = (2k-1,\,2k)$$ — the
 site's own Majorana pair. Call the outcome $$s = \pm 1$$; with the series convention that
-$$\lvert 0\rangle$$ is the empty mode, $$s = +1$$ means *empty*, $$s = -1$$ means
-*occupied*. Since $$\langle Z_k\rangle = -\Gamma_{ab}$$ (Post 1's dictionary), Born's
+$$\lvert 0\rangle$$ is the empty mode, $$s = +1$$ means _empty_, $$s = -1$$ means
+_occupied_. Since $$\langle Z_k\rangle = -\Gamma_{ab}$$ (Post 1's dictionary), Born's
 rule is one matrix entry:
+
+{: #result-born-rule-gaussian }
 
 $$
 p_s = \frac{1 - s\,\Gamma_{ab}}{2} .
@@ -197,11 +213,11 @@ $$
 
 Sanity check on the vacuum: $$\Gamma_{ab} = -1$$ gives $$p_{+} = 1$$ — an empty mode is
 certainly empty. So far, expectation values only; nothing Post 1 couldn't do. The new
-content is what the click *does to the state*. Projecting onto the outcome and
+content is what the click _does to the state_. Projecting onto the outcome and
 renormalizing, the surviving $$n-1$$ modes are again Gaussian, and their covariance
 matrix is:
 
-<div class="key-eq" markdown="1">
+<div class="key-eq" markdown="1" id="result-gaussian-measurement-update">
 
 $$
 \Gamma'_{cd}
@@ -218,14 +234,14 @@ derivation is four lines of Wick's theorem and lives in the box. (I have also ve
 it, signs and all, against brute-force statevector simulation — the sign of that
 denominator is exactly the kind of thing one wants checked by a computer.)
 
-Read the formula's anatomy, because each piece is physics. The *numerator* is an
+Read the formula's anatomy, because each piece is physics. The _numerator_ is an
 interference of correlations: mode $$c$$'s correlation with the measured pair, times the
 pair's correlation with mode $$d$$. Distant modes that were both correlated with mode
-$$k$$ become correlated *with each other* by the measurement — entanglement swapping,
-executed by a detector. The *denominator* is $$\Gamma_{ab} - s = -2s\,p_s$$: the update
+$$k$$ become correlated _with each other_ by the measurement — entanglement swapping,
+executed by a detector. The _denominator_ is $$\Gamma_{ab} - s = -2s\,p_s$$: the update
 divides by the probability of what you saw. An outcome with $$p_s \to 0$$ makes the
 formula blow up — as it should, since conditioning on the impossible is meaningless — and
-*only* then. And the nonlinearity that made collapse look so threatening in §1 is now
+_only_ then. And the nonlinearity that made collapse look so threatening in §1 is now
 located precisely: it is all in that denominator, a scalar. The map is a rank-two
 correction plus a rescaling — tame enough to iterate thousands of times per second.
 
@@ -298,6 +314,7 @@ $$P_s\gamma_a\gamma_c P_s = \gamma_a P_{-s} \gamma_c P_s$$, whose trace against
 $$\rho$$ carries the factor $$P_{-s}P_s = 0$$ once $$\gamma_c$$ (which commutes with
 $$O$$) is moved aside. The measured mode decouples entirely.
 {% enddetails %}
+
 </div>
 
 <div class="sec-divider" aria-hidden="true">•••</div>
@@ -320,34 +337,36 @@ $$O$$) is moved aside. The measured mode decouples entirely.
 
 ## 3 · Samples, and the postselection superpower
 
+{: #result-matchgate-weak-simulation }
+
 First, collect the practical winnings. Post 1's cost accounting was careful to promise
-only *expectation values* — "samples need more machinery," it said, and this section is
+only _expectation values_ — "samples need more machinery," it said, and this section is
 the machinery. Measure qubit 1: an outcome $$s_1$$ drawn with probability
 $$p_{s_1}$$ read off $$\Gamma$$. Update $$\Gamma \to \Gamma'$$ with §2's formula.
-Measure qubit 2 *of the updated matrix*: the formula automatically delivers the
+Measure qubit 2 _of the updated matrix_: the formula automatically delivers the
 conditional probability $$p(s_2 \mid s_1)$$. Iterate down the chain, and after $$n$$
-clicks you hold a bitstring $$(s_1, \ldots, s_n)$$ drawn from *exactly* the joint Born
+clicks you hold a bitstring $$(s_1, \ldots, s_n)$$ drawn from _exactly_ the joint Born
 distribution — the chain rule of probability, executed matrix-side. Each step is a
 rank-two update, the whole sample costs $$O(n^3)$$, and a laptop plays the part of the
 quantum computer's readout line at thousands of shots per second. This is the classic
-*weak simulation* result for noninteracting-fermion circuits
+_weak simulation_ result for noninteracting-fermion circuits
 {% cite terhal2002classical --file refs_matchgates %}, and with it, every column of
 Post 1's honest ledger is filled: preparation (Post 2), evolution, expectation values,
 and now full measurement statistics.
 
-But notice the *asymmetry* the update formula creates between the simulator and an
+But notice the _asymmetry_ the update formula creates between the simulator and an
 actual experiment — it is the quiet superpower of this whole formalism. Nature, per
 shot, hands the lab **one** outcome, chosen by chance; the experimenter cannot ask for a
 particular bitstring, only wait for it, and waiting for a specific $$n$$-bit outcome
-takes $$\sim 2^n$$ shots. *Postselection is exponentially expensive in the lab.* The
-simulator has no such problem. Want the state of the system *given* that modes
+takes $$\sim 2^n$$ shots. _Postselection is exponentially expensive in the lab._ The
+simulator has no such problem. Want the state of the system _given_ that modes
 $$3$$ through $$n$$ read $$0110\ldots$$? Feed exactly those outcomes into §2's update,
 in order, and the conditional state — probability and collapsed $$\Gamma$$ both — pops
 out in closed form, whether the outcome's probability is one half or
 $$10^{-30}$$. Conditioning is free. No rejection sampling, no repetition, no luck.
 
 Hold on to that imbalance. The modern physics of the next section is built around an
-object that is *defined* by postselection — an entire ensemble of states labeled by
+object that is _defined_ by postselection — an entire ensemble of states labeled by
 measurement outcomes, one conditional state per bitstring. For a lab, characterizing
 that object shot by shot is heroic, exponentially so. For a matchgate simulator, it is a
 for-loop over §2. That is why free fermions are where this frontier question first
@@ -387,44 +406,50 @@ your browser is about to compute it live.
 ## 4 · The projected ensemble, and how deep "random" goes
 
 Now the frontier question. Take a big system, run a deep circuit on it, and keep only a
-small window $$A$$ — a couple of qubits — while measuring *everything else* ($$B$$, in
+small window $$A$$ — a couple of qubits — while measuring _everything else_ ($$B$$, in
 the computational basis). Each shot returns an outcome bitstring $$b$$ with probability
 $$p_b$$, and leaves $$A$$ in a definite conditional pure state
 $$\lvert \psi_A(b)\rangle$$. The collection
+
+{: #model-projected-ensemble }
 
 $$
 \mathcal{E} = \big\{\, p_b,\; \lvert \psi_A(b) \rangle \,\big\}
 $$
 
+{: #result-deep-thermalization }
+
 is called the **projected ensemble** — not one state but a cloud of states, one per
 outcome, weighted by Born {% cite cotler2023emergent --file refs_matchgates %}. It is a
 strictly finer object than anything in the thermalization story you already know.
 Average the cloud and you get the reduced density matrix
-$$\rho_A = \sum_b p_b \lvert\psi_A(b)\rangle\langle\psi_A(b)\rvert$$ — the *first
-moment* — and ordinary thermalization says a deep chaotic circuit drives
+$$\rho_A = \sum_b p_b \lvert\psi_A(b)\rangle\langle\psi_A(b)\rvert$$ — the _first
+moment_ — and ordinary thermalization says a deep chaotic circuit drives
 $$\rho_A$$ to featureless maximal mixedness. But the cloud has a shape beyond its mean:
 second moments, third moments, the full distribution on state space. **Deep
-thermalization** is the discovery that chaotic dynamics randomizes *all* of it: the
+thermalization** is the discovery that chaotic dynamics randomizes _all_ of it: the
 projected ensemble converges to the maximal-entropy distribution on $$A$$'s state space
-— for generic chaotic circuits, the *Haar* (uniform) measure — moment by moment
+— for generic chaotic circuits, the _Haar_ (uniform) measure — moment by moment
 {% cite cotler2023emergent ho2022exact --file refs_matchgates %}. This is not a thought
 experiment: it has been observed shot-by-shot on a Rydberg quantum simulator
 {% cite choi2023preparing --file refs_matchgates %}, and its rates and refinements are
 an active subject {% cite ippoliti2023dynamical --file refs_matchgates %}. Randomness,
 it turns out, comes in depths: a maximally mixed $$\rho_A$$ is the shallow end; a
-Haar-random *ensemble* of pure states is the deep end.
+Haar-random _ensemble_ of pure states is the deep end.
 
-So what does a *matchgate* circuit do — dynamics that is structured, free, integrable in
+{: #result-gaussian-haar-ensemble }
+
+So what does a _matchgate_ circuit do — dynamics that is structured, free, integrable in
 the deepest sense, yet still scrambles? Here §2 pays off exactly. Measuring $$B$$
 qubit by qubit is a sequence of Gaussian updates, so **every conditional state
 $$\lvert\psi_A(b)\rangle$$ is Gaussian** — a cloud confined, outcome by outcome, to the
 tiny Gaussian manifold $$\mathrm{SO}(2L_A)/\mathrm{U}(L_A)$$ inside $$A$$'s Hilbert
 space (Post 2's coset manifold, moonlighting as a sample space). Haar randomness on the
-full Hilbert space is *forbidden* — free fermions cannot fake generic chaos. The sharp
+full Hilbert space is _forbidden_ — free fermions cannot fake generic chaos. The sharp
 question is whether they are as random as their manifold allows: does the projected
 ensemble converge to the uniform — Haar-$$\mathrm{SO}$$ — measure on the Gaussian
 manifold, the **Gaussian Haar ensemble**? Bejan, Béri and McGinley proved that it does:
-deep random matchgate circuits deep-thermalize *within* the Gaussian manifold, with
+deep random matchgate circuits deep-thermalize _within_ the Gaussian manifold, with
 convergence quantified in Wasserstein-1 distance — the natural metric here, since on a
 continuous manifold one asks how far mass must be transported, not just whether a few
 moments match {% cite bejan2025matchgate --file refs_matchgates %}. Maximal randomness,
@@ -435,7 +460,7 @@ Post 2's box computed $$\dim \mathrm{SO}(4)/\mathrm{U}(2) = 2$$: the even-parity
 Gaussian states of two modes form a **2-sphere**, and the observable
 $$m = \langle i\gamma_1\gamma_2 \rangle \in [-1,1]$$ is its polar coordinate. The GHE is
 the uniform measure on the sphere — and by Archimedes' hat-box theorem, the projection
-of the uniform sphere onto its axis is *flat*: the GHE predicts $$m$$ **uniform on
+of the uniform sphere onto its axis is _flat_: the GHE predicts $$m$$ **uniform on
 $$[-1,1]$$**. Full Haar on two qubits predicts something visibly different: a parabola
 $$P(m) = \tfrac34(1 - m^2)$$, peaked at zero (box). Flat versus peaked — Gaussian-random
 versus quantum-random — is a distinction you can see in a histogram. Which is exactly
@@ -457,17 +482,17 @@ A pure Gaussian $$\Gamma_A$$ is a $$4\times4$$ real antisymmetric orthogonal mat
 six entries $$(m, u_1, u_2, u_3, u_4, w)$$ constrained by
 $$\Gamma_A^2 = -\mathbb 1$$. Solving the constraints for the even-parity sector
 ($$\operatorname{Pf} = $$ that of the vacuum) leaves exactly two free parameters — e.g.
-$$m = \Gamma_{12}$$ and one angle among the cross-correlations — and the resulting
-manifold is $$S^2$$: concretely, $$(\Gamma_{12},\, \Gamma_{13},\, \Gamma_{14})$$ lies
+$$m = \Gamma*{12}$$ and one angle among the cross-correlations — and the resulting
+manifold is $$S^2$$: concretely, $$(\Gamma*{12},\, \Gamma*{13},\, \Gamma*{14})$$ lies
 on a unit sphere with the other entries determined by orthogonality
 ($$\Gamma_{34} = \Gamma_{12}$$-type relations up to signs). The observable
 $$m = \langle i\gamma_1\gamma_2\rangle = \Gamma_{12}$$ is a coordinate axis.
 
 **3 · Flat (GHE) versus parabola (Haar).**
-*GHE:* uniform measure on $$S^2$$. Archimedes: the area of a sphere between two
+_GHE:_ uniform measure on $$S^2$$. Archimedes: the area of a sphere between two
 parallel planes depends only on their separation, so the marginal of any single
 coordinate of a uniformly random point on $$S^2$$ is uniform on $$[-1,1]$$:
-$$P_{\mathrm{GHE}}(m) = \tfrac12$$. *Haar:* for a Haar-random pure state of two qubits,
+$$P_{\mathrm{GHE}}(m) = \tfrac12$$. _Haar:_ for a Haar-random pure state of two qubits,
 the four squared amplitudes are Dirichlet-distributed, so the probability
 $$p = p_{00}+p_{01}$$ of measuring qubit 1 empty is $$\mathrm{Beta}(2,2)$$:
 $$P(p) = 6p(1-p)$$. With $$m = \langle Z_1 \rangle$$-type observables
@@ -483,6 +508,7 @@ flat histogram (uniform predicts exactly $$\tfrac13$$), matching direct Haar-$$
 \mathrm{SO}(4)$$ sampling and clearly excluding the Haar parabola's
 $$\operatorname{var} = \tfrac15$$.
 {% enddetails %}
+
 </div>
 
 <div class="sec-divider" aria-hidden="true">•••</div>
@@ -513,19 +539,19 @@ histogram and the GHE.
 Two things to try. First, set the depth low: $$A$$ sits outside most of the circuit's
 light cone, the conditional states barely move from their initial pole, and the
 histogram piles up near $$m = \pm 1$$ — no thermalization, shallow or deep. Then crank
-the depth and watch the histogram *flatten*, edge to edge, while the $$W_1$$ number
+the depth and watch the histogram _flatten_, edge to edge, while the $$W_1$$ number
 falls: the ensemble spreading uniformly over its sphere, in real time. What it never
 does, at any depth, is bend toward the parabola — free fermions become exactly as random
 as their manifold allows, and not one bit more.
 
-One honesty note, worth a click of its own. By default each shot draws a *fresh* random
+One honesty note, worth a click of its own. By default each shot draws a _fresh_ random
 circuit, because deep thermalization is a large-system statement: at ten qubits, a
 single circuit's ensemble sits slightly off-centre — its mean is pinned to the
 pre-measurement value of $$\Gamma_{12}$$, which fluctuates by
 $$\sim 1/\sqrt{2n}$$ from circuit to circuit. Tick **freeze circuit** and you can see
 that finite-size offset yourself: a flat-ish histogram, displaced from the flat line by
 an amount that would shrink away as $$n$$ grows. The widget shows the deviation rather
-than hiding it — at this scale, *that* is what the theorem's large-$$n$$ limit looks
+than hiding it — at this scale, _that_ is what the theorem's large-$$n$$ limit looks
 like from below.
 
 <div style="border:1px solid var(--global-divider-color);border-radius:8px;padding:1rem;margin:1.5rem 0;">
@@ -559,9 +585,9 @@ like from below.
 
 Close the ledger the series opened. A matchgate circuit evolves a state: one rotation of
 a $$2n \times 2n$$ matrix per gate. Every observable: read off the matrix. The circuit
-that prepares a given state: compiled *from* the matrix, at a gate count priced by its
+that prepares a given state: compiled _from_ the matrix, at a gate count priced by its
 entanglement. Samples, clicks, collapse: a two-line conditioning update of the matrix.
-Even the exotic object of this post — an exponentially large *ensemble* of
+Even the exotic object of this post — an exponentially large _ensemble_ of
 post-measurement states, the thing a laboratory would need heroic postselection to see —
 is a for-loop over that update, its limiting shape a uniform measure on a sphere the
 matrix's own symmetry group carved out. Three posts, one thesis, now fully cashed: **the
@@ -571,11 +597,11 @@ stands in for was never touched. Not once.
 So touch it. Take your favorite deep matchgate circuit and vandalize it with a single
 gate from outside the family — one SWAP, as in Post 1's origin story, or one
 $$T$$-flavored phase gate. Gaussianity breaks at that gate: the state becomes a
-*superposition* of Gaussian states, and the honest simulator must now carry a small
+_superposition_ of Gaussian states, and the honest simulator must now carry a small
 stack of covariance matrices with interfering amplitudes. Add a second bad gate and the
 stack multiplies; $$k$$ of them and the cost grows roughly like $$e^{O(k)}$$. The
 classical–quantum boundary, so stark in Post 1 — matchgates easy, matchgates-plus-SWAP
-universal — is actually a *graded slope*, climbed gate by gate, and the modern name for
+universal — is actually a _graded slope_, climbed gate by gate, and the modern name for
 the altitude is **fermionic magic**: the resource that measures how far from free a
 state has strayed. Everything this series built — the dictionary, the compiler, the
 measurement calculus — becomes the launch camp for that climb, which is exactly where
@@ -594,4 +620,6 @@ before the matrix description is truly, irreversibly dead?
 > A learning-in-public post: I write these to teach myself the physics behind my PhD, with
 > **Claude AI** as a collaborator. The direction and the physics-checking are mine —
 > corrections welcome!
-{: .block-tip }
+> {: .block-tip }
+
+<script src="{{ '/assets/js/equation-numbers.js' | relative_url }}"></script>

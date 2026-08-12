@@ -179,6 +179,9 @@ collections:
   algorithms:
     output: true
     permalink: /algorithms/:title/
+  readings:
+    output: true
+    permalink: /readings/:title/
 
 # -----------------------------------------------------------------------------
 # Jekyll settings
@@ -349,6 +352,7 @@ display_categories: [
     "solvable-circuits",
     "emergent-randomness",
     "monitored-dynamics",
+    "dressed-particles",
   ] # these categories will be displayed on the front page of your blog
 
 # -----------------------------------------------------------------------------

@@ -1,0 +1,26 @@
+# -----------------------------------------------------------------------------
+# Reading threads — drives the topic grouping on /readings/
+# -----------------------------------------------------------------------------
+# Each entry renders as one section on the readings page. A thread = one study
+# topic (usually one book, or a small cluster of sources read together). `slug`
+# must appear in an entry's `categories:` list; entries inside a thread are
+# listed in READING ORDER (oldest first), since study notes follow the sources
+# front-to-back.
+#
+# Threads with no entries yet are skipped automatically — declare a topic here
+# before its first note exists and it stays invisible until it has content.
+#
+# Order here = order on the page.
+#
+# To start a new thread:
+#   1. add an entry here
+#   2. set `categories: [<slug>]` in the note's front matter
+#
+# Any entry whose category is not listed here still appears, under "Other notes".
+# The study plan for each topic lives in docs/ (e.g. docs/readings-section-
+# roadmap.md), never on this page.
+# -----------------------------------------------------------------------------
+
+- slug: negf
+  name: Non-equilibrium field theory
+  blurb: "Green's functions with the clock running — one contour ordering the bra and the ket, read three ways: operator equations of motion (Stefanucci–van Leeuwen), the path integral (Kamenev), and the fast bridge from Matsubara (Kita) — down the hierarchy from Dyson to Boltzmann to hydrodynamics."

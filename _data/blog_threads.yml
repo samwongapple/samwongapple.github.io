@@ -31,6 +31,14 @@
   name: Matchgates
   blurb: The same physics wearing a circuit-model costume — efficiently simulable, until a single gate from outside the family hands back universality.
 
+- slug: emergent-randomness
+  name: Emergent randomness
+  blurb: Randomness as a resource with a grain — circuits imitate the Haar measure only as deeply as the question you ask, and classical shadows cash that imitation in for tomography you could never afford directly.
+
+- slug: monitored-dynamics
+  name: Monitored dynamics
+  blurb: Scrambling with the detector left on — every measurement claws back entanglement the unitaries spread, a genuine phase transition sits between the two, and watching it head-on costs an exponential postselection bill.
+
 - slug: influence-matrix
   name: Influence matrices
   blurb: Compression moved from space into time — an environment's effect on a subsystem as an object whose temporal entanglement stays low.
@@ -54,3 +62,7 @@
 - slug: superconductivity
   name: Superconductivity
   blurb: Why electrons pair at all, and why pairing makes a metal expel magnetic fields — mechanism first, from the experiments that constrain the answer down to what the gap does to a single incident electron.
+
+- slug: dressed-particles
+  name: Dressed particles
+  blurb: One carrier and the cloud it drags — lattice Green's functions computed by continued fraction, approximations that restrict where the particle may wander, and a truncation whose error shrinks as the binding gets stronger.

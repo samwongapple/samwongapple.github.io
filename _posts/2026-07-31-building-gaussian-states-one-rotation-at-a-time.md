@@ -632,3 +632,5 @@ the state of the other $$n-1$$ modes now, and is there any matrix that still hol
 > **Claude AI** as a collaborator. The direction and the physics-checking are mine —
 > corrections welcome!
 {: .block-tip }
+
+<script src="{{ '/assets/js/equation-numbers.js' | relative_url }}"></script>

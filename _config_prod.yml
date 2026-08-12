@@ -47,6 +47,8 @@ exclude:
   # --- private sections: kept local, excluded from the public build ---
   - _posts # blog posts
   - _algorithms # algorithm notes collection
+  - _readings # study-notes collection
   - _pages/blog.md # blog listing page (+ its navbar link)
   - _pages/algorithms.md # algorithm listing page (+ its navbar link)
+  - _pages/readings.md # readings listing page (+ its navbar link)
   - _config_prod.yml # don't copy this overlay into the built site

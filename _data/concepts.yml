@@ -17,6 +17,7 @@
 #             threads: foundations · spin-qubits · decoherence · free-fermions
 #                      circuits-simulation · temporal-methods · critical-dynamics
 #                      superconductivity · geometric-control · solvable-circuits
+#                      randomness · monitored · dressed-particles
 #             kinds:   prerequisite · model · formalism · technique · result
 #                      phenomenon · hardware
 #
@@ -639,6 +640,44 @@
   blurb: "SWAP fails det A = det B; adding it to nearest-neighbour matchgates restores universal quantum computation."
   tags: [circuits-simulation, result]
 
+# --- Provided by "Measuring Free Fermions: Gaussian In, Gaussian Out" ---
+
+- id: born-rule-gaussian
+  name: "Born's rule for Gaussian states"
+  symbol: "p_s = \\tfrac{1}{2}(1 - s\\,\\Gamma_{ab})"
+  blurb: "Occupation-measurement outcome probabilities read linearly off one covariance-matrix entry."
+  tags: [circuits-simulation, result]
+
+- id: gaussian-measurement-update
+  name: "Gaussian measurement update"
+  symbol: "\\Gamma \\to \\Gamma'"
+  blurb: "Collapse as Gaussian conditioning: a closed-form, rank-two, Schur-complement-style update of the covariance matrix."
+  tags: [circuits-simulation, result]
+
+- id: matchgate-weak-simulation
+  name: "Weak simulation of matchgate circuits"
+  symbol: null
+  blurb: "Chain-rule sampling: Born-plus-update iterated down the line gives exact samples of the joint outcome distribution in O(n³)."
+  tags: [circuits-simulation, result]
+
+- id: projected-ensemble
+  name: "Projected ensemble"
+  symbol: "\\{p_b,\\; \\lvert\\psi_A(b)\\rangle\\}"
+  blurb: "Measure everything outside a small window: the Born-weighted cloud of conditional pure states, one per outcome."
+  tags: [circuits-simulation, formalism]
+
+- id: deep-thermalization
+  name: "Deep thermalization"
+  symbol: null
+  blurb: "Chaotic dynamics drives the projected ensemble to the maximal-entropy distribution on state space — randomness beyond the reduced density matrix."
+  tags: [circuits-simulation, phenomenon]
+
+- id: gaussian-haar-ensemble
+  name: "Gaussian Haar ensemble"
+  symbol: null
+  blurb: "The uniform measure on the Gaussian-state manifold: the maximal randomness a matchgate circuit can reach, and what deep matchgate circuits converge to."
+  tags: [circuits-simulation, result]
+
 # =============================================================================
 # TEMPORAL METHODS — canonical home: "The Influence Matrix"
 # =============================================================================
@@ -931,3 +970,283 @@
   symbol: "\\int_{-\\infty}^{\\infty} ds_{\\mathrm{FS}} = \\pi/2"
   blurb: "A full Landau–Zener sweep has the same Fubini–Study length whatever the minimum gap — unweighted arc length is blind to the bottleneck it is meant to describe."
   tags: [geometric-control, result]
+
+# =============================================================================
+# EMERGENT RANDOMNESS — canonical home: the emergent-randomness thread,
+# opening with "What Haar Measure Actually Does".
+#
+# All entries below are (PLANNED) until their posts' prose lands.
+# Notation notes for this thread (final glyphs fixed when R1 is written):
+#   k    design/moment order. The free-fermion thread owns k as a momentum
+#        index — R1 must scope its k explicitly in prose (CONTRIBUTING §4).
+#   Φ    NOT used for the moment channel: Φ_0 is flux quantization
+#        (superconductivity). Twirl/moment-operator symbols chosen at R1
+#        writing time; null here until then.
+# =============================================================================
+
+- id: haar-measure
+  name: "Haar measure"
+  symbol: "\\mu_H"
+  blurb: "The unique left- and right-invariant probability measure on the unitary group — 'a random unitary' made well-defined."
+  tags: [randomness, formalism]
+
+- id: unitary-twirl
+  name: "Unitary twirl"
+  symbol: null
+  blurb: "Average U^{⊗k} X U^{†⊗k} over the ensemble; the k = 1 Haar twirl is depolarizing, the k = 2 twirl lives on the span of identity and swap."
+  tags: [randomness, technique]
+
+- id: moment-operator
+  name: "Moment operator"
+  symbol: null
+  blurb: "The k-th moment of an ensemble of unitaries, packaged as a channel; equality with Haar's moment operator is what 'random enough at order k' means."
+  tags: [randomness, formalism]
+
+- id: weingarten-calculus
+  name: "Weingarten calculus"
+  symbol: "\\mathrm{Wg}"
+  blurb: "Closed-form Haar integrals of matrix-element monomials: a sum over permutation pairs weighted by Weingarten coefficients."
+  tags: [randomness, technique]
+
+- id: frame-potential
+  name: "Frame potential"
+  symbol: "F^{(k)}_{\\mathcal{E}}"
+  blurb: "The ensemble-averaged |Tr U†V|^{2k}; minimized exactly by the Haar measure, so its excess measures distance from full randomness."
+  tags: [randomness, formalism]
+
+- id: state-k-design
+  name: "State k-design"
+  symbol: null
+  blurb: "An ensemble of pure states matching the Haar ensemble's first k moments — random enough for any degree-k question."
+  tags: [randomness, formalism]
+
+- id: unitary-k-design
+  name: "Unitary k-design"
+  symbol: null
+  blurb: "An ensemble of unitaries whose k-fold twirl equals the Haar twirl — interchangeable with uniform randomness at moment order k."
+  tags: [randomness, formalism]
+
+- id: clifford-group
+  name: "Clifford group"
+  symbol: null
+  blurb: "The normalizer of the Pauli group: classically simulable circuits that nonetheless form an exact unitary 3-design — and fail at 4."
+  tags: [randomness, model]
+
+- id: approximate-design
+  name: "Approximate design"
+  symbol: null
+  blurb: "A design up to error ε in an operational norm — what finite-depth random circuits actually produce."
+  tags: [randomness, formalism]
+
+- id: design-depth-scaling
+  name: "Design depth of random circuits"
+  symbol: null
+  blurb: "Local random circuits converge to approximate k-designs at a depth polynomial in k and n — randomness has a production rate."
+  tags: [randomness, result]
+
+- id: commutant-of-a-gate-set
+  name: "Commutant of a gate set"
+  symbol: null
+  blurb: "The operators commuting with every k-fold tensor power of a gate set; its size — not the gate count — dictates what the ensemble can randomize."
+  tags: [randomness, formalism]
+
+- id: schur-weyl-duality
+  name: "Schur–Weyl duality"
+  symbol: null
+  blurb: "Permutations of the k copies are the only operators commuting with all U^{⊗k} — the reason Haar twirls collapse onto a finite basis."
+  tags: [randomness, result]
+
+- id: matchgate-commutant
+  name: "The matchgate commutant"
+  symbol: null
+  blurb: "The matchgate group's commutant is strictly larger than the unitary group's, so matchgate ensembles equilibrate to uniformity on the Gaussian manifold, not on Hilbert space."
+  tags: [randomness, result]
+
+- id: classical-shadow
+  name: "Classical shadow"
+  symbol: null
+  blurb: "Rotate by a random unitary, measure, invert the average channel: a cheap classical sketch of ρ whose expectation values are exact."
+  tags: [randomness, technique]
+
+- id: measurement-channel-inverse
+  name: "Measurement channel and its inverse"
+  symbol: "\\mathcal{M}^{-1}"
+  blurb: "The average measure-and-forget map of a randomized measurement, and the linear inverse that undoes it — computable in closed form for tractable ensembles."
+  tags: [randomness, formalism]
+
+- id: shadow-norm
+  name: "Shadow norm"
+  symbol: "\\lVert O \\rVert_{\\mathrm{shadow}}"
+  blurb: "The variance-controlling norm of an observable under a shadow ensemble — the price tag of estimating it."
+  tags: [randomness, formalism]
+
+- id: median-of-means
+  name: "Median of means"
+  symbol: null
+  blurb: "Split the shots into batches, take the median of the batch means — heavy tails tamed with no new assumptions."
+  tags: [randomness, technique]
+
+- id: shadow-sample-complexity
+  name: "Shadow sample complexity"
+  symbol: null
+  blurb: "Shots per target accuracy: local observables cost polynomially with Pauli shadows, global fidelities need Clifford ones — the ensemble sets the exponent."
+  tags: [randomness, result]
+
+- id: fermionic-classical-shadow
+  name: "Fermionic classical shadows"
+  symbol: null
+  blurb: "Shadows whose random rotations are fermionic Gaussian unitaries — the free-fermion instance of the randomized-measurement toolbox."
+  tags: [randomness, technique]
+
+- id: matchgate-shadow
+  name: "Matchgate shadows"
+  symbol: null
+  blurb: "Classical shadows from random matchgate circuits; Pfaffian formulas make the inverse channel exact and efficient."
+  tags: [randomness, technique]
+
+- id: k-rdm-estimation
+  name: "k-RDM estimation"
+  symbol: null
+  blurb: "All k-body reduced density matrices from one pool of randomized measurements, at sample cost polynomial in system size."
+  tags: [randomness, result]
+
+- id: emergent-state-design
+  name: "Emergent state designs"
+  symbol: null
+  blurb: "Projected ensembles of chaotic dynamics form state k-designs — the system manufactures its own random measurement basis."
+  tags: [randomness, phenomenon]
+
+- id: analog-shadow-protocol
+  name: "Analog shadow tomography"
+  symbol: null
+  blurb: "Shadow tomography on analog simulators: the device's own chaotic evolution replaces programmable random gates."
+  tags: [randomness, technique]
+
+- id: random-time-basis-rotation
+  name: "Random-time basis rotation"
+  symbol: null
+  blurb: "Evolve for a random duration, then measure — time itself as the ensemble parameter of a randomized measurement."
+  tags: [randomness, technique]
+
+# =============================================================================
+# MONITORED DYNAMICS — canonical home: the monitored-dynamics thread,
+# opening with "Monitored Circuits and the Purification Transition".
+#
+# All entries below are (PLANNED) until their posts' prose lands.
+# Notation note: the measurement rate glyph (p vs γ) is fixed when M1 is
+# written — γ is a decoherence-thread fluctuator rate, p collides with
+# outcome probabilities p_s; M1 must scope its choice in prose.
+# =============================================================================
+
+- id: quantum-trajectory
+  name: "Quantum trajectory"
+  symbol: null
+  blurb: "One run of a monitored system: unitary steps interleaved with Born-random collapses — a pure state conditioned on its measurement record."
+  tags: [monitored, formalism]
+
+- id: monitored-circuit
+  name: "Monitored circuit"
+  symbol: null
+  blurb: "A brickwork circuit with projective measurements sprinkled at a tunable rate — the minimal arena where scrambling and collapse compete."
+  tags: [monitored, model]
+
+- id: measurement-induced-transition
+  name: "Measurement-induced transition"
+  symbol: null
+  blurb: "Volume-law trajectory entanglement below a critical measurement rate, area law above — a phase transition invisible to the averaged state."
+  tags: [monitored, phenomenon]
+
+- id: purification-transition
+  name: "Purification transition"
+  symbol: null
+  blurb: "The same transition read through a mixed probe: monitoring purifies an initially mixed state fast in one phase, exponentially slowly in the other."
+  tags: [monitored, phenomenon]
+
+- id: monitored-free-fermions
+  name: "Monitored free fermions"
+  symbol: null
+  blurb: "Continuously monitored quadratic fermions: every trajectory stays Gaussian, so the sharpest questions stay exactly computable."
+  tags: [monitored, model]
+
+- id: log-law-phase
+  name: "Logarithmic phase"
+  symbol: "S(\\ell) \\sim \\ln \\ell"
+  blurb: "Between volume and area law: the monitored free fermion's critical regime with logarithmically growing entanglement."
+  tags: [monitored, result]
+
+- id: gaussian-trajectory
+  name: "Gaussian trajectories"
+  symbol: null
+  blurb: "The trajectory ensemble as a stochastic process on covariance matrices — monitoring as a random walk of Γ."
+  tags: [monitored, formalism]
+
+- id: postselection-barrier
+  name: "Postselection barrier"
+  symbol: null
+  blurb: "Seeing the same measurement record twice costs exponentially many shots — the transition is real but nearly unobservable head-on."
+  tags: [monitored, result]
+
+- id: cross-entropy-benchmark
+  name: "Cross-entropy benchmark"
+  symbol: null
+  blurb: "Compare the experiment's record statistics against a classical reference simulation — an order parameter that needs no postselection."
+  tags: [monitored, technique]
+
+- id: reference-dynamics
+  name: "Reference dynamics"
+  symbol: null
+  blurb: "A classically simulable stand-in evolved alongside the experiment, letting single-shot records carry information usually lost to averaging."
+  tags: [monitored, technique]
+
+# =============================================================================
+# DRESSED PARTICLES — canonical home: the dressed-particles thread (Berciu
+# Green's-function program), opening with "Poles, Residues, and Everything
+# Else: What a Green's Function Knows".
+#
+# All entries below are (PLANNED) until their posts' prose lands.
+# Notation notes for this thread (see CONTRIBUTING-posts.md §4 and
+# docs/berciu-series-roadmap.md §2):
+#   z    complex energy, the resolvent's argument — scoped in P1's prose
+#        (geometric-control uses lowercase z as a control amplitude).
+#   λ, Ω, Z, g   documented scoped collisions — see the §4 bullets.
+#   U    Hubbard / e–h attraction, NEVER a unitary in this thread (W if one
+#        is needed; V is the impurity potential).
+#   Σ    self-energy. dyson-equation was folded into self-energy at P1
+#        scaffold time: one concept, Dyson's equation as its definition.
+# =============================================================================
+
+- id: resolvent
+  name: "Resolvent (Green's operator)"
+  symbol: "\\hat{G}(z) = (z - H)^{-1}"
+  blurb: "The inverse that answers local questions about an infinite Hamiltonian — its matrix elements are propagation amplitudes at complex energy z."
+  tags: [dressed-particles, formalism]
+
+- id: lehmann-representation
+  name: "Lehmann representation"
+  symbol: null
+  blurb: "The resolvent expanded over eigenstates: every pole is an energy, every residue an overlap."
+  tags: [dressed-particles, result]
+
+- id: spectral-function
+  name: "Spectral function"
+  symbol: "A(k,\\omega)"
+  blurb: "Minus the imaginary part of the retarded Green's function over π: where the particle can go, at what energy, with what weight."
+  tags: [dressed-particles, formalism]
+
+- id: retarded-greens-function
+  name: "Retarded Green's function"
+  symbol: "G^R"
+  blurb: "Response after a kick — the time-ordering choice that keeps the few-carrier program at real frequency and T = 0, no Matsubara machinery required."
+  tags: [dressed-particles, formalism]
+
+- id: spectral-sum-rules
+  name: "Spectral sum rules"
+  symbol: "\\int \\omega^n A(k,\\omega)\\,d\\omega = \\langle k \\vert H^n \\vert k\\rangle"
+  blurb: "Exact moment identities computable from commutators — the certificates any approximate spectral function is checked against."
+  tags: [dressed-particles, result]
+
+- id: self-energy
+  name: "Self-energy"
+  symbol: "\\Sigma"
+  blurb: "Defined by Dyson's equation, not by diagrams: everything the free propagator does not know about the full G."
+  tags: [dressed-particles, formalism]

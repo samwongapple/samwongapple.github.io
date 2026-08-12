@@ -6,6 +6,19 @@ description: A family of two-qubit gates that is classically simulable on a line
 tags: [matchgates, free-fermions, quantum-circuits, simulation]
 categories: [matchgates]
 related_posts: false
+provides:
+  [
+    jordan-wigner,
+    majorana-operators-qubit,
+    jw-string-locality,
+    matchgate-family,
+    majorana-so2n-rotation,
+    fermionic-linear-optics,
+    classical-simulability,
+    swap-universality,
+  ]
+requires: [pauli-algebra, second-quantization, majorana-operators-fermion, gaussian-state, covariance-matrix, wicks-theorem]
+uses: [fock-space, entanglement-spectrum]
 toc:
   sidebar: left
 ---
@@ -129,7 +142,58 @@ toc:
 
 ## 1 · A two-qubit gate with a secret
 
-<!-- (to be written after §§2–4 — see scaffold comment above) -->
+Start with a definition concrete enough to type into a simulator. A **matchgate** is a
+two-qubit gate that is block-diagonal in the _parity_ basis: one $$2\times 2$$ unitary
+$$A$$ acting on the even-parity states $$\{\lvert 00\rangle, \lvert 11\rangle\}$$,
+another, $$B$$, on the odd-parity states $$\{\lvert 01\rangle, \lvert 10\rangle\}$$,
+
+{: #model-matchgate-family }
+
+$$
+G(A, B) =
+\begin{pmatrix}
+A_{11} & 0 & 0 & A_{12} \\
+0 & B_{11} & B_{12} & 0 \\
+0 & B_{21} & B_{22} & 0 \\
+A_{21} & 0 & 0 & A_{22}
+\end{pmatrix},
+\qquad
+\det A = \det B .
+$$
+
+Parity conservation is easy to motivate. The determinant condition is not: it ties
+together two blocks that live on disjoint subspaces and never talk to each other, for no
+visible reason. Hold on to how _arbitrary_ it looks — decoding that one line is half of
+this post.
+
+The name comes from an odd corner of computer science. Valiant discovered these gates
+while studying the counting of perfect matchings in graphs — a problem with a classic
+polynomial algorithm via Pfaffians — and showed, essentially by making circuit amplitudes
+into matchings, that circuits of such gates acting on _nearest neighbours on a line_ can
+be simulated classically in polynomial time
+{% cite valiant2002quantum --file refs_matchgates %}. No fermions anywhere in the
+argument; the connection came only afterwards
+{% cite knill2001fermionic terhal2002classical --file refs_matchgates %}. I won't
+retell the matchings construction — for us the name is a historical fossil, and the
+theorem is the thing.
+
+Now the fact that gives this post its dramatic tension. Jozsa and Miyake sharpened
+Valiant's result into a knife's edge {% cite jozsa2008matchgates --file refs_matchgates %}:
+nearest-neighbour matchgate circuits on a line are efficiently classical — but allow the
+same circuits one extra gate, **SWAP**, and they become capable of _universal quantum
+computation_. Sit with that. SWAP does nothing but exchange the labels of two qubits. It
+creates no entanglement from product states; classical intuition says it is the most
+harmless gate imaginable. Yet: matchgates alone, classical; matchgates plus relabeling,
+fully quantum. Whatever "classically simulable" means here, it is not a statement about
+gates being individually tame — it is hanging by some thread that SWAP, of all things,
+cuts.
+
+The resolution, and the post's arc: matchgates are **free fermions wearing qubit
+clothing**, and the thread is the _Jordan–Wigner string_ — a bookkeeping device that ties
+the fermionic description to the ordering of the line. §2 builds the disguise, §3 shows
+matchgates are quadratic — hence "free" — evolution, §4 turns that into a complete
+simulation algorithm and lets SWAP cut the thread on screen. By the end, the strange
+determinant condition and the SWAP paradox will be the same sentence, said two ways.
 
 <div class="sec-divider" aria-hidden="true">•••</div>
 
@@ -156,6 +220,8 @@ toc:
 
 ## 2 · The Jordan–Wigner dictionary
 
+{: #model-jordan-wigner }
+
 Section 1 left us with a claim: the matchgate family is a fermion system in disguise, and
 the disguise is a change of variables nearly a century old — the **Jordan–Wigner
 transformation** {% cite jordan1928uber --file refs_matchgates %}. Here is the dictionary.
@@ -168,7 +234,7 @@ $$
 $$
 
 Each is a Pauli string — a single $$X$$ or $$Y$$ at site $$k$$, dressed with a $$Z$$ on
-*every site to its left*. There are $$2n$$ of them, and a two-line computation (done fully
+_every site to its left_. There are $$2n$$ of them, and a two-line computation (done fully
 in the box below) shows they obey one strikingly rigid algebra:
 
 $$
@@ -177,7 +243,7 @@ $$
 \{\gamma_a, \gamma_b\} \equiv \gamma_a \gamma_b + \gamma_b \gamma_a = 2\,\delta_{ab} .
 $$
 
-Hermitian, square to one, and — the crucial part — *anticommute* in every distinct pair.
+Hermitian, square to one, and — the crucial part — _anticommute_ in every distinct pair.
 That is precisely the algebra of **Majorana fermion operators**: these strings of qubit
 operators are, operator-for-operator, the Majoranas
 $$\gamma_{2k-1} = c_k + c_k^\dagger$$ of
@@ -190,19 +256,21 @@ $$
 
 defines bona fide fermion modes on the qubit chain — the box checks
 $$\{c_j, c_k^\dagger\} = \delta_{jk}$$ — with occupation number
-$$n_k = c_k^\dagger c_k = \tfrac{1}{2}(1 - Z_k)$$. So the computational basis *is* a Fock
+$$n_k = c_k^\dagger c_k = \tfrac{1}{2}(1 - Z_k)$$. So the computational basis _is_ a Fock
 basis: qubit $$\lvert 0\rangle$$ is an empty fermionic mode, $$\lvert 1\rangle$$ an
 occupied one, and $$\lvert 0\cdots 0\rangle$$ is the vacuum.
 
 Why the string? It is tempting to read the $$Z_1\cdots Z_{k-1}$$ tail as an ugly technical
-appendage, but the string is the entire point. Fermion operators on *different* sites
+appendage, but the string is the entire point. Fermion operators on _different_ sites
 anticommute — exchange statistics demands it — while qubit operators on different sites
 commute; no strictly local identification could ever convert one algebra into the other.
 The string repairs the statistics: when you slide the short operator
 $$\gamma_{2k-1}$$ past the longer $$\gamma_{2l-1}$$ (say $$k < l$$), the $$X_k$$ of the
 first must hop over the $$Z_k$$ in the second one's tail, and that costs exactly the minus
-sign fermionic exchange requires. The Z-string is *exchange-statistics bookkeeping*, made
+sign fermionic exchange requires. The Z-string is _exchange-statistics bookkeeping_, made
 of qubit operators and stretched along the line.
+
+{: #result-jw-string-locality }
 
 Strings this long look expensive. The saving grace — and the single most important fact in
 this post — is that for **nearest neighbours they cancel**. Multiply two adjacent
@@ -212,34 +280,34 @@ $$
 X_k X_{k+1} = -\,i\,\gamma_{2k}\,\gamma_{2k+1} ,
 $$
 
-a *local* product of just two Majoranas — a **bilinear** — with no string in sight. The
+a _local_ product of just two Majoranas — a **bilinear** — with no string in sight. The
 same happens for $$Y_k Y_{k+1}$$, $$Z_k$$, and their relatives (the box tabulates them
 all). But pull the two qubits apart and the magic dies: a distant pair like
-$$X_j X_k$$ with $$j < k-1$$ is *not* a bilinear — the bilinear
+$$X_j X_k$$ with $$j < k-1$$ is _not_ a bilinear — the bilinear
 $$-i\gamma_{2j}\gamma_{2k-1}$$ equals $$X_j Z_{j+1}\cdots Z_{k-1} X_k$$, string included,
-and plain $$X_j X_k$$ needs a *quartic-or-worse* pile of Majoranas to build. Quadratic
+and plain $$X_j X_k$$ needs a _quartic-or-worse_ pile of Majoranas to build. Quadratic
 language is reserved for operators that respect the ordering of the line.
 
 <p class="thread-note"><span class="thread-label">The thread</span> Fermionic statistics is nonlocal bookkeeping on qubits — every fermion operator drags a Z-string along the line. Nearest-neighbour operators are the ones whose strings cancel. Hold on to this: locality in the fermion ordering is the thread the whole post hangs by, and §4 is where it pays off.</p>
 
-<div class="learn-more-box" markdown="0">
+<div class="learn-more-box" markdown="0" id="derivation-majorana-operators-qubit">
 {% details Derivation: the Majorana algebra, and the qubit–fermion dictionary table %}
 **1 · The algebra.**
 Each $$\gamma_a$$ is a product of Hermitian, mutually commuting-or-identical Pauli factors,
 so $$\gamma_a^\dagger = \gamma_a$$ and $$\gamma_a^2 = 1$$ (every Pauli squares to one).
 For distinct pairs, check the three cases:
 
-*Same site.* $$\gamma_{2k-1}\gamma_{2k} = (Z_1\cdots Z_{k-1} X_k)(Z_1\cdots Z_{k-1} Y_k)
+_Same site._ $$\gamma_{2k-1}\gamma_{2k} = (Z_1\cdots Z_{k-1} X_k)(Z_1\cdots Z_{k-1} Y_k)
 = X_k Y_k$$, since the identical tails square away and act on other sites. But
 $$X_k Y_k = -Y_k X_k$$, so the pair anticommutes.
 
-*Different sites, odd–odd.* Take $$k < l$$:
+_Different sites, odd–odd._ Take $$k < l$$:
 $$\gamma_{2k-1}\gamma_{2l-1} = (Z_1\cdots Z_{k-1}X_k)(Z_1\cdots Z_{l-1}X_l)$$. Every
-factor of the first operator commutes with every factor of the second *except* the single
+factor of the first operator commutes with every factor of the second _except_ the single
 collision at site $$k$$: the first has $$X_k$$, the second has $$Z_k$$ in its tail, and
 $$X_k Z_k = -Z_k X_k$$. One collision, one minus sign: the pair anticommutes.
 
-*Other cross-site pairs.* Identical argument — the shorter operator's $$X$$ or $$Y$$
+_Other cross-site pairs._ Identical argument — the shorter operator's $$X$$ or $$Y$$
 always meets exactly one $$Z$$ from the longer operator's tail, and $$YZ = -ZY$$ too.
 Hence $$\{\gamma_a,\gamma_b\} = 2\delta_{ab}$$ for all $$a, b$$.
 
@@ -271,17 +339,19 @@ $$\lvert 0 \rangle$$ has $$n_k = 0$$: the computational vacuum is the Fock vacuu
 Multiply pairs of Majoranas and let the tails cancel. For one site and for adjacent sites
 (the tails overlap everywhere except site $$k$$, leaving a single $$Z_k$$ to absorb):
 
-| qubit operator | Majorana bilinear |
-| :--- | :--- |
-| $$Z_k$$ | $$-i\,\gamma_{2k-1}\,\gamma_{2k}$$ |
-| $$X_k X_{k+1}$$ | $$-i\,\gamma_{2k}\,\gamma_{2k+1}$$ |
+| qubit operator  | Majorana bilinear                    |
+| :-------------- | :----------------------------------- |
+| $$Z_k$$         | $$-i\,\gamma_{2k-1}\,\gamma_{2k}$$   |
+| $$X_k X_{k+1}$$ | $$-i\,\gamma_{2k}\,\gamma_{2k+1}$$   |
 | $$Y_k Y_{k+1}$$ | $$+i\,\gamma_{2k-1}\,\gamma_{2k+2}$$ |
-| $$X_k Y_{k+1}$$ | $$-i\,\gamma_{2k}\,\gamma_{2k+2}$$ |
+| $$X_k Y_{k+1}$$ | $$-i\,\gamma_{2k}\,\gamma_{2k+2}$$   |
 | $$Y_k X_{k+1}$$ | $$+i\,\gamma_{2k-1}\,\gamma_{2k+1}$$ |
 
 Sample derivation, first row: $$\gamma_{2k-1}\gamma_{2k} = X_k Y_k = i Z_k$$, so
 $$Z_k = -i\gamma_{2k-1}\gamma_{2k}$$. Second row:
-$$\gamma_{2k}\gamma_{2k+1} = (Z_1\cdots Z_{k-1}Y_k)(Z_1\cdots Z_k X_{k+1})
+
+$$
+\gamma_{2k}\gamma_{2k+1} = (Z_1\cdots Z_{k-1}Y_k)(Z_1\cdots Z_k X_{k+1})
 = Y_k Z_k X_{k+1} = i\,X_k X_{k+1}$$, using $$Y_k Z_k = iX_k$$. The rest follow the same
 two moves: cancel the common tail, then contract the leftover pair of Paulis at site
 $$k$$ with $$XY = iZ$$, $$YZ = iX$$, $$ZX = iY$$.
@@ -319,7 +389,137 @@ This table is load-bearing for §3: matchgate generators are built from rows 1�
 
 ## 3 · Matchgates are quadratic evolution
 
-<!-- (next section to write — after §2 is approved) -->
+Now aim the dictionary at the matchgates themselves. The first step is to know what a
+matchgate's *generator* looks like. Up to single-qubit $$Z$$-rotations on either side and
+an overall phase, any matchgate on qubits $$(k, k+1)$$ can be brought to the two-parameter
+form
+
+
+$$
+
+G = \exp\!\big( i\alpha\, X*k X*{k+1} + i\beta\, Y*k Y*{k+1} \big)
+
+$$
+
+— a Kraus–Cirac-style normal form for two-qubit gates, specialized to the parity-preserving
+family (I'll take this decomposition as given; Jozsa and Miyake spell it out
+{% cite jozsa2008matchgates --file refs_matchgates %}). Now translate the exponent with
+§2's table: $$X_kX_{k+1} = -i\gamma_{2k}\gamma_{2k+1}$$ and
+$$Y_kY_{k+1} = i\gamma_{2k-1}\gamma_{2k+2}$$, so
+
+
+$$
+
+i\alpha X*k X*{k+1} + i\beta Y*k Y*{k+1}
+= \alpha\,\gamma*{2k}\gamma*{2k+1} - \beta\,\gamma*{2k-1}\gamma*{2k+2} ,
+
+$$
+
+a **quadratic Majorana Hamiltonian** — two Majorana operators per term, nothing more. The
+$$Z$$-rotation dressings are bilinears too ($$Z_k = -i\gamma_{2k-1}\gamma_{2k}$$). So every
+matchgate is a slice of time evolution under a quadratic fermion Hamiltonian, and a
+matchgate *circuit* is time evolution under a piecewise-constant, time-dependent quadratic
+Hamiltonian. The converse holds as well: any quadratic evolution on a line can be
+Trotterized into nearest-neighbour matchgates. Nearest-neighbour matchgate circuits and
+free-fermion dynamics are the same set — the optics-flavoured name for it is **fermionic
+linear optics** {% cite knill2001fermionic bravyi2005lagrangian --file refs_matchgates %}.
+{: #result-fermionic-linear-optics }
+
+Why does quadratic matter so much? Because of what it does in the Heisenberg picture.
+Conjugating a single Majorana by a quadratic evolution can only produce a *linear
+combination* of Majoranas — the commutator of a bilinear with a $$\gamma$$ is again a
+single $$\gamma$$, so the flow never leaves the $$2n$$-dimensional space the
+$$\gamma_a$$ span. Reality and the algebra force the coefficient matrix to be a rotation.
+That is the central structural theorem of the subject:
+
+<div class="key-eq" markdown="1" id="result-majorana-so2n-rotation">
+
+
+$$
+
+U^\dagger\, \gamma*a\, U \;=\; \sum*{b=1}^{2n} R\_{ab}\, \gamma_b ,
+\qquad R \in \mathrm{SO}(2n),
+
+$$
+
+</div>
+
+for every matchgate circuit $$U$$. One gate contributes an $$\mathrm{SO}(4)$$ rotation
+acting on its four Majoranas — computed explicitly in the box, and it is nothing but two
+independent $$2\times 2$$ rotations by $$2\alpha$$ and $$2\beta$$ in the right pairing of
+planes — and a circuit contributes the product of its gates' rotations, in order. The
+matchgate family is *exactly* the set of unitaries whose Majorana action closes on linear
+combinations: $$4^n$$-dimensional operator dynamics collapsed onto a
+$$2n$$-dimensional rotation.
+
+This is also where §1's strange constraint stops being strange. A parity-preserving
+two-qubit gate has one generator direction the normal form above leaves out:
+$$Z_k Z_{k+1}$$, which sets the *relative phase* between the even and odd parity blocks —
+precisely the freedom that $$\det A = \det B$$ removes. Translate it:
+$$Z_k Z_{k+1} = (-i\gamma_{2k-1}\gamma_{2k})(-i\gamma_{2k+1}\gamma_{2k+2})
+= -\,\gamma_{2k-1}\gamma_{2k}\gamma_{2k+1}\gamma_{2k+2}$$ — **quartic**, four Majoranas,
+the one term that would break the Heisenberg closure. The determinant condition is not
+numerology; it is the statement *"no quartic part in the generator,"* written in the only
+variables Valiant had.
+
+<p class="thread-note"><span class="thread-label">The thread</span> A matchgate never scrambles Majoranas into products — it rotates them into each other, one SO(4) block at a time. Everything a circuit does to the state is a rotation R ∈ SO(2n). Hold that: §4 turns this single fact into a complete classical simulation.</p>
+
+<div class="learn-more-box" markdown="0">
+{% details Derivation: the SO(4) rotation of a single matchgate, explicitly %}
+Work on qubits $$(k,k+1)$$ and relabel their four Majoranas locally:
+$$\mu_1 = \gamma_{2k-1},\ \mu_2 = \gamma_{2k},\ \mu_3 = \gamma_{2k+1},\
+\mu_4 = \gamma_{2k+2}$$. The generator is
+$$S = \alpha\,\mu_2\mu_3 - \beta\,\mu_1\mu_4$$, and the two bilinears commute with each
+other (they share no Majorana), so the two rotations they generate can be treated
+independently.
+
+Take the $$\mu_2\mu_3$$ term. Using $$\{\mu_a,\mu_b\} = 2\delta_{ab}$$,
+
+
+$$
+
+[\mu_2\mu_3,\ \mu_2] = -2\mu_3, \qquad [\mu_2\mu_3,\ \mu_3] = +2\mu_2 ,
+
+$$
+
+so with $$\mu(t) = e^{-tS}\mu\, e^{tS}$$ the flow closes on the pair:
+$$\dot\mu_2 = 2\alpha\,\mu_3$$, $$\dot\mu_3 = -2\alpha\,\mu_2$$, giving at $$t = 1$$
+
+
+$$
+
+\mu_2 \mapsto \cos(2\alpha)\,\mu_2 + \sin(2\alpha)\,\mu_3, \qquad
+\mu_3 \mapsto \cos(2\alpha)\,\mu_3 - \sin(2\alpha)\,\mu_2 .
+
+$$
+
+The $$-\beta\,\mu_1\mu_4$$ term does the same to the other pair with angle $$-2\beta$$:
+$$\mu_1 \mapsto \cos(2\beta)\,\mu_1 - \sin(2\beta)\,\mu_4$$,
+$$\mu_4 \mapsto \cos(2\beta)\,\mu_4 + \sin(2\beta)\,\mu_1$$. In the reordered basis
+$$(\mu_2, \mu_3\,|\,\mu_1, \mu_4)$$ the gate's $$R$$ is the direct sum of two plane
+rotations,
+
+
+$$
+
+R \;=\;
+\begin{pmatrix} \cos 2\alpha & \sin 2\alpha \\ -\sin 2\alpha & \cos 2\alpha \end{pmatrix}
+\oplus
+\begin{pmatrix} \cos 2\beta & -\sin 2\beta \\ \sin 2\beta & \cos 2\beta \end{pmatrix}
+\;\in\; \mathrm{SO}(4),
+
+$$
+
+exactly the $$R'$$ block structure that appears in App. D of Langer et al.
+{% cite langer2026matchgate --file refs_matchgates %}. Note the pairing: the
+$$XX$$ angle rotates the *inner* pair $$(\mu_2,\mu_3)$$ — the plane shared between the
+two sites — while the $$YY$$ angle rotates the *outer* pair $$(\mu_1,\mu_4)$$. The
+$$Z$$-rotation dressings rotate the on-site planes $$(\mu_1,\mu_2)$$ and
+$$(\mu_3,\mu_4)$$ by twice their angles. (I have checked these rotations, signs and all,
+against exact statevector simulation.) Determinant $$+1$$, orthogonal, and — composing
+gate after gate — the circuit's full $$R \in \mathrm{SO}(2n)$$ of the main text.
+{% enddetails %}
+</div>
 
 <div class="sec-divider" aria-hidden="true">•••</div>
 
@@ -354,7 +554,117 @@ This table is load-bearing for §3: matchgate generators are built from rows 1�
 
 ## 4 · Why this means "classically simulable"
 
-<!-- (to be written after §3) -->
+Time to cash in [the free-fermion
+post]({% post_url 2026-07-06-free-fermions-one-matrix %}). Its §4 introduces the object
+this whole series orbits: for a Gaussian fermion state, the **covariance matrix**
+
+
+$$
+
+\Gamma\_{ab} = \tfrac{i}{2}\,\big\langle [\gamma_a, \gamma_b] \big\rangle
+
+$$
+
+— real, antisymmetric, $$2n \times 2n$$ — *is* the state: every observable follows from
+it by Wick's theorem. I will not re-derive any of that here; it is the prerequisite, not
+the point. The point is what §§2–3 add to it. Computational basis states are Gaussian —
+they are Fock states of the Jordan–Wigner fermions, and the vacuum's covariance matrix is
+just $$n$$ copies of a $$2\times 2$$ block,
+$$\Gamma_0 = \bigoplus_k \big(\begin{smallmatrix} 0 & -1 \\ 1 & 0 \end{smallmatrix}\big)$$
+(each site's own Majorana pair, occupation empty). And matchgates *preserve* Gaussianity:
+by §3's theorem a matchgate rotates Majoranas linearly, so Wick factorization survives
+every gate. Put together, the entire simulation of an $$n$$-qubit, $$L$$-gate matchgate
+circuit is three lines:
+
+
+$$
+
+\textbf{init:}\quad \Gamma \leftarrow \Gamma*0
+= \textstyle\bigoplus*{k=1}^{n} \big(\begin{smallmatrix} 0 & -1 \\ 1 & 0 \end{smallmatrix}\big),
+
+$$
+
+
+$$
+
+\textbf{per gate:}\quad \Gamma \leftarrow R\,\Gamma R^{\mathsf T}
+\quad (R \text{ acts on the gate's } 4\times 4 \text{ block}),
+
+$$
+
+
+$$
+
+\textbf{read out:}\quad \langle Z*k \rangle = -\,\Gamma*{2k-1,\,2k},
+\qquad \text{general observables by Wick / Pfaffians of } \Gamma .
+
+$$
+
+{: #result-classical-simulability }
+
+That is the whole algorithm {% cite terhal2002classical --file refs_matchgates %}. The
+cost accounting deserves to be stated honestly, because the honest version is what makes
+it remarkable. The quantum state has $$2^n$$ amplitudes; we carry
+$$n(2n-1)$$ real numbers. Each gate touches a $$4 \times 4$$ block, but updating it drags
+the block's four *rows and columns* through the full matrix — $$O(n)$$ arithmetic per
+gate, and $$O(n^3)$$-ish for a generic readout via diagonalization or Pfaffians. What you
+get for that price: any quadratic observable, any Wick-computable correlator, the full
+entanglement spectrum of any region (free-fermion post, §2). What you do *not* get for
+free: measurement *samples* — those need one more piece of machinery, which is exactly
+[Post 3]({% post_url 2026-07-31-measuring-free-fermions-gaussian-in-gaussian-out %})'s
+opening move — and global phases or non-Gaussian observables, which cost genuinely more.
+A pedagogical companion for all of this machinery is the Surace–Tagliacozzo lecture notes
+{% cite surace2022fermionic --file refs_matchgates %}.
+
+<p class="thread-note"><span class="thread-label">The through-line</span> The covariance matrix is the whole state. Initialize 2×2 blocks, rotate a 4×4 block per gate, read everything off the matrix — the 2<sup>n</sup>-dimensional Hilbert space is never touched. This is the claim the whole series escalates: circuits from Γ in Post 2, measurement on Γ in Post 3.</p>
+
+{: #result-swap-universality }
+
+And now §1's tension resolves in one paragraph. Write SWAP in the parity basis: it fixes
+$$\lvert 00\rangle$$ and $$\lvert 11\rangle$$ and exchanges $$\lvert 01\rangle
+\leftrightarrow \lvert 10\rangle$$ — block form $$G(\mathbb 1, X)$$, with
+$$\det A = \det \mathbb 1 = +1$$ and $$\det B = \det X = -1$$. **SWAP fails the
+constraint.** By §3's decoding, its generator carries the quartic
+$$\gamma\gamma\gamma\gamma$$ term: conjugating a Majorana by SWAP does not return a
+linear combination of Majoranas, the rotation picture dies, and $$\Gamma$$ stops being
+the whole state. The innocuous-looking relabeling smuggles in exactly the term the
+det-condition exists to forbid — because *relabeling qubits is not relabeling fermions*.
+Site order enters the Jordan–Wigner strings; exchanging two qubits without paying the
+string bookkeeping is a genuinely non-Gaussian operation. The same verdict falls on a
+matchgate applied to *non-adjacent* qubits: the strings between no longer cancel (§2),
+the generator picks up string-dressed — non-quadratic — terms, and simulability breaks.
+Locality in the fermion ordering is the entire resource. "Classically simulable" was
+never hanging by a thread of gate-set size or circuit depth; the thread is the
+Jordan–Wigner string, and SWAP is simply the cheapest pair of scissors.
+
+You can watch all of this happen. The sandbox below runs a random brickwork of
+matchgates on fourteen qubits, live: the left panel is $$\lvert\Gamma\rvert$$, where
+correlations spread outward from the diagonal as a **light cone**, one brickwork layer
+per step; the right panel is the entanglement profile $$S(x)$$ across every cut,
+computed from the Williamson eigenvalues of the reduced $$\Gamma$$ by the free-fermion
+post's formula, growing as the circuit deepens. Then press the SWAP button. The
+simulation does not fudge past it — it stops, because past that gate a covariance matrix
+honestly cannot follow.
+
+<div style="border:1px solid var(--global-divider-color);border-radius:8px;padding:1rem;margin:1.5rem 0;">
+  <div id="w1-mount"></div>
+</div>
+
+<script src="{{ '/assets/js/matchgate-sandbox.js' | relative_url }}"></script>
+<script>
+  (function () {
+    var mount = document.getElementById("w1-mount");
+    if (!mount || typeof createMatchgateSandbox !== "function") return;
+    createMatchgateSandbox(mount, { n: 14 });
+  })();
+</script>
+
+Since the whole state is $$\Gamma$$, two questions become irresistible, and they are the
+rest of this series. If the state is a matrix, can I read a *circuit* off a given
+$$\Gamma$$ — compile the state, optimally?
+([Post 2]({% post_url 2026-07-31-building-gaussian-states-one-rotation-at-a-time %}).)
+And what does *measurement* — collapse itself — do to $$\Gamma$$?
+([Post 3]({% post_url 2026-07-31-measuring-free-fermions-gaussian-in-gaussian-out %}).)
 
 <div class="sec-divider" aria-hidden="true">•••</div>
 
@@ -375,7 +685,35 @@ This table is load-bearing for §3: matchgate generators are built from rows 1�
 
 ## 5 · Where this goes
 
-<!-- (to be written last, with references) -->
+The dictionary is built, the theorem proved, the simulator running. What it opens is a
+short research program, and the next two posts walk it.
+
+[Post 2, *Building Gaussian States, One Rotation at a
+Time*]({% post_url 2026-07-31-building-gaussian-states-one-rotation-at-a-time %}),
+inverts this post's arrow: instead of a circuit acting on $$\Gamma$$, start from a target
+$$\Gamma$$ and *compile* the circuit that prepares it — Givens rotations as gates,
+elimination as compilation, and a lower bound on the gate count set by the entanglement
+spectrum, following Langer et al.
+{% cite langer2026matchgate --file refs_matchgates %}. It ends at the hierarchical,
+renormalization-group version of the same question, which is where my own work with
+Andrew Potter on Gaussian MERA circuits lives
+{% cite wong2025entanglement --file refs_matchgates %}.
+
+[Post 3, *Measuring Free Fermions: Gaussian In, Gaussian
+Out*]({% post_url 2026-07-31-measuring-free-fermions-gaussian-in-gaussian-out %}), adds
+the one operation this post left out — measurement — as a closed-form update of
+$$\Gamma$$, and spends it on the modern question of how *random* the leftover states of a
+measured free-fermion system can be, following Bejan, Béri and McGinley
+{% cite bejan2025matchgate --file refs_matchgates %}.
+
+And one teaser beyond both: sprinkle a few *non*-matchgates into a circuit and the
+simulation cost grows exponentially in their number — the classical–quantum boundary of
+this post is not a wall but a slope, crossable gate by gate. Whether that becomes a
+fourth post depends on where the series' appetite lands.
+
+The scoreboard so far, though, belongs to the through-line. One
+$$2n \times 2n$$ matrix. It has absorbed every gate we have thrown at it — and so far,
+nothing we can throw has forced us to touch the $$2^n$$ amplitudes it stands in for.
 
 ## References
 
@@ -389,3 +727,4 @@ This table is load-bearing for §3: matchgate generators are built from rows 1�
 {: .block-tip }
 
 <script src="{{ '/assets/js/equation-numbers.js' | relative_url }}"></script>
+$$

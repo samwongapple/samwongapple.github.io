@@ -64,7 +64,8 @@ it), `name`, `symbol` (LaTeX without delimiters, or `null`), `blurb` (one line),
 
 Threads: `foundations` · `spin-qubits` · `decoherence` · `free-fermions` ·
 `circuits-simulation` · `temporal-methods` · `critical-dynamics` ·
-`superconductivity` · `geometric-control`.
+`superconductivity` · `geometric-control` · `solvable-circuits` · `randomness` ·
+`monitored` · `dressed-particles`.
 Kinds: `prerequisite` · `model` · `formalism` · `technique` · `result` · `phenomenon` ·
 `hardware`.
 
@@ -132,15 +133,18 @@ Site-wide, so that a symbol means one thing across a thread:
   (free fermions). Both field-standard, different threads. The Kibble–Zurek ramp parameter is
   **`λ(t) = t/τ_Q`**, not `ε(t)`, so that `ε_k` stays free for the TFIM dispersion.
 - **`Δ`** — drive detuning in the spin-qubit thread, spectral gap everywhere else.
-- **`Ω`** — Rabi frequency (spin qubits) and mean qubit frequency (dephasing, which says so
-  explicitly). Do not add a third meaning.
+- **`Ω`** — Rabi frequency (spin qubits), mean qubit frequency (dephasing, which says so
+  explicitly), and the Einstein phonon frequency (dressed-particles, a thread containing no
+  drives, which says so where the Holstein model is defined). Do not add a fourth meaning.
 - **`c`** — fermion annihilation operator; also the CFT central charge in one quoted result.
   Prefer `c_i`, `c_i^\dagger` with indices, and write central charge only as `c = 1` in
   context.
-- **`λ`** — the Kibble–Zurek quench ramp `λ(t) = t/τ_Q`, and nothing else. The
-  superconductivity thread's penetration depth is **always** written `λ_L`, and the
-  Ginzburg–Landau ratio always `κ = λ_L/ξ`. Do not drop the subscript, even in a post where
-  no ramp appears.
+- **`λ`** — the Kibble–Zurek quench ramp `λ(t) = t/τ_Q`. One documented scoped collision:
+  the dressed-particles thread reuses bare `λ` for the dimensionless electron–phonon
+  coupling (the field's glyph); the post that defines the Holstein model says so in prose.
+  Everywhere else, nothing but the ramp. The superconductivity thread's penetration depth is
+  **always** written `λ_L`, and the Ginzburg–Landau ratio always `κ = λ_L/ξ`. Do not drop
+  the subscript, even in a post where no ramp appears.
 - **`ξ`** — bare, it is the `correlation-length` prerequisite; the superconductivity thread
   never uses it undecorated. There it means two further things, distinguished by decoration
   and by dimension: `ξ_k` is the dispersion measured from μ (an **energy**), while `ξ_0` and
@@ -155,10 +159,17 @@ Site-wide, so that a symbol means one thing across a thread:
   modern papers use it — which leaves `ε` to the spin-qubit thread. Lowercase `z`, `x` are
   control _amplitudes_ multiplying the capital Paulis `Z`, `X`; the post says so where it
   defines the model.
-- **`Z`** — the Pauli operator, site-wide, per the first rule above. The one exception is the
-  BTK barrier strength in the Andreev-reflection post, which contains no qubits and no Pauli
-  algebra; that post says so explicitly where it defines `Z`. Do not create a second
-  exception.
+- **`Z`** — the Pauli operator, site-wide, per the first rule above. Two exceptions, both in
+  posts containing no qubits and no Pauli algebra, both scoped in prose where the symbol is
+  defined: the BTK barrier strength in the Andreev-reflection post, and the quasiparticle
+  weight `Z` / `Z_k` in the dressed-particles thread (first derived as `Z = e^{-g²}` in the
+  polaron post). Do not create further exceptions.
+- **Dressed-particles thread glyphs** — `g` is the bare electron–phonon coupling there (the
+  TFIM transverse field and the Zeeman g-factor live in other threads); `δ` is the relative
+  displacement between two particles, `δ_max` the truncation cutoff, and the Kronecker delta
+  is always written with explicit indices `δ_{αβ}`; `U` is the Hubbard/e–h attraction and
+  never a unitary in that thread (`W` if one is needed; `V` is the impurity potential); `Δ`
+  is the pair binding energy — a spectral gap, consistent with the site-wide meaning.
 
 Before introducing new notation, check `/notation/`. If it collides with an existing entry,
 either pick a different glyph or add a scoped entry and say so in the prose — but never

@@ -30,6 +30,10 @@
   name: Quantum control
   blurb: Shaping control fields to steer a system where you want it — GRAPE and CRAB for pure and mixed states, and Hamiltonian engineering that designs the effective dynamics you actually want.
 
+- slug: green-functions
+  name: Green's functions
+  blurb: Extracting spectral, frequency-resolved information — poles are excitations, the imaginary part is what ARPES and STM see. From the non-interacting resolvent (recursion method, KPM) through many-body spectral functions to the ill-posed pain of analytic continuation, each step refereed by an exact benchmark.
+
 - slug: quantum-monte-carlo
-  name: Quantum Monte Carlo & Green's functions
-  blurb: Sampling many-body physics too large to diagonalize — Monte Carlo estimators and Green's-function methods for ground states, finite temperature, and spectra. (Tentative — a thread I may grow into.)
+  name: Quantum Monte Carlo
+  blurb: Sampling many-body physics too large to diagonalize — variational and finite-temperature Monte Carlo estimators, and the fermion sign problem seen head-on. (Tentative — a thread I may grow into.)
